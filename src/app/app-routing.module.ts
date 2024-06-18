@@ -9,17 +9,17 @@ import { MainPageComponent } from './Pages/MainPage/MainPage.component';
 import { NotFound404PageComponent } from './Pages/NotFound404Page/NotFound404Page.component';
 import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
-import { ComponentsPageComponent } from './Pages/ComponentsPage/ComponentsPage.component';
 
 const routes: Routes = [
   { path: '', component: LoginLayoutComponent , children: [
-    { path: '', component: LoginPageComponent }
+    { path: '', component: LoginPageComponent },
+
   ]},
 
   { path: 'main', component : MainLayoutComponent, canActivate: [loginGuard], children: [
     { path: '', component: MainPageComponent },
-    { path: 'components', component: ComponentsPageComponent },
   ]},
+
 
   // { path: 'pages', component: MainLayoutComponent, canActivate: [loginGuard] , children: [
   //   { path: '', component: PagePagesComponent }

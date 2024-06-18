@@ -1,34 +1,86 @@
 <div class="flex absolute h-full w-full justify-center items-center bg-background">
   <div class="flex flex-1 rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl z-20 bg-card ">
-        <div class="hidden lg:block lg:w-1/2 bg-cover" style="background-image:url('assets/icon/appIcon.png')"></div>
-        <div class="w-full p-8 lg:w-1/2">
+    <div class="hidden lg:flex lg:w-1/2 bg-cover justify-center items-center">
+      <img class="w-auto h-auto" src="assets/icon/appIcon.png" alt="">
+    </div>
 
-            <p class="text-xl font-bold text-text text-center">Welcome <span class="text-accent">back!</span></p>
+        <div class="w-full p-8 lg:w-1/2">
+          @if (isLoginMode) {
+
+            <p class="text-xl font-bold text-text text-center">Bienvenido <span class="text-accent">otra vez!</span></p>
 
             <div class="mt-4 flex items-center justify-between">
                 <span class="border-b w-1/5 lg:w-1/4"></span>
-                <a href="#" class="text-xs text-center font-semibold text-accent-light uppercase">To our Web Creator</a>
+                <a href="#" class="text-xs text-center font-semibold text-accent-light uppercase">A nuestro creador de proyectos</a>
                 <span class="border-b w-1/5 lg:w-1/4"></span>
             </div>
             <div class="mt-4">
-                <label class="block text-text text-sm font-bold mb-2">Email Address</label>
-                <input [(ngModel)]="email" class="bg-text-dark text-text focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email">
+                <label class="block text-text text-sm font-bold mb-2">Email</label>
+                <input [(ngModel)]="email" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="email">
             </div>
             <div class="mt-4" >
                 <div class="flex justify-between">
-                    <label class="block text-text text-sm font-bold mb-2">Password</label>
-                    <a href="#" class="text-xs text-text">Forget Password?</a>
+                    <label class="block text-text text-sm font-bold mb-2">Contraseña</label>
+                    <a href="#" class="text-xs text-text">Olvidaste la contraseña?</a>
                 </div>
                 <input [(ngModel)]="password" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="password">
             </div>
             <div class="mt-8">
-                <button (click)="login()" class=" bg-primary text-text-button font-bold py-2 px-4 w-full rounded hover:bg-primary-light hover:transition-colors">Login</button>
+                <button (click)="login()" class=" bg-primary text-text-button font-bold py-2 px-4 w-full rounded hover:bg-primary-light hover:transition-colors">Iniciar sesión</button>
             </div>
             <div class="mt-4 flex items-center justify-between">
                 <span class="border-b w-1/5 md:w-1/4"></span>
-                <a href="#" class="text-xs text-text uppercase hover:text-accent-600 hover:transition-colors">or sign up</a>
+                <a (click)="ActivarRegistroMode()" href="#" class="text-xs text-text uppercase hover:text-accent-600 hover:transition-colors">¿No tienes cuenta? Registrate</a>
                 <span class="border-b w-1/5 md:w-1/4"></span>
             </div>
+          }
+          @if (isRegistroMode) {
+
+            <p class="text-xl font-bold text-text text-center">Registrar <span> Usuario</span></p>
+
+            <div class="mt-4 flex items-center justify-between">
+                <span class="border-b w-1/5 lg:w-1/4"></span>
+                <a href="#" class="text-xs text-center font-semibold text-accent-light uppercase">Rellene los siguientes campos</a>
+                <span class="border-b w-1/5 lg:w-1/4"></span>
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Email</label>
+                <input [(ngModel)]="EmailRegister" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="email">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Contraseña</label>
+                <input [(ngModel)]="PasswordRegister" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="password">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Repita la contraseña</label>
+                <input [(ngModel)]="PasswordRepeat" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="password">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Nombre</label>
+                <input [(ngModel)]="Nombre" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="text">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Primer Apellido</label>
+                <input [(ngModel)]="Apellido1" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="text">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Segundo Apellido</label>
+                <input [(ngModel)]="Apellido2" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="text">
+            </div>
+            <div class="mt-4">
+                <label class="block text-text text-sm font-bold mb-2">Fecha de nacimiento</label>
+                <input [(ngModel)]="FechaNacimiento" class=" text-text bg-background focus:outline-none focus:shadow border rounded py-2 px-4 w-full" type="date">
+            </div>
+
+            <div class="mt-8">
+                <button (click)="Registrar()" class=" bg-primary text-text-button font-bold py-2 px-4 w-full rounded hover:bg-primary-light hover:transition-colors">Registrarse</button>
+            </div>
+            <div class="mt-4 flex items-center justify-between">
+                <span class="border-b w-1/5 md:w-1/4"></span>
+                <a (click)="ActivarRegistroMode()" href="#" class="text-xs text-text uppercase hover:text-accent-600 hover:transition-colors">¿Tienes cuenta? Inicia sesión</a>
+                <span class="border-b w-1/5 md:w-1/4"></span>
+            </div>
+          }
         </div>
     </div>
 </div>

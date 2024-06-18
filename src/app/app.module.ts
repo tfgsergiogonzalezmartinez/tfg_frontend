@@ -17,7 +17,6 @@ import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { HeaderDesplegableComponent } from './Components/HeaderDesplegable/HeaderDesplegable.component';
 import { SubMenuComponent } from './Components/SubMenu/SubMenu.component';
-import { ComponentsPageComponent } from './Pages/ComponentsPage/ComponentsPage.component';
 import { UserAvatarComponent } from './Components/UserAvatar/UserAvatar.component';
 
 
@@ -35,8 +34,8 @@ import { UserAvatarComponent } from './Components/UserAvatar/UserAvatar.componen
     PruebasPageComponent,
     HeaderDesplegableComponent,
     SubMenuComponent,
-    ComponentsPageComponent,
     UserAvatarComponent,
+
   ],
   imports: [
     BrowserModule,

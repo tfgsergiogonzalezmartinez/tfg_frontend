@@ -4,5 +4,6 @@ export interface UserCreateDto {
   Nombre: string;
   Apellido1: string;
   Apellido2: string;
+  FechaNacimiento: Date;
 }
 
