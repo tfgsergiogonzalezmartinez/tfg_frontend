@@ -1,0 +1,21 @@
+<div (mouseenter)="setOpen(true)" (mouseleave)="setOpen(false)" (mousedown)="goTo(MenuDesplegable.Ruta)" class="flex flex-row curs justify-start items-center gap-1 p-1 bg-background hover:bg-background-light hover:transition-colors rounded shadow-sm">
+  @if (MenuDesplegable.Icono) {
+    <span class="material-symbols-outlined text-text-dark">{{MenuDesplegable.Icono}}</span>
+  }
+  <h3 class="text-text font-semibold">{{MenuDesplegable.TituloPrincipal}}</h3>
+  <div class="flex flex-col bg-background relative justify-start items-center">
+    @if (open) {
+      <div class="absolute flex flex-col bg-background-light shadow-md rounded justify-start items-start mr-16 mt-5">
+        @for (subMenu of MenuDesplegable.Secciones; track $index) {
+          <div (click)="goTo(subMenu.Ruta)" class="flex justify-start p-2 w-full items-center gap-1 cursor-pointer hover:bg-background hover:transition-colors rounded shadow-sm">
+            @if (subMenu.Icono) {
+              <span class="material-symbols-outlined text-text-dark">{{subMenu.Icono}}</span>
+            }
+            <h5 class="text-text font-semibold">{{subMenu.TituloPrincipal}}</h5>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>

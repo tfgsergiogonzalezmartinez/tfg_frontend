@@ -1,0 +1,245 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --text: #000000;
+    --background: #ffffff;
+    --primary: #2b4eee;
+    --secondary: #fcb42f;
+    --accent: #2802ff;
+    --card: #3446cc42;
+
+    /* Tonalidades suaves */
+    --text-light: #111942;
+    --background-light: #eff1fb;
+    --primary-light: #6881f0;
+    --secondary-light: rgb(247, 200, 114);
+    --accent-light: #4727fa;
+    --card-light: #4655c942;
+
+    /* Tonalidades fuertes */
+    --text-dark: #090d22;
+    --background-dark: #f1f1f1;
+    --primary-dark: #143cf1;
+    --secondary-dark: rgb(211, 139, 4);
+    --accent-dark: #1f01ca;
+    --card-dark: #2135c742;
+
+
+    --text-button: #ffffff;
+  }
+
+  .dark {
+    --text: #e6e8f9;
+    --background: #0c112e;
+    --primary: #fcb42f;
+    --secondary: #4767f5e5;
+    --accent: #ffd000;
+    --card: #2a4bad93;
+
+
+    /* Tonalidades suaves */
+    --text-light: #eff1fb;
+    --background-light: #1d285f;
+    --primary-light: #fabf50;
+    --secondary-light: #6881f0e5;
+    --accent-light: #ffc352;
+    --card-light: #5066a893;
+
+
+    /* Tonalidades fuertes */
+    --text-dark: #b9bce1;
+    --background-dark: #090d22;
+    --primary-dark: #f8a203;
+    --secondary-dark: #143cf1e5;
+    --accent-dark: #d4ae04;
+    --card-dark: #193daa93;
+
+    --text-button: #000000;
+    --header: #2b4eee;
+
+
+  }
+}
+
+header {
+  background-color: var(--background);
+  box-shadow: 0 4px 2px rgba(5, 5, 5, 0.24);
+  height: 70px;
+  color: var(--text-button);
+  text-align: center;
+  transition: height 03s ease, box-shadow 0.3s ease;
+}
+header.expanded {
+  height: 350px; /* Altura expandida */
+}
+/* Estilos para encabezados en modo claro */
+h1 {
+  color: var(--text);
+  font-size: 2.5em;
+  /* margin: 0.67em 0; */
+}
+
+h2 {
+  color: var(--text-light);
+  font-size: 2em;
+  /* margin: 0.75em 0; */
+}
+
+h3 {
+  color: var(--text-light);
+  font-size: 1.75em;
+  /* margin: 0.83em 0; */
+}
+
+h4 {
+  color: var(--text);
+  font-size: 1.5em;
+  /* margin: 1.12em 0; */
+}
+
+h5 {
+  color: var(--text-light);
+  font-size: 1.25em;
+  /* margin: 1.5em 0; */
+}
+
+h6 {
+  color: var(--text-light);
+  font-size: 1em;
+  /* margin: 1.67em 0; */
+}
+
+/* Estilos para párrafos en modo claro */
+p {
+  color: var(--text);
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 1em 0;
+}
+
+ul,
+ol {
+  color: var(--text);
+  margin: 1em 0;
+  padding-left: 2em;
+  list-style-type: disc;
+  /* Asegura que se muestren los puntos */
+}
+
+ul::marker,
+ol::marker {
+  color: var(--accent);
+  /* Cambia a tu color deseado */
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+code{
+  color: var(--text);
+  background-color: var(--background-light);
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+
+}
+
+/* Estilos para blockquote en modo claro */
+blockquote {
+  color: var(--text-light);
+  border-left: 4px solid var(--primary);
+  padding-left: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  background-color: var(--card-light);
+  padding: 1em;
+}
+
+/* Estilos para botones en modo claro */
+button {
+  background-color: var(--primary);
+  color: var(--text-button);
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: var(--primary-light);
+}
+
+/* Estilo para las tarjetas (cards) */
+.card {
+  background-color: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 4px 2px rgba(5, 5, 5, 0.24);
+  padding: 15px;
+  color: var(--text);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.459);
+}
+
+/* Responsividad para las tarjetas */
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+    margin: 15px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+    margin: 10px 0;
+  }
+}
+
+/* Asegurar que el diseño sea responsivo */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.75em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1em;
+  }
+
+  h6 {
+    font-size: 0.875em;
+  }
+}
+
+
+
+
+/* Editor */
+
+.element-selected {
+  border: 1px solid blue;
+  /* background-color: lightblue; */
+}
+.element-hover {
+  background-color: rgba(42, 61, 228, 0.288);
+}

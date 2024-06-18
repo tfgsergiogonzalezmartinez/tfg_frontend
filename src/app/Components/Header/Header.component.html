@@ -1,0 +1,16 @@
+<header class="flex flex-col w-full ">
+  <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center justify-start gap-5">
+      <div class="flex flex-row justify-start items-center cursor-pointer" (click)="goTo('/main')" >
+        <img src="assets/icon/appIcon.png" class="w-12 h-12" alt="App Icon">
+        <p class="text-xl text-text font-bold">Web Creator</p>
+      </div>
+      <div class="flex flex-row justify-start items-center gap-5">
+        @for (item of MenuDesplegables; track $index) {
+          <app-HeaderDesplegable [MenuDesplegable]="item"></app-HeaderDesplegable>
+        }
+      </div>
+    </div>
+  </div>
+
+</header>
