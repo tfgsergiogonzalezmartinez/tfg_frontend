@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from "@angular/router";
 import { UserService } from "../../../Services/User.service";
 
 export const adminGuard: CanActivateFn = (route, state) => {
-
+  //proteccion administrador
   const service=inject(UserService);
 
   if (!service.isLogin()) {

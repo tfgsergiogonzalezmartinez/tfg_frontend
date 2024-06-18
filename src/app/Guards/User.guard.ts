@@ -2,8 +2,8 @@ import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 import { UserService } from "../../../Services/User.service";
 
-export const adminGuard: CanActivateFn = (route, state) => {
-
+export const UserGuard: CanActivateFn = (route, state) => {
+  //proteccion usuario
   const service=inject(UserService);
 
   if (!service.isLogin()) {
