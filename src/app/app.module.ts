@@ -18,6 +18,7 @@ import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component'
 import { HeaderDesplegableComponent } from './Components/HeaderDesplegable/HeaderDesplegable.component';
 import { SubMenuComponent } from './Components/SubMenu/SubMenu.component';
 import { UserAvatarComponent } from './Components/UserAvatar/UserAvatar.component';
+import { UserProfileDropdownComponent } from './Components/UserProfileDropdown/UserProfileDropdown.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { UserAvatarComponent } from './Components/UserAvatar/UserAvatar.componen
     HeaderDesplegableComponent,
     SubMenuComponent,
     UserAvatarComponent,
+    UserProfileDropdownComponent
 
   ],
   imports: [
