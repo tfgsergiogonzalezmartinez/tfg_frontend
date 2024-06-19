@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../../Services/User.service';
+import { UserCambiarPassword } from '../../../../dto/UserDto/UserCambiarPassword';
 
 @Component({
   selector: 'app-UserPage',
@@ -11,13 +13,13 @@ export class UserPageComponent implements OnInit {
   Apellido2: string = "";
   Email: string = "";
 
-
-  Password: string = "";
-  PasswordRepeticion: string = "";
+  passwordAntigua: string = "";
+  PasswordNueva1: string = "";
+  PasswordNueva2: string = "";
 
   isCambiarPassword: boolean = false;
 
-  constructor() { }
+  constructor(private userService : UserService) { }
 
   ngOnInit() {
     this.Nombre = sessionStorage.getItem("Nombre") || "";
@@ -31,7 +33,21 @@ export class UserPageComponent implements OnInit {
     this.isCambiarPassword = true;
   }
   cambiarPassword(){
-    //TODO servicio
+    const userCambiarPassword : UserCambiarPassword = {
+      Email: sessionStorage.getItem("Email") || "",
+      PasswordAntigua: this.passwordAntigua,
+      PasswordNueva1: this.PasswordNueva1,
+      PasswordNueva2: this.PasswordNueva2
+    }
+    this.userService.cambiarPassword(userCambiarPassword).subscribe({
+      next: data => {
+        //viewContainerRef y que saque un toast
+        console.log("Contraseña cambiada con éxito");
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
 
 

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from './Base.service';
 import { UserLoginDto } from '../dto/UserDto/UserLoginDto';
 import { UserLoginGetDto } from '../dto/UserDto/UserLoginGetDto';
+import { UserCambiarPassword } from '../dto/UserDto/UserCambiarPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ public Login(userLoginDto : UserLoginDto){
 }
 public Register(UserCreateDto : UserLoginDto){
   return this.httpClient.post<UserLoginGetDto>(this.ip + this.controller + '/Register', UserCreateDto ,{headers : this.getHeaders()});
+}
+public cambiarPassword(userCambiarPassword : UserCambiarPassword){
+  return this.httpClient.post(this.ip+this.controller + "/CambiarPassword", userCambiarPassword, {headers: this.getHeaders()});
 }
 
 
@@ -58,5 +62,6 @@ public logout(){
   sessionStorage.clear();
   // this.stopTokenTimer();
 }
+
 
 }

@@ -22,8 +22,9 @@
   <app-modal (exitEventEmitter)="isCambiarPassword = false">
     <h1 titulo>Cambiar contraseña</h1>
     <div body class="flex flex-col gap-2">
-      <app-inputForm titulo="Contraseña" type="password" (valueEventEmitter)="Password=$event"></app-inputForm>
-      <app-inputForm titulo="Repita su contraseña" type="password" (valueEventEmitter)="PasswordRepeticion=$event"></app-inputForm>
+      <app-inputForm titulo="Contraseña Actual" type="password" (valueEventEmitter)="passwordAntigua=$event"></app-inputForm>
+      <app-inputForm titulo="Nueva Contraseña" type="password" (valueEventEmitter)="PasswordNueva1=$event"></app-inputForm>
+      <app-inputForm titulo="Repita su nueva contraseña" type="password" (valueEventEmitter)="PasswordNueva2=$event"></app-inputForm>
       <div class="flex p-4 gap-3">
         <button class="w-full h-10 bg-gray-500 hover:bg-gray-400" (click)="isCambiarPassword = false">Salir</button>
         <button class="w-full h-10" (click)="cambiarPassword()">Cambiar Contraseña</button>
