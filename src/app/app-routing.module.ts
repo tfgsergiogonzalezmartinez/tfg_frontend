@@ -9,6 +9,8 @@ import { MainPageComponent } from './Pages/MainPage/MainPage.component';
 import { NotFound404PageComponent } from './Pages/NotFound404Page/NotFound404Page.component';
 import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
+import { UserPageComponent } from './Pages/UserPage/UserPage.component';
+import { EstilosComponent } from './Components/estilos/estilos.component';
 
 const routes: Routes = [
   { path: '', component: LoginLayoutComponent , children: [
@@ -18,7 +20,9 @@ const routes: Routes = [
 
   { path: 'main', component : MainLayoutComponent, canActivate: [loginGuard], children: [
     { path: '', component: MainPageComponent },
+    { path: 'settings', component: UserPageComponent },
   ]},
+
 
 
   // { path: 'pages', component: MainLayoutComponent, canActivate: [loginGuard] , children: [
@@ -28,6 +32,7 @@ const routes: Routes = [
   // { path: 'editor', component: EditorLayoutComponent, canActivate: [loginGuard], children:[
   //   { path: '', component: EditorPageComponent}
   // ]},
+  { path: 'estilos', component: EstilosComponent, canActivate: [loginGuard]},
   { path: 'pruebas', component: PruebasPageComponent, canActivate: [loginGuard]},
 
   { path: '**', component: NotFound404PageComponent  }

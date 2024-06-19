@@ -19,6 +19,10 @@ import { HeaderDesplegableComponent } from './Components/HeaderDesplegable/Heade
 import { SubMenuComponent } from './Components/SubMenu/SubMenu.component';
 import { UserAvatarComponent } from './Components/UserAvatar/UserAvatar.component';
 import { UserProfileDropdownComponent } from './Components/UserProfileDropdown/UserProfileDropdown.component';
+import { UserPageComponent } from './Pages/UserPage/UserPage.component';
+import { InputFormComponent } from './Components/inputForm/inputForm.component';
+import { ModalComponent } from './Components/modal/modal.component';
+import { EstilosComponent } from './Components/estilos/estilos.component';
 
 
 @NgModule({
@@ -36,8 +40,11 @@ import { UserProfileDropdownComponent } from './Components/UserProfileDropdown/U
     HeaderDesplegableComponent,
     SubMenuComponent,
     UserAvatarComponent,
-    UserProfileDropdownComponent
-
+    UserProfileDropdownComponent,
+    UserPageComponent,
+    InputFormComponent,
+    ModalComponent,
+    EstilosComponent //quitar, es de pruebas
   ],
   imports: [
     BrowserModule,

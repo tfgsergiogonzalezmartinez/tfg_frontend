@@ -52,6 +52,11 @@ public setSession(user:UserLoginGetDto){
   sessionStorage.setItem("Rol",user.Rol);
   sessionStorage.setItem("Token",user.Token);
   // this.startTokenTimer(user.tokenTime);
-
 }
+
+public logout(){
+  sessionStorage.clear();
+  // this.stopTokenTimer();
+}
+
 }

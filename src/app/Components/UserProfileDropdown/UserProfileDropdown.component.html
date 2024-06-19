@@ -1,4 +1,4 @@
-<div class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative" (click)="toggle_userDropDown()">
+<div #userDropDown class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative" (click)="toggle_userDropDown()">
   <div class="flex justify-center items-center">
     <span class=" text-3xl material-symbols-outlined text-text dark:text-text ">
       person
@@ -21,11 +21,10 @@
     }
   </div>
   @if (user_dropDown) {
-    <div class="absolute w-full top-14 p-2 bg-background shadow-2xl ">
+    <div class="absolute w-full top-12 p-2 bg-background shadow-2xl ">
       <div class="flex flex-col">
-        <a href="#" class="text-text w-full text-start p-1 cursor-pointer hover:bg-background-light">Perfil</a>
-        <a href="#" class="text-text w-full text-start p-1 cursor-pointer hover:bg-background-light">Configuracion</a>
-        <a href="#" class="text-text w-full text-start p-1 cursor-pointer  hover:bg-background-light">Cerrar Sesion</a>
+        <a (click)="goTo('Configuracion')" class="text-text w-full text-start p-1 cursor-pointer hover:bg-background-light">Configuracion</a>
+        <a (click)="goTo('CerrarSesion')" class="text-text w-full text-start p-1 cursor-pointer  hover:bg-background-light">Cerrar Sesion</a>
       </div>
     </div>
   }
