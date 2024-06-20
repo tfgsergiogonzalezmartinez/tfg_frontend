@@ -23,6 +23,8 @@ import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { InputFormComponent } from './Components/inputForm/inputForm.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
+import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
+import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { EstilosComponent } from './Components/estilos/estilos.component';
     UserPageComponent,
     InputFormComponent,
     ModalComponent,
-    EstilosComponent //quitar, es de pruebas
+    EstilosComponent, //quitar, es de pruebas
+    AdministracionPageComponent,
+    ToggleModeComponent
   ],
   imports: [
     BrowserModule,

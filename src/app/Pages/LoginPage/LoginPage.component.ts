@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UserService } from '../../../../Services/User.service';
+import { UserService } from '../../../../Services/User/User.service';
 import { UserLoginDto } from '../../../../dto/UserDto/UserLoginDto';
 import { UserLoginGetDto } from '../../../../dto/UserDto/UserLoginGetDto';
 import { Router } from '@angular/router';

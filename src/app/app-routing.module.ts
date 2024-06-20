@@ -11,6 +11,8 @@ import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
+import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
+import { adminGuard } from './Guards/Admin.guard';
 
 const routes: Routes = [
   { path: '', component: LoginLayoutComponent , children: [
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: 'main', component : MainLayoutComponent, canActivate: [loginGuard], children: [
     { path: '', component: MainPageComponent },
     { path: 'settings', component: UserPageComponent },
+    { path: 'administration', component: AdministracionPageComponent, canActivate: [adminGuard] },
   ]},
 
 

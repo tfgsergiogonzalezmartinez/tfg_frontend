@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../Services/User.service';
+import { UserService } from '../../../../Services/User/User.service';
 import { UserCambiarPassword } from '../../../../dto/UserDto/UserCambiarPassword';
+import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
   selector: 'app-UserPage',
@@ -19,7 +20,7 @@ export class UserPageComponent implements OnInit {
 
   isCambiarPassword: boolean = false;
 
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService, private mainService : MainService) { }
 
   ngOnInit() {
     this.Nombre = sessionStorage.getItem("Nombre") || "";
@@ -48,6 +49,10 @@ export class UserPageComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  getService(){
+    return this.mainService;
   }
 
 

@@ -1,5 +1,5 @@
 <div class="bg-background text-text ">
-  <header [ngClass]="{'bg-custom-dark' : getService().isModoOscuro(), 'bg-custom' : getService().isModoClaro }" class="min-h-screen flex items-center justify-center">
+  <header class="min-h-screen flex items-center justify-center bg-custom">
     <div class="text-center">
       <h1 class="text-4xl font-bold mb-4">Crea proyectos Web sin saber programar</h1>
       <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code> de despliegie a traves de la importación de un fichero <code>XML</code> con la estructura de la base de datos.
@@ -8,9 +8,9 @@
       <a href="#" class="bg-accent text-text-button font-bold py-2 px-4 ml-4 rounded ">Buscar...</a>
     </div>
   </header>
-  <main class="">
-    <section [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }" class="flex flex-col p-7 items-center">
-      <div class="bg-card flex flex-col justify-center items-center rounded-xl p-8 z-20">
+  <main class="p-8">
+    <section class="flex flex-col items-center">
+      <div class="bg-card flex flex-col justify-center items-center rounded-xl p-8">
         <app-UserAvatar [imgRoute]="'assets/avatar/Sergio.jpg'"></app-UserAvatar>
         <h1 class="border-b-2 border-accent w-full text-center"> Tabajo Final de Grado</h1>
         <h3 class="pt-2"> Creador de paginas Web y despligue Automatico</h3>
@@ -18,11 +18,11 @@
           <blockquote class="flex w-full justify-center items-center">
               <img class="h-32" src="assets/icon/University-of-Burgos.png" alt="">
           </blockquote>
-          <figcaption class="">
-            <div class="text-text text-center text-xl font-bold">
+          <figcaption class="font-medium">
+            <div class="text-primary text-center">
               Sergio Gonzalez Martinez
             </div>
-            <div class="text-text font-medium">
+            <div class="text-text">
               Trabajo Final de Grado realizado en la Universidad De Burgos.
             </div>
           </figcaption>

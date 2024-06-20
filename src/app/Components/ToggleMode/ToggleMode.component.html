@@ -1,0 +1,12 @@
+<div class="flex justify-center items-center text-text p-2 cursor-pointer" (click)="toggle()">
+  @if (getModoOscuro()) {
+    <span class="material-symbols-outlined">
+      dark_mode
+    </span>
+  }
+  @if (getModoClaro()) {
+    <span class="material-symbols-outlined">
+      light_mode
+    </span>
+  }
+</div>

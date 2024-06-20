@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, output } from '@angular/core';
 import { MenuDesplegable } from '../../../../Interfaces/Header/menuDesplegable';
 import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../../../../Services/User/User.service';
+import { adminGuard } from '../../Guards/Admin.guard';
 
 @Component({
   selector: 'app-HeaderDesplegable',
@@ -11,7 +13,7 @@ export class HeaderDesplegableComponent implements OnInit {
   @Input() MenuDesplegable! : MenuDesplegable;
   @Output() submenusEmiter : EventEmitter<MenuDesplegable[]> = new EventEmitter<MenuDesplegable[]>();
   open : boolean = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService : UserService) { }
 
   ngOnInit() {
   }
@@ -24,6 +26,12 @@ export class HeaderDesplegableComponent implements OnInit {
   }
   goTo(ruta:string){
     this.router.navigate([ruta]);
+  }
+
+  ComprobarRoles(){
+    if (this.MenuDesplegable.Rol == "all") return true;
+    if (this.MenuDesplegable.Rol == "admin") return this.userService.isAdmin();
+    return true;
   }
 
 }

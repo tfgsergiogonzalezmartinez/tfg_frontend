@@ -1,6 +1,6 @@
 import { Component, ElementRef, Host, HostListener, OnInit, Renderer2, ViewChild, viewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { UserService } from '../../../../Services/User.service';
+import { UserService } from '../../../../Services/User/User.service';
 
 @Component({
   selector: 'app-UserProfileDropdown',

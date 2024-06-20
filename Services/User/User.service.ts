@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { UserGetDto } from '../dto/UserDto/UserGetDto';
+import { UserGetDto } from '../../dto/UserDto/UserGetDto';
 import { HttpClient } from '@angular/common/http';
-import { BaseService } from './Base.service';
-import { UserLoginDto } from '../dto/UserDto/UserLoginDto';
-import { UserLoginGetDto } from '../dto/UserDto/UserLoginGetDto';
-import { UserCambiarPassword } from '../dto/UserDto/UserCambiarPassword';
+import { BaseService } from '../Base.service';
+import { UserLoginDto } from '../../dto/UserDto/UserLoginDto';
+import { UserLoginGetDto } from '../../dto/UserDto/UserLoginGetDto';
+import { UserCambiarPassword } from '../../dto/UserDto/UserCambiarPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -36,15 +36,15 @@ public isLogin():boolean{
   }
 }
 public isAdmin():boolean{
-  var value=sessionStorage.getItem("Admin") || "false";
-  return ((/true/i).test(value));
+  var value=sessionStorage.getItem("Rol") || "false";
+  return ((/admin/i).test(value));
+
 
 }
 
 public isUser():boolean{
-  var value=sessionStorage.getItem("User") || "false";
-  return ((/true/i).test(value));
-
+  var value=sessionStorage.getItem("Rol") || "false";
+  return ((/user/i).test(value));
 }
 
 public setSession(user:UserLoginGetDto){

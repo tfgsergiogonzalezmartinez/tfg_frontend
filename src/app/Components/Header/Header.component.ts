@@ -10,34 +10,39 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   @Input() MenuDesplegables : MenuDesplegable[] = [
     {
-      TituloPrincipal: "Home",
+      TituloPrincipal: "Inicio",
       Icono: "home",
       Ruta: "/main",
+      Rol: "all",
       Secciones: [
         {
           TituloPrincipal: "Components",
           Icono: "data_object",
           Ruta: "/main/components",
+          Rol: "all",
           Secciones: []
         }
       ]
     },
     {
-      TituloPrincipal: "Pages",
+      TituloPrincipal: "Proyectos",
       Icono: "newspaper",
       Ruta: "/pages",
+      Rol: "all",
       Secciones: []
     },
     {
-      TituloPrincipal: "Editor",
-      Icono: "edit",
-      Ruta: "/editor",
+      TituloPrincipal: "Administracion",
+      Icono: "manage_accounts",
+      Ruta: "/main/administration",
+      Rol: "admin",
       Secciones: []
     },
     {
       TituloPrincipal: "About",
       Icono: "help",
       Ruta: "/About",
+      Rol: "all",
       Secciones: []
     },
 
