@@ -11,7 +11,7 @@ export class MainPageComponent implements OnInit {
   constructor(private mainService : MainService ) { }
 
   ngOnInit() {
-  }
+  }  
 
   getService(){
     return this.mainService;
