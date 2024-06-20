@@ -5,6 +5,7 @@ import { BaseService } from '../Base.service';
 import { UserLoginDto } from '../../dto/UserDto/UserLoginDto';
 import { UserLoginGetDto } from '../../dto/UserDto/UserLoginGetDto';
 import { UserCambiarPassword } from '../../dto/UserDto/UserCambiarPassword';
+import { UserModificarRolDto } from '../../dto/UserDto/UserModificarRolDto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,9 @@ public Register(UserCreateDto : UserLoginDto){
 }
 public cambiarPassword(userCambiarPassword : UserCambiarPassword){
   return this.httpClient.post(this.ip+this.controller + "/CambiarPassword", userCambiarPassword, {headers: this.getHeaders()});
+}
+public ModificarRol(userModificarRolDto : UserModificarRolDto ){
+  return this.httpClient.post(this.ip+this.controller + "/ModificarRol", userModificarRolDto, {headers: this.getHeaders()});
 }
 
 

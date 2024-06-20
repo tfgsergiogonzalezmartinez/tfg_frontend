@@ -1,5 +1,5 @@
-<div class="bg-background text-text ">
-  <header [ngClass]="{'bg-custom-dark' : getService().isModoOscuro(), 'bg-custom' : getService().isModoClaro }" class="min-h-screen flex items-center justify-center">
+<div class="flex w-full hf flex-col bg-background text-text ">
+  <div [ngClass]="{'bg-custom-dark' : getService().isModoOscuro(), 'bg-custom' : getService().isModoClaro }" class="flex w-svw h-svh  items-center justify-center">
     <div class="text-center">
       <h1 class="text-4xl font-bold mb-4">Crea proyectos Web sin saber programar</h1>
       <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code> de despliegie a traves de la importación de un fichero <code>XML</code> con la estructura de la base de datos.
@@ -7,9 +7,9 @@
       <a href="#" class="bg-secondary text-text font-bold py-2 px-4 rounded ">Comienza ahora</a>
       <a href="#" class="bg-accent text-text-button font-bold py-2 px-4 ml-4 rounded ">Buscar...</a>
     </div>
-  </header>
-  <main class="">
-    <section [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }" class="flex flex-col p-7 items-center">
+  </div>
+  <div class="">
+    <div [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }" class="flex flex-col p-7 items-center">
       <div class="bg-card flex flex-col justify-center items-center rounded-xl p-8 z-20">
         <app-UserAvatar [imgRoute]="'assets/avatar/Sergio.jpg'"></app-UserAvatar>
         <h1 class="border-b-2 border-accent w-full text-center"> Tabajo Final de Grado</h1>
@@ -28,6 +28,6 @@
           </figcaption>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 </div>

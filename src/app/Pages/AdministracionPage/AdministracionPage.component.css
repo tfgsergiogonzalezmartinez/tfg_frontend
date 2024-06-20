@@ -15,20 +15,17 @@ table {
 th, td {
   padding: 8px 12px;
   text-align: left;
+  
 }
 
-th {
-  background-color: #f4f4f4;
+tr:nth-child(even){
+  background-color: var(--background-dark);
+}
+tr:nth-child(even):hover{
+  background-color: var(--background-light);
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
 
-.border-b-2 {
-  border-bottom: 2px solid #ccc;
-}
 
-.hover\\:bg-background-dark:hover {
-  background-color: #e0e0e0;
-}
+
+

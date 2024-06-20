@@ -4,8 +4,8 @@ import { ElementRef, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MainService {
-  private modo_oscuro : boolean = true;
-  private modo_claro : boolean = false;
+  private modo_oscuro : boolean = false;
+  private modo_claro : boolean = true;
 
   private mainDivRef! : ElementRef ;
 

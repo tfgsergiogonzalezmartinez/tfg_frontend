@@ -13,27 +13,27 @@ constructor( protected httpClient : HttpClient) {
  }
 
   public GetAll(){
-    return this.httpClient.get(this.ip + this.controller , {headers: this.getHeaders()});
+    return this.httpClient.get<any>(this.ip + this.controller , {headers: this.getHeaders()});
   }
 
   public GetById(id : string){
-    return this.httpClient.get(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
+    return this.httpClient.get<any>(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
 
   }
   public Create(entidad : any){
-    return this.httpClient.post(this.ip + this.controller + "/", entidad , {headers: this.getHeaders()});
+    return this.httpClient.post<any>(this.ip + this.controller + "/", entidad , {headers: this.getHeaders()});
   }
   public Update(id : string, entidad : any){
-    return this.httpClient.put(this.ip + this.controller + "/" + id, entidad, {headers: this.getHeaders()});
+    return this.httpClient.put<any>(this.ip + this.controller + "/" + id, entidad, {headers: this.getHeaders()});
   }
   public UpdateObj(entidad : any){
-    return this.httpClient.put(this.ip + this.controller + "/" + entidad , {headers: this.getHeaders()});
+    return this.httpClient.put<any>(this.ip + this.controller + "/", entidad , {headers: this.getHeaders()});
   }
   public Delete(id : string){
-    return this.httpClient.delete(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
+    return this.httpClient.delete<any>(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
   }
   public DeleteObj(entidad : any){
-    return this.httpClient.delete(this.ip + this.controller + '/' + entidad , {headers: this.getHeaders()});
+    return this.httpClient.delete<any>(this.ip + this.controller + '/' + entidad , {headers: this.getHeaders()});
   }
 
   protected getHeaders(){
