@@ -11,6 +11,7 @@ import { UserModificarRolDto } from '../../dto/UserDto/UserModificarRolDto';
   providedIn: 'root'
 })
 export class UserService extends BaseService {
+  private isRegisterFromMain : boolean = false;
 
 constructor(httpClient : HttpClient) {
   super(httpClient);
@@ -65,6 +66,13 @@ public setSession(user:UserLoginGetDto){
 public logout(){
   sessionStorage.clear();
   // this.stopTokenTimer();
+}
+
+getIsRegisterFromMain(){
+  return this.isRegisterFromMain;
+}
+setIsRegisterFromMain(value : boolean){
+  this.isRegisterFromMain = value;
 }
 
 

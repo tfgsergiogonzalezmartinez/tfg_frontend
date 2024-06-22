@@ -1,14 +1,14 @@
-<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-28 bg-background">
+<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-28 bg-background overflow-x-hidden">
   <div class="flex flex-row justify-between p-2">
     <h2>Administracion de Usuarios</h2>
-    <div class="flex ">
+    <div class="flex">
       <button (click)="guardarCambios()">Guardar Cambios</button>
     </div>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col p-2 overflow-x-hidden">
     <h3 class="my-4">Tabla de Usuarios</h3>
-    <div class="table-container bg-background rounded shadow-sm ">
-      <table>
+    <div class="table-container bg-background rounded shadow-sm overflow-x-auto">
+      <table class="min-w-full">
         <thead>
           <tr>
             <th class="text-text" *ngFor="let column of columns">{{ column }}</th>
@@ -16,39 +16,24 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of datosTabla" (click)="clickRow(row)" class="hover:bg-background-light">
-            @for (col of columns; track $index) {
-              <td class="text-text">
-                @if (col == "Email") {
-                  {{row.Email}}
-                }
-                @if (col == "Nombre") {
-                  {{row.Nombre}}
-                }
-                @if (col == "Primer Apellido") {
-                  {{row.Apellido1}}
-                }
-                @if (col == "Segundo Apellido") {
-                  {{row.Apellido2}}
-                }
-                @if (col == "Rol") {
-                  <select class="p-1 border-none  p-2 bg-background-light rounded-md" [(ngModel)]="row.Rol" (change)="cambiarRol(row)">
-                    <option value="" disabled hidden selected>{{row.Rol}}</option>
+            <td class="text-text" *ngFor="let col of columns">
+              <ng-container [ngSwitch]="col">
+                <span *ngSwitchCase="'Email'">{{row.Email}}</span>
+                <span *ngSwitchCase="'Nombre'">{{row.Nombre}}</span>
+                <span *ngSwitchCase="'Primer Apellido'">{{row.Apellido1}}</span>
+                <span *ngSwitchCase="'Segundo Apellido'">{{row.Apellido2}}</span>
+                <span *ngSwitchCase="'Rol'">
+                  <select class="p-1 border-none bg-background-light rounded-md" [(ngModel)]="row.Rol" (change)="cambiarRol(row)">
+                    <option value="" disabled hidden>{{row.Rol}}</option>
                     <option value="admin">Administrador</option>
                     <option value="user">Usuario</option>
                   </select>
-
-                }
-              </td>
-            }
+                </span>
+              </ng-container>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
-
-
-
-
-
-

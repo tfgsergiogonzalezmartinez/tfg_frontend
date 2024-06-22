@@ -15,16 +15,20 @@ import { AdministracionPageComponent } from './Pages/AdministracionPage/Administ
 import { adminGuard } from './Guards/Admin.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginLayoutComponent , children: [
-    { path: '', component: LoginPageComponent },
-
-  ]},
-
-  { path: 'main', component : MainLayoutComponent, canActivate: [loginGuard], children: [
+  { path: '', component: MainLayoutComponent , children: [
     { path: '', component: MainPageComponent },
-    { path: 'settings', component: UserPageComponent },
-    { path: 'administration', component: AdministracionPageComponent, canActivate: [adminGuard] },
   ]},
+  { path: 'login', component: LoginLayoutComponent , children: [
+    { path: '', component: LoginPageComponent },
+  ]},
+
+  { path: 'main', component : MainLayoutComponent, children: [
+    { path: '', component: MainPageComponent },
+    { path: 'settings', canActivate: [loginGuard], component: UserPageComponent },
+    { path: 'administration', canActivate: [adminGuard], component: AdministracionPageComponent },
+  ]},
+
+
 
 
 

@@ -28,7 +28,11 @@ export class LoginPageComponent implements OnInit {
   public Apellido2!: string;
   public FechaNacimiento!: Date;
 
-  constructor(private userService : UserService, private router: Router) { }
+  constructor(private userService : UserService, private router: Router) {
+    if (userService.getIsRegisterFromMain()){
+      this.ActivarRegistroMode();
+    }
+  }
 
   ngOnInit() {
   }

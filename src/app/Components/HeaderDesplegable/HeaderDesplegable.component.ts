@@ -31,6 +31,7 @@ export class HeaderDesplegableComponent implements OnInit {
   ComprobarRoles(){
     if (this.MenuDesplegable.Rol == "all") return true;
     if (this.MenuDesplegable.Rol == "admin") return this.userService.isAdmin();
+    if (this.MenuDesplegable.Rol == "user") return this.userService.isLogin();
     return true;
   }
 

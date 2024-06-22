@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
       TituloPrincipal: "Proyectos",
       Icono: "newspaper",
       Ruta: "/pages",
-      Rol: "all",
+      Rol: "user",
       Secciones: []
     },
     {
