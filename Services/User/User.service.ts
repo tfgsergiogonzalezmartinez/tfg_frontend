@@ -20,16 +20,16 @@ constructor(httpClient : HttpClient) {
 
 
 public Login(userLoginDto : UserLoginDto){
-  return this.httpClient.post<UserLoginGetDto>(this.ip + this.controller + '/Login', userLoginDto ,{headers : this.getHeaders()});
+  return this.httpClient.post<UserLoginGetDto>(this.apiIp + this.controller + '/Login', userLoginDto ,{headers : this.getHeaders()});
 }
 public Register(UserCreateDto : UserLoginDto){
-  return this.httpClient.post<UserLoginGetDto>(this.ip + this.controller + '/Register', UserCreateDto ,{headers : this.getHeaders()});
+  return this.httpClient.post<UserLoginGetDto>(this.apiIp + this.controller + '/Register', UserCreateDto ,{headers : this.getHeaders()});
 }
 public cambiarPassword(userCambiarPassword : UserCambiarPassword){
-  return this.httpClient.post(this.ip+this.controller + "/CambiarPassword", userCambiarPassword, {headers: this.getHeaders()});
+  return this.httpClient.post(this.apiIp+this.controller + "/CambiarPassword", userCambiarPassword, {headers: this.getHeaders()});
 }
 public ModificarRol(userModificarRolDto : UserModificarRolDto ){
-  return this.httpClient.post(this.ip+this.controller + "/ModificarRol", userModificarRolDto, {headers: this.getHeaders()});
+  return this.httpClient.post(this.apiIp+this.controller + "/ModificarRol", userModificarRolDto, {headers: this.getHeaders()});
 }
 
 

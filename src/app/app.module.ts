@@ -25,6 +25,7 @@ import { ModalComponent } from './Components/modal/modal.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
 import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
 import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
+import { ChatComponent } from './Components/chat/chat.component';
 
 
 @NgModule({
@@ -48,13 +49,15 @@ import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.componen
     ModalComponent,
     EstilosComponent, //quitar, es de pruebas
     AdministracionPageComponent,
-    ToggleModeComponent
+    ToggleModeComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, //para los ngmodule y asi
-    HttpClientModule //para los inject
+    HttpClientModule, //para los inject
+
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
