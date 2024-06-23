@@ -1,31 +1,59 @@
-<div *ngIf="!connected">
-  <strong>Crear grupo</strong>
-  <div class="form-group row mb-2">
-    <label class="col-form-label col-md-3">Grupo</label>
-    <div class="col-md-9">
-      <input type="text" class="form-control" name="groupName" [(ngModel)]="group" />
-    </div>
-  </div>
-  <div class="form-group row mb-2">
-    <label class="col-form-label col-md-3">Usuario</label>
-    <div class="col-md-9">
-      <input type="text" class="form-control" name="userName" [(ngModel)]="user" />
-    </div>
-  </div>
-  <div class="form-group row">
-    <div class="col-md-9 offset-3">
-      <button type="button" class="btn btn-primary" (click)="join()">Enter</button>
-    </div>
-  </div>
-</div>
+<div class="fixed flex flex-col bottom-2 right-2">
 
-<div *ngIf="connected">
-  <div id="chat">
-    <div *ngFor="let message of conversation">
-      <div><strong>{{message.Usuario}}:</strong> {{message.Mensaje}}</div>
+  <div [ngClass]="{'open':isOpen }" class="chatIcono bg-background shadow-2xll">
+    @if (isOpen) {
+    <div class="flex flex-row w-full justify-between p-2">
+      <h3>Chat</h3>
+      <div (click)="isOpen=false"
+        class="flex p-1 justify-center items-center rounded hover:bg-background-dark hover:transition-colors">
+        <span class="material-symbols-outlined text-text">
+          close
+        </span>
+      </div>
     </div>
+    <div class="flex flex-row w-full h-full">
+      <div class="flex flex-col h-full p-2 bg-background-dark">
+        <div class="flex flex-row italic text-text">
+          <span  class="font-bold text-lg">#</span><span>General</span>
+        </div>
+        <div class="flex flex-row italic text-text">
+          <span class="font-bold text-lg">#</span><span>Soporte</span>
+        </div>
+      </div>
+      <div class="flex flex-col w-full h-full gap-2 p-1 justify-between">
+        <div class="flex flex-col gap-1">
+          @for (message of conversation; track $index) {
+          <div class="flex flex-row gap-2">
+            <span>{{message.Usuario}}</span>
+            <span>{{message.Mensaje}}</span>
+          </div>
+          }
+        </div>
+        <div class="flex flex-row gap-2 p-2">
+          <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text">
+          <div class="flex p-1 justify-center items-center bg-primary rounded">
+            <span class="material-symbols-outlined text-xl text-text-button">
+              send
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    }
+    @if (!isOpen) {
+    <div (click)="isOpen = true" class="flex w-full h-full justify-center items-center">
+      <span class="material-symbols-outlined text-text">
+        chat
+      </span>
+    </div>
+    }
   </div>
-  <input class="form-control mb-1" type="text" [(ngModel)]="message" name="messageToSend" />
-  <button class="btn btn-primary" (click)="sendMessage()">enviar</button>
-  <button class="btn btn-secondary" (click)="leave()">salir</button>
+
+
+
+
+
 </div>

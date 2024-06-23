@@ -10,11 +10,12 @@ import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  public user = '';
-  public group = '';
-  public message = '';
-  public connected = false;
-  public conversation: ChatMessage[] = [{
+  isOpen = true;
+  user = sessionStorage.getItem('Nombre')!;
+  group = '';
+  message = '';
+  connected = false;
+  conversation: ChatMessage[] = [{
     Mensaje: 'Bienvenido',
     Usuario: 'Sistema'
   }];
@@ -39,8 +40,8 @@ export class ChatComponent implements OnInit {
       .catch(error => console.error('Connection Error: ', error));
   }
 
-  public join() {
-    this.connection.invoke('JoinGroup', this.group, this.user)
+  public join(grupo: string) {
+    this.connection.invoke('JoinGroup', grupo, this.user)
       .then(() => this.connected = true)
       .catch(err => console.error('Join Group Error: ', err));
   }
