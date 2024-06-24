@@ -67,6 +67,7 @@ export class UserProfileDropdownComponent implements OnInit {
       return;
     }
     if (route == "Login") {
+      this.userService.setIsRegisterFromMain(false);
       this.router.navigate(['/login']);
       return;
     }

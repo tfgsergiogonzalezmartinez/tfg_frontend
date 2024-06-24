@@ -9,6 +9,9 @@ import { MainService } from '../../../../Services/Main/Main.service';
   styleUrls: ['./UserPage.component.css']
 })
 export class UserPageComponent implements OnInit {
+  archivoSeleccionado: File | null = null;
+  fotoUrl: string | null = null;
+  userId: string = sessionStorage.getItem("Id") || "";
   Nombre: string = "";
   Apellido1: string = "";
   Apellido2: string = "";
@@ -27,6 +30,7 @@ export class UserPageComponent implements OnInit {
     this.Apellido1 = sessionStorage.getItem("Apellido1") || "";
     this.Apellido2 = sessionStorage.getItem("Apellido2") || "";
     this.Email = sessionStorage.getItem("Email") || "";
+    this.cargarFoto();
   }
 
 
@@ -47,6 +51,45 @@ export class UserPageComponent implements OnInit {
       },
       error: error => {
         console.log(error);
+      }
+    });
+  }
+
+
+  onArchivoSeleccionado(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const archivo = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Imagen = reader.result as string;
+        this.subirFoto(base64Imagen);
+      };
+      reader.readAsDataURL(archivo);
+    }
+}
+
+  subirFoto(base64Imagen: string) {
+    this.userService.subirFotoAvatar(this.userId, base64Imagen).subscribe({
+      next: data => {
+        console.log("Foto subida con éxito", data);
+        this.cargarFoto(); // Descargar y mostrar la foto recién subida
+      },
+      error: error => {
+        console.error("Error al subir la foto", error);
+      }
+    });
+  }
+
+  cargarFoto() {
+    this.userService.getFotoAvatar(this.userId).subscribe({
+      next: data => {
+        console.log("Foto descargada con éxito", data);
+
+        // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
       }
     });
   }

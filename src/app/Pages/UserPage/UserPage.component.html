@@ -1,6 +1,13 @@
 <div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 bg-background">
   <h2 class="mx-2">Configuracion de Usuario</h2>
   <div class="flex flex-col mx-2">
+    <h3 class="my-4">Foto de Perfil</h3>
+    <div class="flex flex-row gap-3">
+      <div class="flex flex-col">
+        <label class="text-sm text-text italic"></label>
+        <input type="file" (change)="onArchivoSeleccionado($event)" class="p-2 bg-background-light rounded-md">
+      </div>
+    </div>
     <h3 class="my-4">Datos Personales</h3>
     <div class="flex flex-row gap-3">
       <app-inputForm titulo="Nombre" type="text" placeholder="{{Nombre}}" (valueEventEmitter)="Nombre=$event"></app-inputForm>
