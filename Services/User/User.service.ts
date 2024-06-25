@@ -40,7 +40,7 @@ export class UserService extends BaseService {
   }
 
   public getFotoAvatar(usuarioId: string) {
-    return this.httpClient.get(this.apiIp + this.controller + "/" + usuarioId +"/"+"fotoBase64", {headers:this.getHeaders(), responseType: 'blob' });
+    return this.httpClient.get<ImagenDto>(this.apiIp + this.controller + "/" + usuarioId +"/"+"fotoBase64", {headers:this.getHeaders() });
   }
 
 

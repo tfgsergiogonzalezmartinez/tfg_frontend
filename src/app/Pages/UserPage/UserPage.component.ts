@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../Services/User/User.service';
 import { UserCambiarPassword } from '../../../../dto/UserDto/UserCambiarPassword';
 import { MainService } from '../../../../Services/Main/Main.service';
+import { ImagenDto } from '../../../../dto/UserDto/ImagenDto';
 
 @Component({
   selector: 'app-UserPage',
@@ -84,7 +85,7 @@ export class UserPageComponent implements OnInit {
   cargarFoto() {
     this.userService.getFotoAvatar(this.userId).subscribe({
       next: data => {
-        console.log("Foto descargada con éxito", data);
+        this.crearImagenDesdeBlob(data);
 
         // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },
@@ -92,6 +93,10 @@ export class UserPageComponent implements OnInit {
         console.error("Error al descargar la foto", error);
       }
     });
+  }
+
+  private crearImagenDesdeBlob(imgDto: ImagenDto) {
+    this.fotoUrl = imgDto.Imagen;
   }
 
   getService(){
