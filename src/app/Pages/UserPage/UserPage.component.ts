@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../../Services/User/User.service';
 import { UserCambiarPassword } from '../../../../dto/UserDto/UserCambiarPassword';
 import { MainService } from '../../../../Services/Main/Main.service';
@@ -10,6 +10,7 @@ import { ImagenDto } from '../../../../dto/UserDto/ImagenDto';
   styleUrls: ['./UserPage.component.css']
 })
 export class UserPageComponent implements OnInit {
+  @ViewChild('CargarImagenInput') cargarImagenInput! : ElementRef;
   archivoSeleccionado: File | null = null;
   fotoUrl: string | null = null;
   userId: string = sessionStorage.getItem("Id") || "";
@@ -85,7 +86,7 @@ export class UserPageComponent implements OnInit {
   cargarFoto() {
     this.userService.getFotoAvatar(this.userId).subscribe({
       next: data => {
-        this.crearImagenDesdeBlob(data);
+        this.fotoUrl = data.Imagen;
 
         // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },
@@ -95,8 +96,9 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  private crearImagenDesdeBlob(imgDto: ImagenDto) {
-    this.fotoUrl = imgDto.Imagen;
+
+  activarInput(){
+    this.cargarImagenInput.nativeElement.click();
   }
 
   getService(){
