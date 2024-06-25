@@ -76,6 +76,7 @@ export class UserPageComponent implements OnInit {
       next: data => {
         console.log("Foto subida con éxito", data);
         this.cargarFoto(); // Descargar y mostrar la foto recién subida
+
       },
       error: error => {
         console.error("Error al subir la foto", error);
@@ -91,6 +92,7 @@ export class UserPageComponent implements OnInit {
         // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },
       error: error => {
+        this.fotoUrl = "assets/avatar/user_placeholder.png";
         console.error("Error al descargar la foto", error);
       }
     });

@@ -3,6 +3,8 @@ import { ChatService } from '../../../../Services/Chat/Chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
+import { UserService } from '../../../../Services/User/User.service';
+import { UserGetDto } from '../../../../dto/UserDto/UserGetDto';
 
 @Component({
   selector: 'app-chat',
@@ -10,6 +12,8 @@ import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+  UserBuscar: string = "";
+  UsuariosBuscados: UserGetDto[] = [];
   isOpen = true;
   user = sessionStorage.getItem('Nombre')!;
   group = '';
@@ -22,7 +26,7 @@ export class ChatComponent implements OnInit {
 
   private connection: HubConnection;
 
-  constructor() {
+  constructor(private userService : UserService) {
     this.connection = new HubConnectionBuilder()
       .withUrl('http://localhost:5059/WebChat', {
         withCredentials: true
@@ -77,6 +81,31 @@ export class ChatComponent implements OnInit {
   private leftUser(message: string) {
     console.log();
     this.conversation.push({ Usuario: 'Sistema', Mensaje: message });
+  }
+
+  buscarUsuarios(){
+    if (this.UserBuscar == "") return;
+    this.userService.getUsuariosCoincidentesByNombre(this.UserBuscar).subscribe({
+      next: data => {
+        this.UsuariosBuscados = data;
+        console.log(data);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+  cargarFoto(id : string) {
+    this.userService.getFotoAvatar(id).subscribe({
+      next: data => {
+        return data.Imagen;
+
+        // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
+      }
+    });
   }
 }
 

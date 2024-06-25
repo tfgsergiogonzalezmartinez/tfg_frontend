@@ -43,6 +43,10 @@ export class UserService extends BaseService {
     return this.httpClient.get<ImagenDto>(this.apiIp + this.controller + "/" + usuarioId +"/"+"fotoBase64", {headers:this.getHeaders() });
   }
 
+  public getUsuariosCoincidentesByNombre(nombre : string){
+    return this.httpClient.get<UserGetDto[]>(this.apiIp + this.controller + "/ObtenerUsuariosCoincidentes/" + nombre, {headers: this.getHeaders()});
+  }
+
 
   public isLogin(): boolean {
     try {
