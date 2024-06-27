@@ -15,6 +15,7 @@ import { BuscadorUsuariosComponent } from '../BuscadorUsuarios/BuscadorUsuarios.
 })
 export class ChatComponent implements OnInit {
   @ViewChild('buscador') BuscadorComponent! : BuscadorUsuariosComponent;
+  isConnectionEstablished: boolean = false;
 
   private listaUsuariosBuscados : ChatUsuariosBuscados[] = [];
   mostrarBuscador : boolean = false;
@@ -27,36 +28,46 @@ export class ChatComponent implements OnInit {
   message = '';
   connected = false;
   listaConversacion: ChatMessage[] = [{
-    Mensaje: 'Bienvenido',
-    Usuario: 'Sistema'
+    mensaje: 'Bienvenido',
+    usuario: 'Sistema'
   },
   {
-    Mensaje: 'Escribe un mensaje para comenzar',
-    Usuario: 'Usuario'
+    mensaje: 'Escribe un mensaje para comenzar',
+    usuario: 'Usuario'
   },];
   currentUser!: UserGetDto;
   currentImage: string = "";
   otroUsuarioChat!: ChatUsuariosBuscados;
   inputMensaje: string = "";
+
+  isConexionInciada = false;
   private connection: HubConnection;
 
   constructor(private userService : UserService, private cdr : ChangeDetectorRef) {
     this.connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:5059/WebChat', {
+      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}`, {
         withCredentials: true
       })
       .build();
 
-    this.connection.on("NewUser", message => this.newUser(message));
-    this.connection.on("NewMessage", message => this.newMessage(message));
-    this.connection.on("LeftUser", message => this.leftUser(message));
+      this.connection.on("NewUser", message => this.newUser(message));
+      this.connection.on("NewMessage", (message: ChatMessage, group: string) => this.newMessage(message, group));
+      this.connection.on("LeftUser", message => this.leftUser(message));
+      this.connection.on("JoinGroup", (group: string) => this.handleJoinGroup(group));
+      this.connection.on("mensajePrivado", (message: ChatMessage) => this.recibirMensaje_privado(message));
+
   }
 
   ngOnInit(): void {
     this.connection.start()
-      .then(() => console.log('Connection Started'))
-      .catch(error => console.error('Connection Error: ', error));
-
+      .then(() => {
+        console.log('Connection Started');
+        this.isConnectionEstablished = true;
+      })
+      .catch(error => {
+        console.error('Connection Error: ', error);
+        this.isConnectionEstablished = false;
+      });
     this.userService.getFotoAvatar(sessionStorage.getItem('Id')!).subscribe({
       next: data => {
         this.currentImage = data.Imagen;
@@ -68,6 +79,27 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  private recibirMensaje_privado(message: ChatMessage) {
+    console.log('Mensaje directo recibido:', message);
+    this.userService.GetById(message.usuario).subscribe({
+      next: data =>{
+        this.cargarFoto(data, message.usuario);
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
+      }
+    });
+    this.listaConversacion.push(message);
+
+    this.cdr.detectChanges();
+  }
+
+  private handleJoinGroup(group: string) {
+    this.join(group);
+    this.isConexionInciada = true;
+    this.group = group;
+  }
+
   public join(grupo: string) {
     this.connection.invoke('JoinGroup', grupo, this.user)
       .then(() => this.connected = true)
@@ -76,9 +108,9 @@ export class ChatComponent implements OnInit {
 
   public sendMessage() {
     const newMessage: ChatMessage = {
-      Mensaje: this.message,
-      Usuario: this.user,
-      Grupo: this.group
+      mensaje: this.message,
+      usuario: this.user,
+      grupo: this.group,
     };
 
     this.connection.invoke('SendMessage', newMessage)
@@ -94,17 +126,26 @@ export class ChatComponent implements OnInit {
 
   private newUser(message: string) {
     console.log(message);
-    this.listaConversacion.push({ Usuario: 'Sistema', Mensaje: message });
+    this.listaConversacion.push({ usuario: 'Sistema', mensaje: message });
   }
 
-  private newMessage(message: ChatMessage) {
+  private newMessage(message: ChatMessage, group: string) {
     console.log(message);
-    this.listaConversacion.push(message);
+
+    // Si el grupo es diferente al actual, cambiar al nuevo grupo
+    if (this.group !== group) {
+      this.group = group;
+      this.isConexionInciada = true;
+    }
+
+    // this.listaConversacion.push(message);
+    this.cdr.detectChanges();  // Asegurar que los cambios se detecten
   }
+
 
   private leftUser(message: string) {
     console.log();
-    this.listaConversacion.push({ Usuario: 'Sistema', Mensaje: message });
+    this.listaConversacion.push({ usuario: 'Sistema', mensaje: message });
   }
 
   getListUsuariosBuscados(){
@@ -115,9 +156,13 @@ export class ChatComponent implements OnInit {
   cargarFoto(user : UserGetDto, id : string) {
     this.userService.getFotoAvatar(id).subscribe({
       next: data => {
-        this.listaUsuariosBuscados.push({User: user , Imagen: data.Imagen});
+        if (this.listaUsuariosAbiertosChats.length > 0){
+          for (const user of this.listaUsuariosAbiertosChats){
+            if (user.User.Id == id) return;
+          }
+        }
+        this.listaUsuariosAbiertosChats.push({User: user , Imagen: data.Imagen});
         console.log(data);
-        return data.Imagen;
         // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },
       error: error => {
@@ -136,7 +181,9 @@ export class ChatComponent implements OnInit {
   setChatActivo(user : ChatUsuariosBuscados){
     // this.listaConversacion = [];
     this.otroUsuarioChat = user;
+    this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
     this.BuscadorComponent.mostrarBuscador = false;
+    this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
     // this.listaUsuariosAbiertosChats = [];
     // this.listaUsuariosAbiertosChats.push(user);
   }
@@ -145,17 +192,27 @@ export class ChatComponent implements OnInit {
     return sessionStorage.getItem('Id');
   }
 
-  enviarMensaje(){
+  public enviarMensaje() {
     const newMessage: ChatMessage = {
-      Mensaje: this.inputMensaje,
-      Usuario: sessionStorage.getItem('Id')!,
-      Grupo: sessionStorage.getItem('Id') + "$" + this.otroUsuarioChat.User.Id
+      mensaje: this.inputMensaje,
+      usuario: sessionStorage.getItem('Id')!,
+      grupo: sessionStorage.getItem('Id') + "$" + this.otroUsuarioChat.User.Id,
+      destinatario: this.otroUsuarioChat.User.Id // Asegúrate de tener el destinatario en el mensaje
     };
-    this.listaConversacion.push(newMessage);
-    
-    // this.connection.invoke('SendMessage', newMessage)
-    //   .then(() => this.inputMensaje = '')
-    //   .catch(err => console.error('Send Message Error: ', err));
+
+    if (!this.isConexionInciada) {
+      this.group = newMessage.grupo!;
+      this.join(newMessage.grupo!)!;
+      this.isConexionInciada = true;
+    }
+
+    this.connection.invoke('SendMessage', newMessage)
+      .then(() => {
+        this.listaConversacion.push(newMessage);
+        this.inputMensaje = '';
+      })
+      .catch(err => console.error('Send Message Error: ', err));
   }
+
 }
 

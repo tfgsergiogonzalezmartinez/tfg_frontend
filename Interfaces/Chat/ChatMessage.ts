@@ -1,5 +1,6 @@
 export interface ChatMessage {
-  Usuario : string;
-  Mensaje : string;
-  Grupo? : string;
+  usuario : string;
+  mensaje : string;
+  grupo? : string;
+  destinatario? : string;
 }

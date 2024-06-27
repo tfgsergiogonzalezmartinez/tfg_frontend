@@ -83,6 +83,7 @@ export class BuscadorUsuariosComponent implements OnInit {
   }
 
   ClickUsuario(userChat : ChatUsuariosBuscados){
+    this.UserBuscar = "";
     this.usuarioEmitter.emit(userChat);
   }
 }

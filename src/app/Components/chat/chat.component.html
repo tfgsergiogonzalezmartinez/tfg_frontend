@@ -17,8 +17,8 @@
         <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
           <span class="font-bold text-lg">#</span><span>General</span>
         </div>
-        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
-          <span class="font-bold text-lg">#</span><span>Soporte</span>
+        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors mb-2 pb-1 border-b-2 border-text">
+          <span class="font-bold text-lg ">#</span><span>Soporte</span>
         </div>
         @for (user of listaUsuariosAbiertosChats; track $index) {
         <div (click)="setChatActivo(user)"
@@ -33,19 +33,19 @@
         <div #chat class="flex flex-col gap-1 overflow-y-auto " style="height: 350px;">
           @if (otroUsuarioChat) {
             @for (message of listaConversacion; track $index) {
-              @if (message.Usuario != getCurrentID()) {
+              @if (message.usuario != getCurrentID()) {
                 <div class="flex flex-row gap-2  text-split">
                   <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
                   <div class="flex text-text text-split bg-card-light p-1 rounded">
-                    <p class="text-split">{{message.Mensaje}}</p>
+                    <p class="text-split">{{message.mensaje}}</p>
                   </div>
                 </div>
               }
-              @if (message.Usuario == getCurrentID()) {
+              @if (message.usuario == getCurrentID()) {
                 <div class="flex flex-row-reverse text-split gap-2">
                   <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
                   <div class="flex text-text text-split bg-card-light p-1 rounded">
-                    <p class="text-split">{{message.Mensaje}}</p>
+                    <p class="text-split">{{message.mensaje}}</p>
                   </div>
                 </div>
               }
