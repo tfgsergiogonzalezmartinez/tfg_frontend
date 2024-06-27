@@ -26,6 +26,7 @@ import { EstilosComponent } from './Components/estilos/estilos.component';
 import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
 import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
 import { ChatComponent } from './Components/chat/chat.component';
+import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/BuscadorUsuarios.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ChatComponent } from './Components/chat/chat.component';
     EstilosComponent, //quitar, es de pruebas
     AdministracionPageComponent,
     ToggleModeComponent,
-    ChatComponent
+    ChatComponent,
+    BuscadorUsuariosComponent
   ],
   imports: [
     BrowserModule,

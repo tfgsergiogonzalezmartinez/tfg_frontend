@@ -4,18 +4,7 @@
     @if (isOpen) {
     <div class="flex flex-row w-full gap-12 justify-between p-2">
       <h3>Chat</h3>
-      <div class="flex flex-row justify-center relative">
-        <input class="w-full px-2" type="text" placeholder="Buscar usuarios..." (ngModelChange)="buscarUsuarios()"  [(ngModel)]="UserBuscar" >
-        @if (UsuariosBuscados.length > 0) {
-          <div class="flex flex-col gap-1">
-            @for (user of UsuariosBuscados; track $index) {
-              <div class="flex flex-row gap-2">
-                <img [src]="getFoto(user.Id)" alt="">
-              </div>
-            }
-          </div>
-        }
-      </div>
+      <app-BuscadorUsuarios #buscador (usuarioEmitter)="addUsuarioChat($event)"></app-BuscadorUsuarios>
       <div (click)="isOpen=false"
         class="flex p-1 justify-center items-center rounded hover:bg-background-dark hover:transition-colors">
         <span class="material-symbols-outlined text-text">
@@ -25,25 +14,49 @@
     </div>
     <div class="flex flex-row w-full h-full">
       <div class="flex flex-col h-full p-2 bg-background-dark">
-        <div class="flex flex-row italic text-text">
-          <span  class="font-bold text-lg">#</span><span>General</span>
+        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
+          <span class="font-bold text-lg">#</span><span>General</span>
         </div>
-        <div class="flex flex-row italic text-text">
+        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
           <span class="font-bold text-lg">#</span><span>Soporte</span>
         </div>
+        @for (user of listaUsuariosAbiertosChats; track $index) {
+        <div (click)="setChatActivo(user)"
+          class="flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
+          <img class="w-8 h-8 rounded-full" src="{{user.Imagen}}" alt="{{user.User.Nombre}}"
+            title="{{user.User.Nombre}}">
+          <!-- <span>{{user.}}</span> -->
+        </div>
+        }
       </div>
       <div class="flex flex-col w-full h-full gap-2 p-1 justify-between">
-        <div class="flex flex-col gap-1">
-          @for (message of conversation; track $index) {
-          <div class="flex flex-row gap-2">
-            <span>{{message.Usuario}}</span>
-            <span>{{message.Mensaje}}</span>
-          </div>
+        <div #chat class="flex flex-col gap-1 overflow-y-auto " style="height: 350px;">
+          @if (otroUsuarioChat) {
+            @for (message of listaConversacion; track $index) {
+              @if (message.Usuario != getCurrentID()) {
+                <div class="flex flex-row gap-2  text-split">
+                  <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
+                  <div class="flex text-text text-split bg-card-light p-1 rounded">
+                    <p class="text-split">{{message.Mensaje}}</p>
+                  </div>
+                </div>
+              }
+              @if (message.Usuario == getCurrentID()) {
+                <div class="flex flex-row-reverse text-split gap-2">
+                  <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
+                  <div class="flex text-text text-split bg-card-light p-1 rounded">
+                    <p class="text-split">{{message.Mensaje}}</p>
+                  </div>
+                </div>
+              }
+            }
           }
         </div>
+
         <div class="flex flex-row gap-2 p-2">
-          <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text">
-          <div class="flex p-1 justify-center items-center bg-primary rounded">
+          <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text"
+            [(ngModel)]="inputMensaje" (keydown.enter)="enviarMensaje()">
+          <div class="flex p-1 justify-center items-center bg-primary rounded" (click)="enviarMensaje()">
             <span class="material-symbols-outlined text-xl text-text-button">
               send
             </span>
