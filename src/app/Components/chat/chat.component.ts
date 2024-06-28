@@ -1,6 +1,4 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ChatService } from '../../../../Services/Chat/Chat.service';
-import { ActivatedRoute } from '@angular/router';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
 import { UserService } from '../../../../Services/User/User.service';
@@ -173,9 +171,15 @@ export class ChatComponent implements OnInit {
 
 
   addUsuarioChat(user : ChatUsuariosBuscados){
-    this.listaUsuariosAbiertosChats.push(user);
+    if (this.listaUsuariosAbiertosChats.length <= 0) this.listaUsuariosAbiertosChats.push(user);
+    for( const userLista of this.listaUsuariosAbiertosChats){
+      if (user.User.Id == userLista.User.Id) break;
+      this.listaUsuariosAbiertosChats.push(user);
+    }
+    this.otroUsuarioChat = user;
+    this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
     this.BuscadorComponent.mostrarBuscador = false;
-
+    this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
   }
 
   setChatActivo(user : ChatUsuariosBuscados){

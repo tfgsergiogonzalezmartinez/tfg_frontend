@@ -8,36 +8,18 @@ import { Observable, filter, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService extends BaseService {
-  private socket$: WebSocketSubject<any>;
   private conversations: Map<string, any[]> = new Map();
 
-constructor(httpClient : HttpClient) {
-  super(httpClient);
-  this.controller = 'Chat';
-  this.socket$ = new WebSocketSubject(this.chatIp);
-
- }
- joinConversation(conversationId: string) {
-  if (!this.conversations.has(conversationId)) {
-    this.conversations.set(conversationId, []);
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+    this.controller = 'Chat';
   }
-  this.socket$.next({ action: 'JoinConversation', conversationId });
-}
 
-sendMessage(conversationId: string, message: any) {
-  this.socket$.next({ conversationId, ...message });
-}
-
-getMessages(conversationId: string): Observable<any> {
-  console.log(this.conversations);
-  return this.socket$.asObservable().pipe(
-    filter(msg => msg.conversationId === conversationId),
-    tap(msg => this.conversations.get(conversationId)?.push(msg))
-  );
-}
-
-getConversationMessages(conversationId: string): any[] {
-  return this.conversations.get(conversationId)!;
-}
+  public GetByUser(id: string) {
+    return this.httpClient.get(this.apiIp + this.controller + "/" + "GetByUser/" + id , {headers: this.getHeaders()} );
+  }
+  public GetByUsers(ids : string[]) {
+    return this.httpClient.get(this.apiIp + this.controller + "/" + "GetByUsers/" + ids , {headers: this.getHeaders()} );
+  }
 
 }
