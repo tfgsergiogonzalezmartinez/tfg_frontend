@@ -65,7 +65,7 @@ export class BuscadorUsuariosComponent implements OnInit {
   cargarFoto(user : UserGetDto, id : string) {
     this.userService.getFotoAvatar(id).subscribe({
       next: data => {
-        this.listaUsuariosBuscados.push({User: user , Imagen: data.Imagen});
+        this.listaUsuariosBuscados.push({User: user , Imagen: data.Imagen, MensajesNoLeidos: 0});
         console.log(data);
         // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },

@@ -5,4 +5,5 @@ export interface GetChatDto extends EntidadGetDto {
 
   UserIds: string[];
   Messages: Message[];
+  Abierto: boolean;
 }

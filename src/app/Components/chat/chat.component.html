@@ -22,9 +22,15 @@
         </div>
         @for (user of listaUsuariosAbiertosChats; track $index) {
         <div (click)="setChatActivo(user)"
-          class="flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
+          class="relative flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
           <img class="w-8 h-8 rounded-full" src="{{user.Imagen}}" alt="{{user.User.Nombre}}"
             title="{{user.User.Nombre}}">
+            @if (user.MensajesNoLeidos > 0) {
+              <div class="absolute flex justify-center items-center top-0 right-0 bg-red-600 text-white-900 w-4 h-4 rounded-full">
+                <span class="text-xs">{{user.MensajesNoLeidos}}</span>
+              </div>
+
+            }
           <!-- <span>{{user.}}</span> -->
         </div>
         }

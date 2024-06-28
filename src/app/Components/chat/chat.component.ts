@@ -5,6 +5,7 @@ import { UserService } from '../../../../Services/User/User.service';
 import { UserGetDto } from '../../../../dto/UserDto/UserGetDto';
 import { ChatUsuariosBuscados } from '../../../../Interfaces/Chat/ChatUsuariosBuscados';
 import { BuscadorUsuariosComponent } from '../BuscadorUsuarios/BuscadorUsuarios.component';
+import { ChatService } from '../../../../Services/Chat/Chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -41,7 +42,7 @@ export class ChatComponent implements OnInit {
   isConexionInciada = false;
   private connection: HubConnection;
 
-  constructor(private userService : UserService, private cdr : ChangeDetectorRef) {
+  constructor(private userService : UserService, private chatService : ChatService, private cdr : ChangeDetectorRef) {
     this.connection = new HubConnectionBuilder()
       .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}`, {
         withCredentials: true
@@ -79,12 +80,24 @@ export class ChatComponent implements OnInit {
 
   private recibirMensaje_privado(message: ChatMessage) {
     console.log('Mensaje directo recibido:', message);
+    this.actualizarMensajesNoLeidos(message.usuario); //Actualizo los mensajes no leidos a partir de la primera vez.
+    if (this.otroUsuarioChat && this.otroUsuarioChat.User.Id == message.usuario){
+      this.chatService.LeerChat(message.usuario, sessionStorage.getItem('Id')!).subscribe({
+        next: data => {
+          this.actualizarMensajesNoLeidos(message.usuario); //Actualizo los mensajes a 0 en caso de que esten leidos
+          console.log(data);
+        },
+        error: error => {
+          console.error("Error al descargar la foto", error);
+        }
+      });
+    }
     this.userService.GetById(message.usuario).subscribe({
       next: data =>{
         this.cargarFoto(data, message.usuario);
       },
       error: error => {
-        console.error("Error al descargar la foto", error);
+        console.error("Error al obtener el usuario.", error);
       }
     });
     this.listaConversacion.push(message);
@@ -146,6 +159,19 @@ export class ChatComponent implements OnInit {
     this.listaConversacion.push({ usuario: 'Sistema', mensaje: message });
   }
 
+  actualizarMensajesNoLeidos(idUsuario : string){
+    for(const user of this.listaUsuariosAbiertosChats){
+      if (user.User.Id == idUsuario){
+        this.chatService.GetNumMensajesSinLeer(idUsuario, sessionStorage.getItem('Id')!).subscribe({
+          next: data => {
+            user.MensajesNoLeidos = data.MensajesNoLeidos;
+          }
+        });
+        break;
+      }
+    }
+  }
+
   getListUsuariosBuscados(){
     return this.listaUsuariosBuscados;
   }
@@ -159,9 +185,9 @@ export class ChatComponent implements OnInit {
             if (user.User.Id == id) return;
           }
         }
-        this.listaUsuariosAbiertosChats.push({User: user , Imagen: data.Imagen});
+        this.listaUsuariosAbiertosChats.push({User: user , Imagen: data.Imagen, MensajesNoLeidos: 0});
+        this.actualizarMensajesNoLeidos(user.Id); //Actualizo los mensajes no leidos por primera vez
         console.log(data);
-        // this.fotoUrl = data.imagen; // Asume que el backend devuelve { imagen: "data:image/jpeg;base64,..." }
       },
       error: error => {
         console.error("Error al descargar la foto", error);
@@ -186,6 +212,14 @@ export class ChatComponent implements OnInit {
     // this.listaConversacion = [];
     this.otroUsuarioChat = user;
     this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
+    this.chatService.LeerChat(user.User.Id, sessionStorage.getItem('Id')!).subscribe({
+      next: data => {
+        console.log(data);
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
+      }
+    });
     this.BuscadorComponent.mostrarBuscador = false;
     this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
     // this.listaUsuariosAbiertosChats = [];
@@ -217,6 +251,5 @@ export class ChatComponent implements OnInit {
       })
       .catch(err => console.error('Send Message Error: ', err));
   }
-
 }
 
