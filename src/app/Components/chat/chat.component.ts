@@ -34,29 +34,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   inputMensaje: string = "";
 
   isConexionInciada = false;
-  private connection: HubConnection;
 
   constructor(private userService: UserService, private chatService: ChatService, private cdr: ChangeDetectorRef) {
-    this.connection = new HubConnectionBuilder()
-      .withUrl(`http://localhost:5059/WebChat?tipoComunicacion=${this.tipoComunicacion}&user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
-        withCredentials: true
-      })
-      .build();
-
-    this.connection.on("mensajePrivado", (message: ChatMessage) => this.recibirMensaje_privado(message));
+    this.chatService.iniciarConexion();
+    this.chatService.getHubConnection().on("mensajePrivadoChat", (message: ChatMessage) => this.recibirMensaje_privado(message));
 
   }
 
   ngOnInit(): void {
-    this.connection.start()
-      .then(() => {
-        console.log('Connection Started');
-        this.isConnectionEstablished = true;
-      })
-      .catch(error => {
-        console.error('Connection Error: ', error);
-        this.isConnectionEstablished = false;
-      });
+
     this.userService.getFotoAvatar(sessionStorage.getItem('Id')!).subscribe({
       next: data => {
         this.currentImage = data.Imagen;
@@ -91,7 +77,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.connection.stop()
+    this.chatService.getHubConnection().stop()
       .then(() => console.log('Connection Stopped'))
       .catch(error => console.error('Connection Stop Error: ', error));
   }
@@ -126,7 +112,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public join(grupo: string) {
-    this.connection.invoke('JoinGroup', grupo, this.user)
+    this.chatService.getHubConnection().invoke('JoinGroup', grupo, this.user)
       .then(() => this.connected = true)
       .catch(err => console.error('Join Group Error: ', err));
   }
@@ -206,12 +192,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     const newMessage: ChatMessage = {
       mensaje: this.inputMensaje,
       usuario: sessionStorage.getItem('Id')!,
-      grupo: this.tipoComunicacion,
       destinatario: this.otroUsuarioChat!.User.Id
     };
 
 
-    this.connection.invoke('onEnviarMensajeDirecto', newMessage)
+    this.chatService.getHubConnection().invoke('onEnviarMensajeDirectoChat', newMessage)
       .then(() => {
         this.listaConversacion.push(newMessage);
         this.inputMensaje = '';

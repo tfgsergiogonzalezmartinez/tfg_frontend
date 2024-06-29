@@ -7,6 +7,7 @@ import { SoporteService } from '../../../../Services/Soporte/Soporte.service';
 import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
 import { PeticionSoporteGetDto } from '../../../../dto/SoporteDto/PeticionSoporteGetDto';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { ChatService } from '../../../../Services/Chat/Chat.service';
 
 @Component({
   selector: 'app-SoportePage',
@@ -16,7 +17,6 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 export class SoportePageComponent implements OnInit {
   @ViewChild('chat') chatHtml!: ElementRef;
   tipoComunicacion: string = "Soporte";
-  private connection!: HubConnection;
   listaPeticiones : ChatUsuariosBuscados[] = [];
   otroUsuarioChat! : ChatUsuariosBuscados;
   listaConversacion: ChatMessage[] = [];
@@ -25,23 +25,17 @@ export class SoportePageComponent implements OnInit {
 
 
   constructor(private userService : UserService, private mainService : MainService,
-    private soporteService : SoporteService, private cdr : ChangeDetectorRef ) { }
+    private soporteService : SoporteService, private chatService : ChatService, private cdr : ChangeDetectorRef ) { }
 
   ngOnInit() {
-
+    this.iniciarConexionSoporte();
     this.cargarPeticiones();
     this.CargarFotoUsuario(sessionStorage.getItem('Id')!);
 
   }
 
-  iniciarChat(){
-    this.connection = new HubConnectionBuilder()
-      .withUrl(`http://localhost:5059/WebChat?tipoComunicacion=${this.tipoComunicacion}&user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
-        withCredentials: true
-      })
-      .build();
-
-    this.connection.on("mensajePrivado", (message: ChatMessage) => this.recibirMensaje_privado(message));
+  iniciarConexionSoporte(){
+    this.chatService.getHubConnection().on("mensajePrivadoSoporte", (message: ChatMessage) => this.recibirMensaje_privado(message));
   }
 
   private recibirMensaje_privado(message: ChatMessage) {
@@ -124,14 +118,24 @@ export class SoportePageComponent implements OnInit {
   }
 
   seleccionarConversacion(user: ChatUsuariosBuscados){
+
     this.otroUsuarioChat = user;
     this.listaConversacion = [];
-    for (const mensaje of this.otroUsuarioChat.Peticion!.Mensajes){
-      this.listaConversacion.push({
-        mensaje: mensaje.Msg,
-        usuario: mensaje.UserId,
-      });
-    }
+    this.soporteService.GetById(this.otroUsuarioChat.Peticion!.Id).subscribe({
+      next : data =>{
+        this.otroUsuarioChat.Peticion = data;
+        for (const mensaje of this.otroUsuarioChat.Peticion!.Mensajes){
+          this.listaConversacion.push({
+            mensaje: mensaje.Msg,
+            usuario: mensaje.UserId,
+          });
+        }
+      },
+      error : error =>{
+        console.log(error);
+      }
+    });
+
 
   }
 
@@ -139,12 +143,10 @@ export class SoportePageComponent implements OnInit {
     const newMessage: ChatMessage = {
       mensaje: this.inputMensaje,
       usuario: sessionStorage.getItem('Id')!,
-      grupo: this.tipoComunicacion,
       destinatario: this.otroUsuarioChat!.User.Id
     };
 
-
-    this.connection.invoke('onEnviarMensajeDirecto', newMessage)
+    this.chatService.getHubConnection().invoke('onEnviarMensajeDirectoSoporte', this.otroUsuarioChat.Peticion?.Id, newMessage)
       .then(() => {
         this.listaConversacion.push(newMessage);
         this.inputMensaje = '';

@@ -13,6 +13,8 @@ import { ChatMessage } from '../../Interfaces/Chat/ChatMessage';
   providedIn: 'root'
 })
 export class ChatService extends BaseService {
+  private connection!: HubConnection;
+  private isConnectionEstablished: boolean = false;
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
@@ -43,6 +45,32 @@ export class ChatService extends BaseService {
     const request : ChatUsuariosRequestDto = {UserId1 : idUser1, UserId2 : idUser2};
     return this.httpClient.post(this.apiIp + this.controller + "/" + "AbrirChat/" , request , {headers: this.getHeaders()} );
   }
+
+  public iniciarConexion(){
+    this.connection = new HubConnectionBuilder()
+      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
+        withCredentials: true
+      })
+      .build();
+
+      this.connection.start()
+      .then(() => {
+        console.log('Connection Started');
+        this.isConnectionEstablished = true;
+      })
+      .catch(error => {
+        console.error('Connection Error: ', error);
+        this.isConnectionEstablished = false;
+      });
+  }
+
+  public getHubConnection() {
+    return this.connection;
+  }
+
+
+
+
 
 
 }

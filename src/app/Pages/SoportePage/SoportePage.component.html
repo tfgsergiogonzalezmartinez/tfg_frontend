@@ -7,10 +7,10 @@
     </div>
   </div>
   @if (getUserService().isAdmin()) {
-    <div class=" flex flex-row h-full mb-20 bg-background rounded shadow-sm overflow-x-auto">
+    <div class=" flex flex-row h-full mb-20 bg-background rounded shadow-xl overflow-x-auto">
       <div class="flex flex-col w-full max-w-[300px] h-full bg-background-dark">
         <div class="flex flex-ro font-semibold w-full p-2 justify-center items-center border-b-2 border-text">
-          <h3>Peticiones</h3>
+          <h4>Peticiones Abiertas</h4>
         </div>
 
         <div class="flex flex-col w-full p-2 justify-center items-center">
@@ -41,9 +41,9 @@
             @if (otroUsuarioChat) {
               <div class="flex flex-row w-full p-2 gap-5 justify-center items-center border-b-2 border-text">
                 <img class="w-8 h-8 rounded-full" [src]="otroUsuarioChat.Imagen">
-                <h3>{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}} {{otroUsuarioChat.User.Apellido2}}</h3>
+                <h4>{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}} {{otroUsuarioChat.User.Apellido2}}</h4>
               </div>
-              <div class="flex flex-col p-2">
+              <div class="flex flex-col gap-2 p-2">
                 @for (message of listaConversacion; track $index) {
                   @if (message.usuario != getCurrentID()) {
                     <div class="flex flex-row mt-2 gap-2 px-2 text-split">
