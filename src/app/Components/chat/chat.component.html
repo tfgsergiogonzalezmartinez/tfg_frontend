@@ -39,7 +39,16 @@
         }
       </div>
       <div class="flex flex-col w-full h-full gap-2 p-1 justify-between">
-        <div #chat class="flex flex-col gap-1 overflow-y-auto " style="height: 350px;">
+        @if (otroUsuarioChat) {
+          <div class="flex flex-row justify-start items-center border-b-2 p-2">
+            <div class="flex flex-row gap-3 justify-center items-center">
+              <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}"
+                title="{{otroUsuarioChat.User.Nombre}}">
+              <h4 class="font-semibold">{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}}</h4>
+            </div>
+          </div>
+        }
+        <div #chat class="flex flex-col gap-1 overflow-y-auto " style="height: 300px;">
           @if (otroUsuarioChat) {
             @for (message of listaConversacion; track $index) {
               @if (message.usuario != getCurrentID()) {

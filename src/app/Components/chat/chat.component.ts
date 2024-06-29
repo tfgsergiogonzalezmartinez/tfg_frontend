@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService, private chatService: ChatService, private cdr: ChangeDetectorRef) {
     this.connection = new HubConnectionBuilder()
-      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}`, {
+      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
         withCredentials: true
       })
       .build();
@@ -118,6 +118,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         console.error("Error al obtener el usuario.", error);
       }
     });
+    //en caso de que no sea el usuario con el que tiene la conver abierta, saldra de la funcion, sino, añadira el mensaje.
+    if (this.otroUsuarioChat && this.otroUsuarioChat.User.Id != message.usuario) return
     this.listaConversacion.push(message);
 
   }
