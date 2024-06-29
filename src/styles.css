@@ -30,6 +30,8 @@
 
 
     --text-button: #ffffff;
+    --border: #bfbfc2e3;
+
   }
 
   .dark {
@@ -60,6 +62,7 @@
 
     --text-button: #000000;
     --header: #2b4eee;
+    --border: #202749;
 
 
   }

@@ -13,6 +13,7 @@ import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
 import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
 import { adminGuard } from './Guards/Admin.guard';
+import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 
 const routes: Routes = [
   { path: '', component: MainLayoutComponent , children: [
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: '', component: MainPageComponent },
     { path: 'settings', canActivate: [loginGuard], component: UserPageComponent },
     { path: 'administration', canActivate: [adminGuard], component: AdministracionPageComponent },
+    { path: 'soporte', canActivate: [loginGuard], component: SoportePageComponent },
   ]},
 
 

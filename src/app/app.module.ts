@@ -27,6 +27,8 @@ import { AdministracionPageComponent } from './Pages/AdministracionPage/Administ
 import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
 import { ChatComponent } from './Components/chat/chat.component';
 import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/BuscadorUsuarios.component';
+import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
+import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/Buscado
     AdministracionPageComponent,
     ToggleModeComponent,
     ChatComponent,
-    BuscadorUsuariosComponent
+    BuscadorUsuariosComponent,
+    SoportePageComponent,
+    ProyectosPageComponent
   ],
   imports: [
     BrowserModule,

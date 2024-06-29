@@ -6,6 +6,8 @@ import { Observable, filter, tap } from 'rxjs';
 import { MensajesNoLeidosDto } from '../../dto/ChatDto/MensajesNoLeidosDto';
 import { GetChatDto } from '../../dto/ChatDto/GetChatDto';
 import { ChatUsuariosRequestDto } from '../../dto/ChatDto/ChatUsuariosRequestDto';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { ChatMessage } from '../../Interfaces/Chat/ChatMessage';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +43,6 @@ export class ChatService extends BaseService {
     const request : ChatUsuariosRequestDto = {UserId1 : idUser1, UserId2 : idUser2};
     return this.httpClient.post(this.apiIp + this.controller + "/" + "AbrirChat/" , request , {headers: this.getHeaders()} );
   }
+
 
 }

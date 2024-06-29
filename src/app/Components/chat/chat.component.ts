@@ -18,11 +18,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   isConnectionEstablished: boolean = false;
 
   private listaUsuariosBuscados: ChatUsuariosBuscados[] = [];
+  tipoComunicacion: string = "Chat";
   mostrarBuscador: boolean = false;
   UserBuscar: string = "";
   UsuariosBuscados: UserGetDto[] = [];
   listaUsuariosAbiertosChats: ChatUsuariosBuscados[] = [];
-  isOpen = true;
+  isOpen = false;
   user = sessionStorage.getItem('Nombre')!;
   message = '';
   connected = false;
@@ -37,7 +38,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService, private chatService: ChatService, private cdr: ChangeDetectorRef) {
     this.connection = new HubConnectionBuilder()
-      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
+      .withUrl(`http://localhost:5059/WebChat?tipoComunicacion=${this.tipoComunicacion}&user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
         withCredentials: true
       })
       .build();
@@ -186,7 +187,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.otroUsuarioChat = user;
     this.chatService.LeerChat(user.User.Id, sessionStorage.getItem('Id')!).subscribe({
       next: data => {
-        this.actualizarMensajesNoLeidos(user.User.Id); //Actualizo los mensajes a 0 en caso de que esten leidos
+        this.actualizarMensajesNoLeidos(user.User.Id);
       },
       error: error => {
         console.error("Error al descargar la foto", error);
@@ -194,7 +195,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.scrollHastaAbajo();
     this.buscadorComponent.mostrarBuscador = false;
-    this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
+    this.isConexionInciada = false;
   }
 
   getCurrentID() {
@@ -205,8 +206,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     const newMessage: ChatMessage = {
       mensaje: this.inputMensaje,
       usuario: sessionStorage.getItem('Id')!,
-      grupo: sessionStorage.getItem('Id') + "$" + this.otroUsuarioChat!.User.Id,
-      destinatario: this.otroUsuarioChat!.User.Id // Asegúrate de tener el destinatario en el mensaje
+      grupo: this.tipoComunicacion,
+      destinatario: this.otroUsuarioChat!.User.Id
     };
 
 

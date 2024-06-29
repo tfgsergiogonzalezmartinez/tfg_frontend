@@ -20,7 +20,6 @@ constructor( protected httpClient : HttpClient) {
 
   public GetById(id : string){
     return this.httpClient.get<any>(this.apiIp + this.controller + '/' + id , {headers: this.getHeaders()});
-
   }
   public Create(entidad : any){
     return this.httpClient.post<any>(this.apiIp + this.controller + "/", entidad , {headers: this.getHeaders()});

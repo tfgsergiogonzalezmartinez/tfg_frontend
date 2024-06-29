@@ -1,0 +1,99 @@
+
+<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
+  <div class="flex flex-row justify-between p-2">
+    <h2>Soporte de Usuarios</h2>
+    <div class="flex">
+      <button>Nueva Peticion</button>
+    </div>
+  </div>
+  @if (getUserService().isAdmin()) {
+    <div class=" flex flex-row h-full mb-20 bg-background rounded shadow-sm overflow-x-auto">
+      <div class="flex flex-col w-full max-w-[300px] h-full bg-background-dark">
+        <div class="flex flex-ro font-semibold w-full p-2 justify-center items-center border-b-2 border-text">
+          <h3>Peticiones</h3>
+        </div>
+
+        <div class="flex flex-col w-full p-2 justify-center items-center">
+            @for (peticion of listaPeticiones; track $index) {
+            <div class="flex flex-row w-full gap-2 justify-between items-start border-b-2 border-border py-2 hover:bg-background-light cursor-pointer transition-colors" (click)="seleccionarConversacion(peticion)">
+              <div class="flex flex-row w-full gap-2 justify-start items-start">
+                <img class="w-8 h-8 rounded-full" [src]="peticion.Imagen">
+                <div class="flex flex-col justify-start items-start">
+                  <span class="text-text font-semibold">{{peticion.User.Nombre}} {{peticion.User.Apellido1}} {{peticion.User.Apellido2}}</span>
+                  <span class="text-xs text-text">{{peticion.User.Email}}</span>
+                </div>
+              </div>
+              <div class="flex flex-row justify-center items-center p-2">
+                <div class="flex flex-row justify-center items-center text-center">
+                  <span class="material-symbols-outlined text-2xl text-text hover:text-accent-dark transition-colors">
+                    more_vert
+                  </span>
+                </div>
+              </div>
+            </div>
+          }
+          </div>
+      </div>
+
+      <div class="flex flex-col w-full h-full">
+        <div class="flex flex-col h-full w-full justify-between">
+          <div #chat class="flex flex-col gap-1 h-full w-full text-split overflow-y-auto">
+            @if (otroUsuarioChat) {
+              <div class="flex flex-row w-full p-2 gap-5 justify-center items-center border-b-2 border-text">
+                <img class="w-8 h-8 rounded-full" [src]="otroUsuarioChat.Imagen">
+                <h3>{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}} {{otroUsuarioChat.User.Apellido2}}</h3>
+              </div>
+              <div class="flex flex-col p-2">
+                @for (message of listaConversacion; track $index) {
+                  @if (message.usuario != getCurrentID()) {
+                    <div class="flex flex-row mt-2 gap-2 px-2 text-split">
+                      <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
+                      <div class="flex text-text text-split bg-card-light rounded">
+                        <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                      </div>
+                    </div>
+                  }
+                  @if (message.usuario == getCurrentID()) {
+                    <div class="flex flex-row-reverse px-2 text-split gap-2">
+                      <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
+                      <div class="flex text-text text-split bg-card-light rounded">
+                        <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+          <div class="flex flex-row gap-2 p-2">
+            <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text"
+              [(ngModel)]="inputMensaje" (keydown.enter)="enviarMensaje()">
+            <div class="flex p-1 justify-center items-center bg-primary rounded" (click)="enviarMensaje()">
+              <span class="material-symbols-outlined text-xl text-text-button">
+                send
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+  }@else{
+
+
+
+
+  }
+</div>
+
+
+
