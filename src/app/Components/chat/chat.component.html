@@ -13,13 +13,13 @@
       </div>
     </div>
     <div class="flex flex-row w-full h-full">
-      <div class="flex flex-col h-full p-2 bg-background-dark">
-        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
+      <div class="flex flex-col h-full min-w-24 p-2 bg-background-dark">
+        <!-- <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
           <span class="font-bold text-lg">#</span><span>General</span>
         </div>
         <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors mb-2 pb-1 border-b-2 border-text">
           <span class="font-bold text-lg ">#</span><span>Soporte</span>
-        </div>
+        </div> -->
         @for (user of listaUsuariosAbiertosChats; track $index) {
         <div (click)="setChatActivo(user)"
           class="relative flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
@@ -43,18 +43,18 @@
           @if (otroUsuarioChat) {
             @for (message of listaConversacion; track $index) {
               @if (message.usuario != getCurrentID()) {
-                <div class="flex flex-row gap-2  text-split">
+                <div class="flex flex-row gap-2 px-2 text-split">
                   <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
-                  <div class="flex text-text text-split bg-card-light p-1 rounded">
-                    <p class="text-split">{{message.mensaje}}</p>
+                  <div class="flex text-text text-split bg-card-light rounded">
+                    <p class="text-split px-3 m-0">{{message.mensaje}}</p>
                   </div>
                 </div>
               }
               @if (message.usuario == getCurrentID()) {
-                <div class="flex flex-row-reverse text-split gap-2">
+                <div class="flex flex-row-reverse px-2 text-split gap-2">
                   <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
-                  <div class="flex text-text text-split bg-card-light p-1 rounded">
-                    <p class="text-split">{{message.mensaje}}</p>
+                  <div class="flex text-text text-split bg-card-light rounded">
+                    <p class="text-split px-3 m-0">{{message.mensaje}}</p>
                   </div>
                 </div>
               }
