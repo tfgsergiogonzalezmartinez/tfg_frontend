@@ -18,10 +18,10 @@ export class ChatService extends BaseService {
   }
 
   public GetByUser(id: string) {
-    return this.httpClient.get(this.apiIp + this.controller + "/" + "GetByUser/" + id , {headers: this.getHeaders()} );
+    return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetByUser/" + id , {headers: this.getHeaders()} );
   }
-  public GetByUsers(ids : string[]) {
-    return this.httpClient.get(this.apiIp + this.controller + "/" + "GetByUsers/" + ids , {headers: this.getHeaders()} );
+  public GetByUsers(userId1 : string, userId2 : string) {
+    return this.httpClient.get<GetChatDto>(this.apiIp + this.controller + "/" + "GetByUsers/" + userId1 + "/" + userId2 ,  {headers: this.getHeaders()} );
   }
   public GetChatsAbiertos(idUser : string) {
     return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetChatsAbiertos/" + idUser , {headers: this.getHeaders()} );

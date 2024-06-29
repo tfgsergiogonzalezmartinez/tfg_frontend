@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ChatMessage } from '../../../../Interfaces/Chat/ChatMessage';
 import { UserService } from '../../../../Services/User/User.service';
@@ -12,7 +12,7 @@ import { ChatService } from '../../../../Services/Chat/Chat.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild('buscador') BuscadorComponent! : BuscadorUsuariosComponent;
   isConnectionEstablished: boolean = false;
 
@@ -23,17 +23,9 @@ export class ChatComponent implements OnInit {
   listaUsuariosAbiertosChats: ChatUsuariosBuscados[] = [];
   isOpen = true;
   user = sessionStorage.getItem('Nombre')!;
-  group = '';
   message = '';
   connected = false;
-  listaConversacion: ChatMessage[] = [{
-    mensaje: 'Bienvenido',
-    usuario: 'Sistema'
-  },
-  {
-    mensaje: 'Escribe un mensaje para comenzar',
-    usuario: 'Usuario'
-  },];
+  listaConversacion: ChatMessage[] = [];
   currentUser!: UserGetDto;
   currentImage: string = "";
   otroUsuarioChat!: ChatUsuariosBuscados;
@@ -100,6 +92,12 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.connection.stop()
+      .then(() => console.log('Connection Stopped'))
+      .catch(error => console.error('Connection Stop Error: ', error));
+  }
+
   private recibirMensaje_privado(message: ChatMessage) {
     console.log('Mensaje directo recibido:', message);
     this.actualizarMensajesNoLeidos(message.usuario); //Actualizo los mensajes no leidos a partir de la primera vez.
@@ -128,9 +126,6 @@ export class ChatComponent implements OnInit {
   }
 
   private handleJoinGroup(group: string) {
-    this.join(group);
-    this.isConexionInciada = true;
-    this.group = group;
   }
 
   public join(grupo: string) {
@@ -143,7 +138,6 @@ export class ChatComponent implements OnInit {
     const newMessage: ChatMessage = {
       mensaje: this.message,
       usuario: this.user,
-      grupo: this.group,
     };
 
     this.connection.invoke('SendMessage', newMessage)
@@ -152,7 +146,7 @@ export class ChatComponent implements OnInit {
   }
 
   public leave() {
-    this.connection.invoke('LeaveGroup', this.group, this.user)
+    this.connection.invoke('LeaveGroup', this.user)
       .then(() => this.connected = false)
       .catch(err => console.error('Leave Group Error: ', err));
   }
@@ -164,14 +158,6 @@ export class ChatComponent implements OnInit {
 
   private newMessage(message: ChatMessage, group: string) {
     console.log(message);
-
-    // Si el grupo es diferente al actual, cambiar al nuevo grupo
-    if (this.group !== group) {
-      this.group = group;
-      this.isConexionInciada = true;
-    }
-
-    // this.listaConversacion.push(message);
     this.cdr.detectChanges();  // Asegurar que los cambios se detecten
   }
 
@@ -225,15 +211,13 @@ export class ChatComponent implements OnInit {
       this.abrirChat(user);
     }
     this.otroUsuarioChat = user;
-    this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
     this.BuscadorComponent.mostrarBuscador = false;
     this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
   }
 
   setChatActivo(user : ChatUsuariosBuscados){
-    // this.listaConversacion = [];
+    this.cargarMensajesBBDD(user);
     this.otroUsuarioChat = user;
-    this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
     this.chatService.LeerChat(user.User.Id, sessionStorage.getItem('Id')!).subscribe({
       next: data => {
         this.actualizarMensajesNoLeidos(user.User.Id); //Actualizo los mensajes a 0 en caso de que esten leidos
@@ -259,7 +243,6 @@ export class ChatComponent implements OnInit {
     };
 
     if (!this.isConexionInciada) {
-      this.group = newMessage.grupo!;
       this.join(newMessage.grupo!)!;
       this.isConexionInciada = true;
     }
@@ -276,6 +259,21 @@ export class ChatComponent implements OnInit {
     this.chatService.CerrarChat(sessionStorage.getItem('Id')!, user.User.Id).subscribe({
       next: data =>{
         this.listaUsuariosAbiertosChats = this.listaUsuariosAbiertosChats.filter(x => x.User.Id != user.User.Id);
+      }
+    });
+  }
+
+  cargarMensajesBBDD(user : ChatUsuariosBuscados){
+    this.listaConversacion = [];
+    this.chatService.GetByUsers(sessionStorage.getItem("Id")!, user.User.Id).subscribe({
+      next: data => {
+        for (const message of data.Mensajes){
+          const msg : ChatMessage = {mensaje: message.Msg, usuario: message.UserId};
+          this.listaConversacion.push(msg);
+        }
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
       }
     });
   }
