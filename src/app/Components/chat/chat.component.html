@@ -25,6 +25,9 @@
           class="relative flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
           <img class="w-8 h-8 rounded-full" src="{{user.Imagen}}" alt="{{user.User.Nombre}}"
             title="{{user.User.Nombre}}">
+            <div class="absolute flex justify-center items-center top-0 left-0 text-text w-4 h-4 rounded-full">
+              <span class="text-xs hover:text-red-600 hover:transition-colors p-1" (click)="cerrarChat(user)">x</span>
+            </div>
             @if (user.MensajesNoLeidos > 0) {
               <div class="absolute flex justify-center items-center top-0 right-0 bg-red-600 text-white-900 w-4 h-4 rounded-full">
                 <span class="text-xs">{{user.MensajesNoLeidos}}</span>

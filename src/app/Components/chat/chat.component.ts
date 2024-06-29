@@ -76,6 +76,28 @@ export class ChatComponent implements OnInit {
         console.error("Error al descargar la foto", error);
       }
     });
+
+    this.chatService.GetChatsAbiertos(sessionStorage.getItem('Id')!).subscribe({
+      next: data => {
+        for (const chat of data){
+          for (const user of chat.UserIds){
+            if (user != sessionStorage.getItem('Id')){  //si es distinto al usuario actual, cargamos su foto y sus mensajes no leidos
+              this.userService.GetById(user).subscribe({
+                next: data =>{
+                  this.cargarFoto(data, user);
+                },
+                error: error => {
+                  console.error("Error al obtener el usuario.", error);
+                }
+              });
+            }
+          }
+        }
+      },
+      error : error => {
+
+      }
+    });
   }
 
   private recibirMensaje_privado(message: ChatMessage) {
@@ -185,8 +207,8 @@ export class ChatComponent implements OnInit {
             if (user.User.Id == id) return;
           }
         }
-        this.listaUsuariosAbiertosChats.push({User: user , Imagen: data.Imagen, MensajesNoLeidos: 0});
-        this.actualizarMensajesNoLeidos(user.Id); //Actualizo los mensajes no leidos por primera vez
+        const chatUsuario : ChatUsuariosBuscados = {User: user , Imagen: data.Imagen, MensajesNoLeidos: 0};
+        this.abrirChat(chatUsuario);
         console.log(data);
       },
       error: error => {
@@ -197,10 +219,10 @@ export class ChatComponent implements OnInit {
 
 
   addUsuarioChat(user : ChatUsuariosBuscados){
-    if (this.listaUsuariosAbiertosChats.length <= 0) this.listaUsuariosAbiertosChats.push(user);
+    if (this.listaUsuariosAbiertosChats.length <= 0) this.abrirChat(user);
     for( const userLista of this.listaUsuariosAbiertosChats){
       if (user.User.Id == userLista.User.Id) break;
-      this.listaUsuariosAbiertosChats.push(user);
+      this.abrirChat(user);
     }
     this.otroUsuarioChat = user;
     this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
@@ -214,7 +236,7 @@ export class ChatComponent implements OnInit {
     this.group = sessionStorage.getItem('Id') + "$" + user.User.Id;
     this.chatService.LeerChat(user.User.Id, sessionStorage.getItem('Id')!).subscribe({
       next: data => {
-        console.log(data);
+        this.actualizarMensajesNoLeidos(user.User.Id); //Actualizo los mensajes a 0 en caso de que esten leidos
       },
       error: error => {
         console.error("Error al descargar la foto", error);
@@ -222,8 +244,6 @@ export class ChatComponent implements OnInit {
     });
     this.BuscadorComponent.mostrarBuscador = false;
     this.isConexionInciada = false; //Reinicio la conexion para que se vuelva a conectar con el nuevo chat tras el primer mensaje
-    // this.listaUsuariosAbiertosChats = [];
-    // this.listaUsuariosAbiertosChats.push(user);
   }
 
   getCurrentID(){
@@ -250,6 +270,27 @@ export class ChatComponent implements OnInit {
         this.inputMensaje = '';
       })
       .catch(err => console.error('Send Message Error: ', err));
+  }
+
+  cerrarChat(user : ChatUsuariosBuscados ){
+    this.chatService.CerrarChat(sessionStorage.getItem('Id')!, user.User.Id).subscribe({
+      next: data =>{
+        this.listaUsuariosAbiertosChats = this.listaUsuariosAbiertosChats.filter(x => x.User.Id != user.User.Id);
+      }
+    });
+  }
+
+
+  abrirChat(user : ChatUsuariosBuscados){
+    this.chatService.AbrirChat(sessionStorage.getItem('Id')!, user.User.Id).subscribe({
+      next: data =>{
+        this.listaUsuariosAbiertosChats.push(user);
+        this.actualizarMensajesNoLeidos(user.User.Id);
+      },
+      error: error => {
+        console.error("Error al descargar la foto", error);
+      }
+    });
   }
 }
 
