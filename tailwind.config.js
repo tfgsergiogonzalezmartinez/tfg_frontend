@@ -26,6 +26,7 @@ module.exports = {
       'card-dark': 'var(--card-dark)',
       'text-button': 'var(--text-button)',
       'border' : 'var(--border)',
+      'enlaces-hover' : 'var(--enlaces-hover)',
 
 
 

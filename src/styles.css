@@ -30,7 +30,9 @@
 
 
     --text-button: #ffffff;
+    --header: #2b4eee;
     --border: #bfbfc2e3;
+    --enlaces-hover: #2b4feea8;
 
   }
 
@@ -63,6 +65,7 @@
     --text-button: #000000;
     --header: #2b4eee;
     --border: #202749;
+    --enlaces-hover: #fcb42fd3;
 
 
   }

@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
-  selector: 'app-ProyectosPage',
-  templateUrl: './ProyectosPage.component.html',
-  styleUrls: ['./ProyectosPage.component.css']
+  selector: 'app-proyectoCard',
+  templateUrl: './proyectoCard.component.html',
+  styleUrls: ['./proyectoCard.component.css']
 })
-export class ProyectosPageComponent implements OnInit {
+export class ProyectoCardComponent implements OnInit {
+  plantilla : string = "tienda";
+
   constructor(private mainService : MainService) { }
 
   ngOnInit() {
   }
-
 
 
   getService(){

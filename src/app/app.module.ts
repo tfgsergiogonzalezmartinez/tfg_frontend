@@ -29,6 +29,7 @@ import { ChatComponent } from './Components/chat/chat.component';
 import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/BuscadorUsuarios.component';
 import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
+import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.comp
     ChatComponent,
     BuscadorUsuariosComponent,
     SoportePageComponent,
-    ProyectosPageComponent
+    ProyectosPageComponent,
+    ProyectoCardComponent
   ],
   imports: [
     BrowserModule,
