@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
       TituloPrincipal: "Soporte",
       Icono: "contact_support",
       Ruta: "/main/soporte",
-      Rol: "admin",
+      Rol: "all",
       Secciones: []
     },
     {

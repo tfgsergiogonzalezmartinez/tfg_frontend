@@ -3,6 +3,7 @@ import { BaseService } from '../Base.service';
 import { HttpClient } from '@angular/common/http';
 import { SoporteAsignarPeticionDto } from '../../dto/SoporteDto/SoporteAsignarPeticionDto';
 import { PeticionSoporteGetDto } from '../../dto/SoporteDto/PeticionSoporteGetDto';
+import { SoporteNuevaPeticionDto } from '../../dto/SoporteDto/SoporteNuevaPeticionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,16 @@ export class SoporteService extends BaseService {
     return this.httpClient.get<PeticionSoporteGetDto[]>(this.apiIp + this.controller + "/GetPeticionByUsuario/" + usuarioId, { headers: this.getHeaders() });
   }
   public AbrirPeticion(peticionId: string) {
-    return this.httpClient.post<PeticionSoporteGetDto>(this.apiIp + this.controller + "/AbrirPeticion/" , peticionId, { headers: this.getHeaders() });
+    const request : SoporteAsignarPeticionDto = {IdPeticion : peticionId};
+    return this.httpClient.post<PeticionSoporteGetDto>(this.apiIp + this.controller + "/AbrirPeticion/" , request, { headers: this.getHeaders() });
   }
-  public CerrarPeticion(peticionId: string) {
-    return this.httpClient.post<PeticionSoporteGetDto>(this.apiIp + this.controller + "/CerrarPeticion/" , peticionId, { headers: this.getHeaders() });
+  public CerrarPeticion(peticionId: string, idUserAdmin : string) {
+    const request : SoporteAsignarPeticionDto = {IdPeticion : peticionId, IdUsuarioAdmin : idUserAdmin};
+    return this.httpClient.post<PeticionSoporteGetDto>(this.apiIp + this.controller + "/CerrarPeticion/" , request, { headers: this.getHeaders() });
+  }
+  public NuevaPeticion(Asunto: string, Descripcion: string, usuarioId: string) {
+    const request : SoporteNuevaPeticionDto = {UserId : usuarioId, Asunto : Asunto, Descripcion : Descripcion};
+    return this.httpClient.post<PeticionSoporteGetDto>(this.apiIp + this.controller + "/NuevaPeticion/" , request, { headers: this.getHeaders() });
   }
   public GetPeticionesCerradas() {
     return this.httpClient.get<PeticionSoporteGetDto[]>(this.apiIp + this.controller + "/GetPeticionesCerradas", { headers: this.getHeaders() });

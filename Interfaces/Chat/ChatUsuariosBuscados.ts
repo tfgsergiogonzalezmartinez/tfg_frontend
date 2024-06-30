@@ -6,4 +6,5 @@ export interface ChatUsuariosBuscados {
   Imagen: string;
   MensajesNoLeidos: number;
   Peticion?: PeticionSoporteGetDto;
+  MostrarOpciones? : boolean;
 }

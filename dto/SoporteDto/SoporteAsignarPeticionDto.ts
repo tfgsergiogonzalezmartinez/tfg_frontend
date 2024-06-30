@@ -1,4 +1,4 @@
 export interface SoporteAsignarPeticionDto {
   IdPeticion: string;
-  IdUsuarioAdmin: string;
+  IdUsuarioAdmin?: string;
 }
