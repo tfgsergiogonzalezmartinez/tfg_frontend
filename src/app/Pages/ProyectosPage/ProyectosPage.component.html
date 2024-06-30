@@ -1,3 +1,12 @@
-<p>
-  ProyectosPage works!
-</p>
+<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
+  <div class="flex flex-row justify-between p-2">
+    <h2>Mis Proyectos</h2>
+    <div class="flex">
+      <button>Nuevo proyecto</button>
+    </div>
+  </div>
+  <div class="flex flex-col p-2">
+
+  </div>
+</div>
+ 
