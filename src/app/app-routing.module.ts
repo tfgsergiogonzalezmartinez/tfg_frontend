@@ -7,7 +7,6 @@ import { loginGuard } from './Guards/Login.guard';
 import { EditorLayoutComponent } from './Layout/EditorLayout/EditorLayout.component';
 import { MainPageComponent } from './Pages/MainPage/MainPage.component';
 import { NotFound404PageComponent } from './Pages/NotFound404Page/NotFound404Page.component';
-import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';

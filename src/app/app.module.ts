@@ -13,7 +13,6 @@ import { FooterComponent } from './Components/Footer/Footer.component';
 import { EditorLayoutComponent } from './Layout/EditorLayout/EditorLayout.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { HeaderDesplegableComponent } from './Components/HeaderDesplegable/HeaderDesplegable.component';
 import { SubMenuComponent } from './Components/SubMenu/SubMenu.component';
@@ -42,7 +41,6 @@ import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.co
     LoginPageComponent,
     HeaderComponent,
     FooterComponent,
-    PageLayoutComponent,
     PruebasPageComponent,
     HeaderDesplegableComponent,
     SubMenuComponent,
@@ -63,7 +61,7 @@ import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, //para los ngmodule y asi
+    FormsModule, //para los ngmodule
     HttpClientModule, //para los inject
 
   ],
