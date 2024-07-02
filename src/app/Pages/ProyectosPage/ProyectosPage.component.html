@@ -34,8 +34,9 @@
     </div>
     <div class="flex flex-col p-4 gap-3">
       <h4 class="font-semibold">Importar base de datos</h4>
-      <div class="flex flex-row gap-3">
-        <app-ImportarBaseDatos></app-ImportarBaseDatos>
+      <div class="flex flex-col gap-10">
+        <app-ImportarBaseDatos [NombreModelo]="'Producto'" [NombreDatos]="'Productos'"></app-ImportarBaseDatos>
+        <app-ImportarBaseDatos [NombreModelo]="'Categoria'" [NombreDatos]="'Categorias'"></app-ImportarBaseDatos>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<div [ngClass]="{'tiendaLight' : tipoPlantilla == 'Tienda' && getService().isModoClaro(), 'tiendaDark' : tipoPlantilla == 'Tienda' && getService().isModoOscuro()}" class="flex flex-col min-w-[250px] max-w-[250px] min-h-[130px] max-h-[130px] p-5 justify-center items-center rounded cursor-pointer shadow-2xl hover:scale-105 transition-all">
+<div (click)="setPlantillaSeleccionada()" [ngClass]="{'tiendaLight' : tipoPlantilla == 'Tienda' && getService().isModoClaro(), 'tiendaDark' : tipoPlantilla == 'Tienda' && getService().isModoOscuro()}" class="flex flex-col min-w-[250px] max-w-[250px] min-h-[130px] max-h-[130px] p-5 justify-center items-center rounded cursor-pointer shadow-2xl hover:scale-105 transition-all">
   <div class="flex flex-col w-full justify-center items-center">
     <h3 class="font-semibold">{{tipoPlantilla}}</h3>
   </div>

@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChi
 import { ProductoLink } from '../../../../dto/Plantillas/Tienda/ProductoLink';
 import { CategoriaLink } from '../../../../dto/Plantillas/Tienda/CategoriaLink';
 import { ImportadorService } from '../../../../Services/Importador/Importador.service';
+import { PlantillaDto } from '../../../../dto/Plantillas/Tienda/PlantillaDto';
+import { ProyectoService } from '../../../../Services/Proyecto/Proyecto.service';
 @Component({
   selector: 'app-ImportarBaseDatos',
   templateUrl: './ImportarBaseDatos.component.html',
@@ -9,15 +11,17 @@ import { ImportadorService } from '../../../../Services/Importador/Importador.se
 })
 export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
   @Input() NombreDatos : string = "Datos";
+  @Input() NombreModelo : string = "Datos";
   @ViewChild('input') inputRef! : ElementRef;
 
   isImportado : boolean = true;
 
-
-  modelo_tienda_producto_campos = ["Nombre", "Descripcion", "Precio", "Stock","Colores", "Tallas","FotoPrincipal", "Fotos", "Categoria"];
-  modelo_tienda_categoria_campos = ["Nombre", "CategoriaPadre"];
+  modelo_mostrar : string[] = [];
+  modelo_tienda_producto_campos : string[] = ["Nombre", "Descripcion", "Precio", "Stock","Colores", "Tallas","FotoPrincipal", "Fotos", "Categoria"];
+  modelo_tienda_categoria_campos : string[] = ["Nombre", "CategoriaPadre"];
   modelo_tienda_producto! :  ProductoLink & { [key: string]: any };
-  modelo_tienda_categoria! : CategoriaLink
+  modelo_tienda_categoria! : CategoriaLink & { [key: string]: any };
+  canContinuar : boolean = false;
 
   headers : string[] = [];
   data : any[] = [];
@@ -28,9 +32,17 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(private renderer : Renderer2, private importadorService : ImportadorService) { }
+
+
+  constructor(private renderer : Renderer2, private importadorService : ImportadorService, private proyectoService: ProyectoService) { }
 
   ngOnInit() {
+    if (this.NombreModelo == "Producto"){
+      this.modelo_mostrar = this.modelo_tienda_producto_campos;
+    }
+    if (this.NombreModelo == "Categoria"){
+      this.modelo_mostrar = this.modelo_tienda_categoria_campos;
+    }
   }
   ngAfterViewInit(): void {
     this.renderer.listen(this.inputRef.nativeElement, 'change', (event) => {
@@ -38,16 +50,44 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
     });
   }
 
-  producto_enlazar(campoProducto : string, campoArchivo: any){
+  producto_enlazar( campoProducto : string, campoArchivo: any){
     console.log(campoArchivo);
-    if (!this.modelo_tienda_producto) {
-      //productoLink es una interfaz
-      this.modelo_tienda_producto = {} as ProductoLink;
+    if (this.NombreModelo == "Producto"){
+      if (!this.modelo_tienda_producto) {
+        this.modelo_tienda_producto = {} as ProductoLink;
+        this.modelo_tienda_producto[campoProducto] = campoArchivo.target.value;
+        return;
+      }
       this.modelo_tienda_producto[campoProducto] = campoArchivo.target.value;
-      return;
+      console.log(this.modelo_tienda_producto);
     }
-    this.modelo_tienda_producto[campoProducto] = campoArchivo.target.value;
-    console.log(this.modelo_tienda_producto);
+
+    if (this.NombreModelo == "Categoria"){
+      if (!this.modelo_tienda_categoria) {
+        this.modelo_tienda_categoria = {} as CategoriaLink;
+        this.modelo_tienda_categoria[campoProducto] = campoArchivo.target.value;
+        return;
+      }
+      this.modelo_tienda_categoria[campoProducto] = campoArchivo.target.value;
+      console.log(this.modelo_tienda_categoria);
+    }
+
+    for (let campo of this.modelo_mostrar){
+      if (this.NombreModelo == "Producto" && !this.modelo_tienda_producto[campo]){
+        this.canContinuar = false;
+        return;
+      }
+      if (this.NombreModelo == "Categoria" && !this.modelo_tienda_categoria[campo]){
+        this.canContinuar = false;
+        return;
+      }
+    }
+    this.canContinuar = true;
+    const plantillaDto : PlantillaDto = {
+      CategoriaLink: this.modelo_tienda_categoria,
+      ProductoLink: this.modelo_tienda_producto
+    }
+    this.proyectoService.setPlantillaDto(plantillaDto);
   }
 
 
@@ -70,6 +110,10 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
         console.error('Error al cargar el archivo CSV:', error);
       });
     }
+  }
+
+  crearProyecto(){
+
   }
 
 }
