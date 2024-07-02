@@ -2,7 +2,7 @@
   <div class="flex flex-row justify-between p-2">
     <h2>Mis Proyectos</h2>
     <div class="flex">
-      <button>Nuevo proyecto</button>
+      <button (click)="getProyectosServices().crearProyecto()">Nuevo proyecto</button>
     </div>
   </div>
   <div class="flex flex-col p-2">
@@ -13,10 +13,36 @@
       <app-proyectoCard></app-proyectoCard>
       <app-proyectoCard></app-proyectoCard>
       <app-proyectoCard></app-proyectoCard>
-
-
-
     </div>
-
   </div>
 </div>
+
+
+@if (getProyectosServices().getIsNuevoProyecto()) {
+<app-modal (exitEventEmitter)="getProyectosServices().closeProyecto()">
+  <h1 titulo>Nuevo proyecto</h1>
+  <div body class="flex flex-col gap-1">
+    <div class="flex flex-col p-4 gap-3">
+      <h4 class="font-semibold">Nombre del proyecto</h4>
+      <app-inputForm [type]="'text'" [titulo]="'Nombre del proyecto'" [placeholder]="'Nombre del proyecto'"  (valueEventEmitter)="nombreProyecto = $event"></app-inputForm>
+    </div>
+    <div class="flex flex-col p-4 gap-3">
+      <h4 class="font-semibold">Seleccione plantilla</h4>
+      <div class="flex flex-row gap-3">
+        <app-plantillaCard></app-plantillaCard>
+      </div>
+    </div>
+    <div class="flex flex-col p-4 gap-3">
+      <h4 class="font-semibold">Importar base de datos</h4>
+      <div class="flex flex-row gap-3">
+        <app-ImportarBaseDatos></app-ImportarBaseDatos>
+      </div>
+    </div>
+  </div>
+</app-modal>
+
+
+
+
+
+}

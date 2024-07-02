@@ -29,6 +29,8 @@ import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/Buscado
 import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
 import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.component';
+import { PlantillaCardComponent } from './Components/plantillaCard/plantillaCard.component';
+import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/ImportarBaseDatos.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.co
     BuscadorUsuariosComponent,
     SoportePageComponent,
     ProyectosPageComponent,
-    ProyectoCardComponent
+    ProyectoCardComponent,
+    PlantillaCardComponent,
+    ImportarBaseDatosComponent
   ],
   imports: [
     BrowserModule,
