@@ -1,0 +1,102 @@
+<div class="fixed flex flex-col bottom-2 right-2">
+
+  <div [ngClass]="{'open':isOpen }" class="chatIcono bg-background shadow-2xll">
+    @if (isOpen) {
+    <div class="flex flex-row w-full gap-12 justify-between p-2">
+      <h3>Chat</h3>
+      <app-BuscadorUsuarios #buscador (usuarioEmitter)="addUsuarioChat($event)"></app-BuscadorUsuarios>
+      <div (click)="isOpen=false"
+        class="flex p-1 justify-center items-center rounded hover:bg-background-dark hover:transition-colors">
+        <span class="material-symbols-outlined text-text">
+          close
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-row w-full h-full">
+      <div class="flex flex-col h-full min-w-24 p-2 bg-background-dark">
+        <!-- <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors">
+          <span class="font-bold text-lg">#</span><span>General</span>
+        </div>
+        <div class="flex flex-row italic text-text hover:bg-background hover:transition-colors mb-2 pb-1 border-b-2 border-text">
+          <span class="font-bold text-lg ">#</span><span>Soporte</span>
+        </div> -->
+        @for (user of listaUsuariosAbiertosChats; track $index) {
+        <div (click)="setChatActivo(user)"
+          class="relative flex flex-row gap-2 justify-center items-center hover:bg-background hover:transition-colors">
+          <img class="w-8 h-8 rounded-full" src="{{user.Imagen}}" alt="{{user.User.Nombre}}"
+            title="{{user.User.Nombre}}">
+            <div class="absolute flex justify-center items-center top-0 left-0 text-text w-4 h-4 rounded-full">
+              <span class="text-xs hover:text-red-600 hover:transition-colors p-1" (click)="cerrarChat(user)">x</span>
+            </div>
+            @if (user.MensajesNoLeidos > 0) {
+              <div class="absolute flex justify-center items-center top-0 right-0 bg-red-600 text-white-900 w-4 h-4 rounded-full">
+                <span class="text-xs">{{user.MensajesNoLeidos}}</span>
+              </div>
+
+            }
+          <!-- <span>{{user.}}</span> -->
+        </div>
+        }
+      </div>
+      <div class="flex flex-col w-full h-full gap-2 p-1 justify-between">
+        @if (otroUsuarioChat) {
+          <div class="flex flex-row justify-start items-center border-b-2 p-2">
+            <div class="flex flex-row gap-3 justify-center items-center">
+              <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}"
+                title="{{otroUsuarioChat.User.Nombre}}">
+              <h4 class="font-semibold">{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}}</h4>
+            </div>
+          </div>
+        }
+        <div #chat class="flex flex-col gap-1 overflow-y-auto " style="height: 300px;">
+          @if (otroUsuarioChat) {
+            @for (message of listaConversacion; track $index) {
+              @if (message.usuario != getCurrentID()) {
+                <div class="flex flex-row gap-2 px-2 text-split">
+                  <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
+                  <div class="flex text-text text-split bg-card-light rounded">
+                    <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                  </div>
+                </div>
+              }
+              @if (message.usuario == getCurrentID()) {
+                <div class="flex flex-row-reverse px-2 text-split gap-2">
+                  <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
+                  <div class="flex text-text text-split bg-card-light rounded">
+                    <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                  </div>
+                </div>
+              }
+            }
+          }
+        </div>
+
+        <div class="flex flex-row gap-2 p-2">
+          <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text"
+            [(ngModel)]="inputMensaje" (keydown.enter)="enviarMensaje()">
+          <div class="flex p-1 justify-center items-center bg-primary rounded" (click)="enviarMensaje()">
+            <span class="material-symbols-outlined text-xl text-text-button">
+              send
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    }
+    @if (!isOpen) {
+    <div (click)="isOpen = true" class="flex w-full h-full justify-center items-center">
+      <span class="material-symbols-outlined text-text">
+        chat
+      </span>
+    </div>
+    }
+  </div>
+
+
+
+
+
+</div>

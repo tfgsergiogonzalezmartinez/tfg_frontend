@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-inputForm',
@@ -9,6 +9,7 @@ export class InputFormComponent implements OnInit {
   @Input() titulo : string = "";
   @Input() placeholder : string = "";
   @Input() type : string = "text";
+  @Input() isDescripcion : boolean = false;
   value : string = "";
 
   @Output() valueEventEmitter : EventEmitter<string> = new EventEmitter<string>();

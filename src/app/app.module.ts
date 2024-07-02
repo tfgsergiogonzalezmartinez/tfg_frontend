@@ -23,6 +23,12 @@ import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { InputFormComponent } from './Components/inputForm/inputForm.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
+import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
+import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
+import { ChatComponent } from './Components/chat/chat.component';
+import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/BuscadorUsuarios.component';
+import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
+import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
 
 
 @NgModule({
@@ -44,13 +50,20 @@ import { EstilosComponent } from './Components/estilos/estilos.component';
     UserPageComponent,
     InputFormComponent,
     ModalComponent,
-    EstilosComponent //quitar, es de pruebas
+    EstilosComponent, //quitar, es de pruebas
+    AdministracionPageComponent,
+    ToggleModeComponent,
+    ChatComponent,
+    BuscadorUsuariosComponent,
+    SoportePageComponent,
+    ProyectosPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, //para los ngmodule y asi
-    HttpClientModule //para los inject
+    HttpClientModule, //para los inject
+
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

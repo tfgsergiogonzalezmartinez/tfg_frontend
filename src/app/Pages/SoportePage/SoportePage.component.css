@@ -1,0 +1,4 @@
+.text-split{
+  overflow-wrap: break-word;
+  word-break: break-all
+}

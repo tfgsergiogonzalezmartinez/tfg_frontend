@@ -10,7 +10,7 @@
     --primary: #2b4eee;
     --secondary: #fcb42f;
     --accent: #2802ff;
-    --card: #3446cc42;
+    --card: #3446cc8a;
 
     /* Tonalidades suaves */
     --text-light: #111942;
@@ -18,7 +18,7 @@
     --primary-light: #6881f0;
     --secondary-light: rgb(247, 200, 114);
     --accent-light: #4727fa;
-    --card-light: #4655c942;
+    --card-light: #707ac9c0;
 
     /* Tonalidades fuertes */
     --text-dark: #090d22;
@@ -26,10 +26,12 @@
     --primary-dark: #143cf1;
     --secondary-dark: rgb(211, 139, 4);
     --accent-dark: #1f01ca;
-    --card-dark: #2135c742;
+    --card-dark: #1727a18a;
 
 
     --text-button: #ffffff;
+    --border: #bfbfc2e3;
+
   }
 
   .dark {
@@ -38,7 +40,7 @@
     --primary: #fcb42f;
     --secondary: #4767f5e5;
     --accent: #ffd000;
-    --card: #2a4bad93;
+    --card: #2a4bade5;
 
 
     /* Tonalidades suaves */
@@ -60,9 +62,27 @@
 
     --text-button: #000000;
     --header: #2b4eee;
+    --border: #202749;
 
 
   }
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-custom-dark-default {
+  background-image: url('assets/background_dark_default.svg');
+  background-size: cover; /* Ajusta el tamaño del fondo */
+  background-position: center; /* Centra el fondo */
+  background-repeat: no-repeat; /* Evita que se repita el fondo */
+}
+.bg-custom-default {
+  background-image: url('assets/background_light_default.svg');
+  background-size: cover; /* Ajusta el tamaño del fondo */
+  background-position: center; /* Centra el fondo */
+  background-repeat: no-repeat; /* Evita que se repita el fondo */
 }
 
 header {

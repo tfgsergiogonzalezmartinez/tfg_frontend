@@ -1,0 +1,124 @@
+
+<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
+  <div class="flex flex-row justify-between p-2">
+    <h2>Soporte de Usuarios</h2>
+    @if (!getUserService().isAdmin()) {
+      <div class="flex">
+        <button (click)="nuevaPeticion()">Nueva Peticion</button>
+      </div>
+    }
+  </div>
+    <div class=" flex flex-row h-full mb-20 bg-background rounded shadow-xl overflow-x-auto">
+      <div class="flex flex-col w-full max-w-[300px] h-full bg-background-dark">
+        <div class="flex flex-ro font-semibold w-full p-2 justify-center items-center border-b-2 border-text">
+          @if (getUserService().isAdmin()) {
+            <h4>Peticiones Abiertas</h4>
+          }@else {
+            <h4>Mis Peticiones</h4>
+          }
+        </div>
+
+        <div class="flex flex-col w-full p-2 justify-center items-center">
+            @for (peticion of listaPeticionesAbiertas; track $index) {
+            <div class="flex flex-row w-full gap-2 justify-between items-start border-b-2 border-border py-2 hover:bg-background-light cursor-pointer transition-colors" (click)="seleccionarConversacion(peticion)">
+              <div class="flex flex-row w-full gap-2 justify-start items-start">
+                <img class="w-8 h-8 rounded-full" [src]="peticion.Imagen">
+                <div class="flex flex-col justify-start items-start">
+                  <span class="text-text font-semibold">{{peticion.User.Nombre}} {{peticion.User.Apellido1}} {{peticion.User.Apellido2}}</span>
+                  <span class="text-xs text-text">{{peticion.User.Email}}</span>
+                </div>
+              </div>
+              <div class="flex flex-row justify-center items-center p-2">
+                <div (click)="toggleMostrarOpcionesPeticion($event, peticion)" class="relative flex flex-row justify-center items-center text-center">
+                  <span class="material-symbols-outlined text-2xl text-text hover:text-accent-dark transition-colors">
+                    more_vert
+                  </span>
+                  @if (peticion.MostrarOpciones) {
+                    <div class="absolute flex flex-col bg-background shadow-md rounded text-s justify-start items-start top-7 left-2">
+                      <div (click)="cerrarPeticion($event, peticion)" class="flex flex-row p-2 justify-center items-center transition-colors hover:bg-background-light cursor-pointer">
+                        <span>Finalizar</span>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+          </div>
+      </div>
+
+      <div class="flex flex-col w-full h-full">
+        <div class="flex flex-col h-full w-full justify-between">
+          <div #chat class="flex flex-col gap-1 h-full w-full text-split overflow-y-auto">
+            @if (otroUsuarioChat) {
+              <div class="flex flex-row w-full p-2 gap-5 justify-center items-center border-b-2 border-text">
+                <img class="w-8 h-8 rounded-full" [src]="otroUsuarioChat.Imagen">
+                <h4>{{otroUsuarioChat.User.Nombre}} {{otroUsuarioChat.User.Apellido1}} {{otroUsuarioChat.User.Apellido2}}</h4>
+              </div>
+              <div class="flex flex-col gap-2 p-2">
+                @for (message of listaConversacion; track $index) {
+                  @if (message.usuario != getCurrentID()) {
+                    <div class="flex flex-row mt-2 gap-2 px-2 text-split">
+                      @if (getUserService().isAdmin()) {
+                        <img class="w-8 h-8 rounded-full" src="{{otroUsuarioChat.Imagen}}" alt="{{otroUsuarioChat.User.Nombre}}" title="{{otroUsuarioChat.User.Nombre}}">
+                      }@else {
+                        <img class="w-8 h-8 rounded-full" src="assets/avatar/Soporte.png"  alt="Soporte" title="Soporte">
+                      }
+                      <div class="flex text-text text-split bg-card-light rounded">
+                        <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                      </div>
+                    </div>
+                  }
+                  @if (message.usuario == getCurrentID()) {
+                    <div class="flex flex-row-reverse px-2 text-split gap-2">
+                      <img class="w-8 h-8 rounded-full" src="{{currentImage}}">
+                      <div class="flex text-text text-split bg-card-light rounded">
+                        <p class="text-split px-3 m-0">{{message.mensaje}}</p>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+          <div class="flex flex-row gap-2 p-2">
+            <input class="w-full p-2 border border-black-800 bg-background-light rounded-md" type="text"
+              [(ngModel)]="inputMensaje" (keydown.enter)="enviarMensaje()">
+            <div class="flex p-1 justify-center items-center bg-primary rounded" (click)="enviarMensaje()">
+              <span class="material-symbols-outlined text-xl text-text-button">
+                send
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+</div>
+
+@if (isNuevaPeticion) {
+  <app-modal (exitEventEmitter)="cancelarPeticion()">
+    <div titulo>
+      <h2>Nueva Peticion</h2>
+    </div>
+    <div body class="flex flex-col gap-16 justify-between">
+      <div class="flex flex-col gap-2">
+        <app-inputForm (valueEventEmitter)="Asunto=$event" [titulo]="'Asunto'" [placeholder]="'Asunto de la Peticion'" [type]="'text'" ></app-inputForm>
+        <app-inputForm [isDescripcion]="true" (valueEventEmitter)="Descripcion=$event" [titulo]="'Descripcion'" [placeholder]="'Descripcion del problema...'" [type]="'description'" ></app-inputForm>
+      </div>
+      <div class="flex justify-center flex-row gap-5">
+        <button class="w-full h-10" (click)="enviarPeticion()">Enviar</button>
+        <button class="w-full h-10" (click)="cancelarPeticion()">Cancelar</button>
+      </div>
+    </div>
+  </app-modal>
+}
+
+
+

@@ -25,6 +25,7 @@ module.exports = {
       'card-light': 'var(--card-light)',
       'card-dark': 'var(--card-dark)',
       'text-button': 'var(--text-button)',
+      'border' : 'var(--border)',
 
 
 

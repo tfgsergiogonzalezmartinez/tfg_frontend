@@ -1,31 +1,48 @@
-<div #userDropDown class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative" (click)="toggle_userDropDown()">
-  <div class="flex justify-center items-center">
-    <span class=" text-3xl material-symbols-outlined text-text dark:text-text ">
-      person
-    </span>
-  </div>
-  <div class="flex flex-col justify-start items-start">
-    <span  class="text-text font-semibold">{{Nombre}} {{Apellido1}}</span>
-    <span  class="text-text text-xs">{{Email}}</span>
-  </div>
-  <div class="flex flex-row flex-nowrap justify-center items-center text-text " >
-    @if (user_dropDown) {
-      <span class=" material-symbols-outlined w-full">
-        arrow_drop_up
+@if (getService().isLogin()) {
+
+
+
+
+  <div #userDropDown class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative" (click)="toggle_userDropDown()">
+    <div class="flex justify-center items-center">
+      <span class=" text-3xl material-symbols-outlined text-text dark:text-text ">
+        person
       </span>
-    }
-    @if (!user_dropDown) {
-      <span class=" material-symbols-outlined w-full">
-        arrow_drop_down
-      </span>
-    }
-  </div>
-  @if (user_dropDown) {
-    <div class="absolute w-full top-12 p-2 bg-background shadow-2xl ">
-      <div class="flex flex-col">
-        <a (click)="goTo('Configuracion')" class="text-text w-full text-start p-1 cursor-pointer hover:bg-background-light">Configuracion</a>
-        <a (click)="goTo('CerrarSesion')" class="text-text w-full text-start p-1 cursor-pointer  hover:bg-background-light">Cerrar Sesion</a>
-      </div>
     </div>
-  }
-</div>
+    <div class="flex flex-col justify-start items-start">
+      <span  class="text-text font-semibold">{{Nombre}} {{Apellido1}}</span>
+      <span  class="text-text text-xs">{{Email}}</span>
+    </div>
+    <div class="flex flex-row flex-nowrap justify-center items-center text-text " >
+      @if (user_dropDown) {
+        <span class=" material-symbols-outlined w-full">
+          arrow_drop_up
+        </span>
+      }
+      @if (!user_dropDown) {
+        <span class=" material-symbols-outlined w-full">
+          arrow_drop_down
+        </span>
+      }
+    </div>
+    @if (user_dropDown) {
+      <div class="absolute w-full top-12 p-2 bg-background shadow-2xl ">
+        <div class="flex flex-col">
+          <a (click)="goTo('Configuracion')" class="text-text w-full text-start p-1 cursor-pointer hover:bg-background-light">Configuracion</a>
+          <a (click)="goTo('CerrarSesion')" class="text-text w-full text-start p-1 cursor-pointer  hover:bg-background-light">Cerrar Sesion</a>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+@if (!getService().isLogin()) {
+  <div class="flex flex-row justify-center items-center  px-2">
+    <div class="flex flex-row gap-2 justify-center items-center">
+      <a (click)="goTo('Login')" class="text-text font-semibold cursor-pointer">Iniciar Sesion</a>
+      <a (click)="goTo('Register')" class="text-primary font-semibold  cursor-pointer">Registrarse</a>
+
+    </div>
+  </div>
+
+}

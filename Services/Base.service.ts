@@ -7,33 +7,34 @@ import { Injectable } from '@angular/core';
 export class BaseService {
 
 protected controller : string;
-protected ip : string = 'http://localhost:5059/api/';  //TODO CAMBIAR por variables de entorno [enviroment]
+protected chatIp : string = 'ws://localhost:5059/WebChat';  //TODO CAMBIAR por variables de entorno [enviroment]
+protected ip : string = 'http://localhost:5059/';  //TODO CAMBIAR por variables de entorno [enviroment]
+protected apiIp : string = 'http://localhost:5059/api/';  //TODO CAMBIAR por variables de entorno [enviroment]
 constructor( protected httpClient : HttpClient) {
   this.controller = 'Base';
  }
 
   public GetAll(){
-    return this.httpClient.get(this.ip + this.controller , {headers: this.getHeaders()});
+    return this.httpClient.get<any>(this.apiIp + this.controller , {headers: this.getHeaders()});
   }
 
   public GetById(id : string){
-    return this.httpClient.get(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
-
+    return this.httpClient.get<any>(this.apiIp + this.controller + '/' + id , {headers: this.getHeaders()});
   }
   public Create(entidad : any){
-    return this.httpClient.post(this.ip + this.controller + "/", entidad , {headers: this.getHeaders()});
+    return this.httpClient.post<any>(this.apiIp + this.controller + "/", entidad , {headers: this.getHeaders()});
   }
   public Update(id : string, entidad : any){
-    return this.httpClient.put(this.ip + this.controller + "/" + id, entidad, {headers: this.getHeaders()});
+    return this.httpClient.put<any>(this.apiIp + this.controller + "/" + id, entidad, {headers: this.getHeaders()});
   }
   public UpdateObj(entidad : any){
-    return this.httpClient.put(this.ip + this.controller + "/" + entidad , {headers: this.getHeaders()});
+    return this.httpClient.put<any>(this.apiIp + this.controller + "/", entidad , {headers: this.getHeaders()});
   }
   public Delete(id : string){
-    return this.httpClient.delete(this.ip + this.controller + '/' + id , {headers: this.getHeaders()});
+    return this.httpClient.delete<any>(this.apiIp + this.controller + '/' + id , {headers: this.getHeaders()});
   }
   public DeleteObj(entidad : any){
-    return this.httpClient.delete(this.ip + this.controller + '/' + entidad , {headers: this.getHeaders()});
+    return this.httpClient.delete<any>(this.apiIp + this.controller + '/' + entidad , {headers: this.getHeaders()});
   }
 
   protected getHeaders(){

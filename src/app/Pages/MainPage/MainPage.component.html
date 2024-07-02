@@ -1,33 +1,36 @@
-<body class="bg-background text-text ">
-  <header class="min-h-screen flex items-center justify-center bg-custom">
+<div class="flex flex-col bg-background text-text h-screen">
+  <div [ngClass]="{'bg-custom-dark' : getService().isModoOscuro(), 'bg-custom' : getService().isModoClaro }"
+    class="flex w-full min-h-screen h-[100vh] items-center justify-center">
     <div class="text-center">
       <h1 class="text-4xl font-bold mb-4">Crea proyectos Web sin saber programar</h1>
-      <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code> de despliegie a traves de la importación de un fichero <code>XML</code> con la estructura de la base de datos.
+      <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code>
+        de despliegie a traves de la importación de un fichero <code>XML</code> con la estructura de la base de datos.
       </p>
-      <a href="#" class="bg-secondary text-text font-bold py-2 px-4 rounded ">Comienza ahora</a>
-      <a href="#" class="bg-accent text-text-button font-bold py-2 px-4 ml-4 rounded ">Buscar...</a>
+      <a class="bg-secondary text-text font-bold py-2 px-4 rounded ">Comienza ahora</a>
+      <a class="bg-accent text-text-button font-bold py-2 px-4 ml-4 rounded ">Buscar...</a>
     </div>
-  </header>
-  <main class="p-8">
-    <section class="flex flex-col items-center">
+  </div>
+  <div [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }"
+    class="flex w-full min-h-screen h-[100vh]">
+    <div class="flex w-full h-full justify-center items-center">
       <div class="bg-card flex flex-col justify-center items-center rounded-xl p-8">
         <app-UserAvatar [imgRoute]="'assets/avatar/Sergio.jpg'"></app-UserAvatar>
         <h1 class="border-b-2 border-accent w-full text-center"> Tabajo Final de Grado</h1>
         <h3 class="pt-2"> Creador de paginas Web y despligue Automatico</h3>
         <div class="flex flex-col w-full pt-6 space-y-4 justify-center items-center">
           <blockquote class="flex w-full justify-center items-center">
-              <img class="h-32" src="assets/icon/University-of-Burgos.png" alt="">
+            <img class="h-32" src="assets/icon/University-of-Burgos.png" alt="">
           </blockquote>
-          <figcaption class="font-medium">
-            <div class="text-primary text-center">
+          <figcaption class="">
+            <div class="text-text text-center text-xl font-bold">
               Sergio Gonzalez Martinez
             </div>
-            <div class="text-text">
+            <div class="text-text font-medium">
               Trabajo Final de Grado realizado en la Universidad De Burgos.
             </div>
           </figcaption>
         </div>
       </div>
-    </section>
-  </main>
-</body>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="flex flex-row w-full h-full justify-center relative">
+  <input class="w-full h-full px-2 text-text bg-background-light rounded" type="text" placeholder="Buscar usuarios..." (ngModelChange)="buscarUsuarios()"  [(ngModel)]="UserBuscar" >
+  @if (getListUsuariosBuscados().length > 0 && UserBuscar.length > 0 && mostrarBuscador) {
+    <div #Buscador class="flex flex-col gap-2 left-0 top-10 p-2 w-full bg-background-dark rounded shadow absolute">
+      @for (user of getListUsuariosBuscados() ; track $index) {
+        <div (click)="ClickUsuario(user)" class="flex flex-row p-1 gap-2 justify-center items-center hover:bg-background hover:transition-colors text-center">
+          <img class="rounded-full w-8" src="{{user.Imagen}}" alt="{{user.User.Nombre+' '+user.User.Apellido1}}">
+          <span>{{user.User.Nombre + ' ' + user.User.Apellido1 }}</span>
+        </div>
+      }
+    </div>
+  }
+</div>

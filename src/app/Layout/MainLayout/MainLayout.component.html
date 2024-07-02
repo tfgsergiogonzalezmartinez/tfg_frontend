@@ -1,5 +1,10 @@
-<div class="">
+
   <app-Header></app-Header>
-  <router-outlet></router-outlet>
-</div>
+  <router-outlet class=""></router-outlet>
+  @if (getUserService().isLogin()) {
+    <app-chat></app-chat>
+  }
+
+
+
 

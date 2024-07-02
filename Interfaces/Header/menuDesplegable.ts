@@ -3,4 +3,5 @@ export interface MenuDesplegable {
   Icono? : string;
   Ruta: string;
   Secciones: MenuDesplegable[];
+  Rol : string;
 }

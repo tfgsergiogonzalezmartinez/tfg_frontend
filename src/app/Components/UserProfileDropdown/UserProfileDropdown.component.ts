@@ -1,6 +1,6 @@
 import { Component, ElementRef, Host, HostListener, OnInit, Renderer2, ViewChild, viewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { UserService } from '../../../../Services/User.service';
+import { UserService } from '../../../../Services/User/User.service';
 
 @Component({
   selector: 'app-UserProfileDropdown',
@@ -66,9 +66,20 @@ export class UserProfileDropdownComponent implements OnInit {
       this.router.navigate(['/main/settings']);
       return;
     }
+    if (route == "Login") {
+      this.userService.setIsRegisterFromMain(false);
+      this.router.navigate(['/login']);
+      return;
+    }
+    if (route == "Register") {
+      this.userService.setIsRegisterFromMain(true);
+      this.router.navigate(['/login']);
+      return;
+    }
+  }
 
-
-
+  getService(){
+    return this.userService;
   }
 
 

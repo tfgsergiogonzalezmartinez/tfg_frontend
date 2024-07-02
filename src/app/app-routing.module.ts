@@ -11,17 +11,28 @@ import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
+import { AdministracionPageComponent } from './Pages/AdministracionPage/AdministracionPage.component';
+import { adminGuard } from './Guards/Admin.guard';
+import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
+import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
 
 const routes: Routes = [
-  { path: '', component: LoginLayoutComponent , children: [
-    { path: '', component: LoginPageComponent },
-
-  ]},
-
-  { path: 'main', component : MainLayoutComponent, canActivate: [loginGuard], children: [
+  { path: '', component: MainLayoutComponent , children: [
     { path: '', component: MainPageComponent },
-    { path: 'settings', component: UserPageComponent },
   ]},
+  { path: 'login', component: LoginLayoutComponent , children: [
+    { path: '', component: LoginPageComponent },
+  ]},
+
+  { path: 'main', component : MainLayoutComponent, children: [
+    { path: '', component: MainPageComponent },
+    { path: 'settings', canActivate: [loginGuard], component: UserPageComponent },
+    { path: 'administration', canActivate: [adminGuard], component: AdministracionPageComponent },
+    { path: 'soporte', canActivate: [loginGuard], component: SoportePageComponent },
+    { path: 'proyectos', canActivate: [loginGuard], component: ProyectosPageComponent },
+  ]},
+
+
 
 
 

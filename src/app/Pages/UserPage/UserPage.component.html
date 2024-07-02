@@ -1,17 +1,31 @@
-<div class="flex flex-col p-5">
+<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background">
   <h2>Configuracion de Usuario</h2>
-  <div class="flex flex-col">
-    <h3 class="my-4">Datos Personales</h3>
-    <div class="flex flex-row gap-3">
-      <app-inputForm titulo="Nombre" type="text" placeholder="{{Nombre}}" (valueEventEmitter)="Nombre=$event"></app-inputForm>
-      <app-inputForm titulo="Primer Apellido" type="text" placeholder="{{Apellido1}}" (valueEventEmitter)="Apellido1=$event"></app-inputForm>
-      <app-inputForm titulo="Segundo Apellido" type="text" placeholder="{{Apellido2}}" (valueEventEmitter)="Apellido1=$event"></app-inputForm>
+  <div class="flex flex-row gap-10">
+    <div class="flex flex-col gap-2">
+      <h3 class="my-4">Foto de Perfil</h3>
+      <div class="flex flex-row justify-center items-center">
+        <img class="w-[150px] h-[150px] rounded-full shadow-sm border-" [src]="fotoUrl" alt="Foto de perfil">
+      </div>
+      <div class="flex flex-row gap-3 justify-center items-center">
+        <div class="flex flex-col">
+          <button (click)="activarInput()" class="px-3 m-0 h-10">Cargar Imagen</button>
+          <input #CargarImagenInput type="file" (change)="onArchivoSeleccionado($event)" class="inputFIle">
+        </div>
+      </div>
     </div>
-    <h3 class="my-4">Credenciales</h3>
-    <div class="flex flex-row gap-3">
-      <app-inputForm titulo="Email" type="email" placeholder="{{Email}}" (valueEventEmitter)="Email=$event"></app-inputForm>
-      <div class="flex items-end">
-        <button (click)="activarCambioDePassword()" class="px-3 m-0 h-10">Cambiar Contraseña</button>
+    <div class="flex flex-col">
+      <h3 class="my-4">Datos Personales</h3>
+      <div class="flex flex-row gap-3">
+        <app-inputForm titulo="Nombre" type="text" placeholder="{{Nombre}}" (valueEventEmitter)="Nombre=$event"></app-inputForm>
+        <app-inputForm titulo="Primer Apellido" type="text" placeholder="{{Apellido1}}" (valueEventEmitter)="Apellido1=$event"></app-inputForm>
+        <app-inputForm titulo="Segundo Apellido" type="text" placeholder="{{Apellido2}}" (valueEventEmitter)="Apellido1=$event"></app-inputForm>
+      </div>
+      <h3 class="my-4">Credenciales</h3>
+      <div class="flex flex-row gap-3">
+        <app-inputForm titulo="Email" type="email" placeholder="{{Email}}" (valueEventEmitter)="Email=$event"></app-inputForm>
+        <div class="flex items-end">
+          <button (click)="activarCambioDePassword()" class="px-3 m-0 h-10">Cambiar Contraseña</button>
+        </div>
       </div>
     </div>
   </div>
