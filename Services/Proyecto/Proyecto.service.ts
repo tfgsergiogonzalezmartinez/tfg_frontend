@@ -55,11 +55,7 @@ export class ProyectoService extends BaseService {
     this.isNuevoProyecto = true;
   }
 
-  generarPoryecto() {
-    console.log(this.plantillaDto);
-    console.log(this.nuevoProyecto);
 
-  }
 
 
 

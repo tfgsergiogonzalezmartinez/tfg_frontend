@@ -139,7 +139,14 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       },
     }
     console.log(pr);
-    this.proyectoServices.generarPoryecto();
+    this.proyectoServices.generarProyecto(pr).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
 
