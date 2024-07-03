@@ -21,7 +21,7 @@ export class ImportadorService {
         });
 
         const data = lines.slice(1).map(line => {
-          const values = line.split(',').map(value => value.trim());
+          const values = this.parseCSVLine(line);
           const record: { [key: string]: string } = {};
           headers.forEach((header: string, index: number) => {
             record[header] = values[index];
@@ -38,6 +38,34 @@ export class ImportadorService {
 
       reader.readAsText(file);
     });
+  }
+
+  private parseCSVLine(line: string): string[] {
+    const result: string[] = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+
+      if (char === '"' && (i === 0 || line[i - 1] !== '\\')) {
+        inQuotes = !inQuotes;
+        continue;
+      }
+
+      if (char === ',' && !inQuotes) {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+
+    if (current) {
+      result.push(current.trim());
+    }
+
+    return result.map(value => value.replace(/(^"|"$)/g, ''));
   }
 
 }

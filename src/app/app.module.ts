@@ -31,6 +31,7 @@ import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.comp
 import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.component';
 import { PlantillaCardComponent } from './Components/plantillaCard/plantillaCard.component';
 import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/ImportarBaseDatos.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/Impor
     AppRoutingModule,
     FormsModule, //para los ngmodule
     HttpClientModule, //para los inject
+    ColorPickerModule
 
   ],
   providers: [HttpClient],

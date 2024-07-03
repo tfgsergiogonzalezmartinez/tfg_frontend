@@ -1,6 +1,7 @@
 <div class="flex flex-row gap-6">
   <div class="flex flex-col gap-2">
     <span class="text-text font-bold text-lg">Importar Base de datos de {{NombreDatos}}</span>
+    <button (click)="generarBaseDedatos()">gen</button>
     <div (click)="cargarArchivo()"
       class="flex flex-row gap-2 justify-center items-center p-2 border-2 border-border hover:bg-background-light transition-colors rounded cursor-pointer">
       <span class="material-symbols-outlined text-text">
@@ -9,6 +10,14 @@
       <span class="text-text">Importar {{NombreDatos}}</span>
       <input hidden #input type="file">
     </div>
+    @if (isImportado) {
+    <div class="flex flex-row justify-center items-center">
+      <span class="material-symbols-outlined text-text">
+        check_circle
+      </span>
+      <span class="text-text">Archivo importado correctamente</span>
+    </div>
+    }
   </div>
   @if (isImportado) {
   <div class="flex flex-col gap-2">
@@ -19,7 +28,8 @@
       <span class="text-text material-symbols-outlined">
         arrow_right_alt
       </span>
-      <select class="p-2 bg-background-light rounded-md" (change)="producto_enlazar(item, $event)" name="" id="">
+      <select class="p-2 bg-background-light rounded-md"  (change)="producto_enlazar(item, $event)" name="" id="">
+        <option value="" hidden selected >Seleccione un campo</option>
         @for (opcion of headers; track $index) {
           <option value="{{opcion}}">{{opcion}}</option>
         }

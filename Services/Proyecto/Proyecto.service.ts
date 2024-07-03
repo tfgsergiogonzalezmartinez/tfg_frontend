@@ -1,59 +1,146 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../Base.service';
 import { HttpClient } from '@angular/common/http';
-import { PlantillaDto } from '../../dto/Plantillas/Tienda/PlantillaDto';
+import { PlantillaTiendaLink } from '../../dto/Plantillas/Tienda/PlantillaTiendaLink';
+import { PersonalizacionPlantillaDto } from '../../dto/Plantillas/PersonalizacionPlantillaDto';
+import { ProyectoDto } from '../../dto/Proyecto/ProyectoDto';
+import { CategoriaLink } from '../../dto/Plantillas/Tienda/CategoriaLink';
+import { ProductoLink } from '../../dto/Plantillas/Tienda/ProductoLink';
+import { PlantillaDto } from '../../dto/Plantillas/PlantillaDto';
+import { CrearProyectoDto } from '../../dto/Plantillas/CrearProyectoDto';
+import { BaseDatosTienda } from '../../dto/Plantillas/Tienda/BaseDatosTienda';
+import { ProductoDto } from '../../dto/Plantillas/Tienda/ProductoDto';
+import { CategoriaDto } from '../../dto/Plantillas/Tienda/CategoriaDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProyectoService extends BaseService {
-  private proyectoSeleccionado! : any | null;
+  private proyectoSeleccionado!: any | null;
+  private nuevoProyecto!: CrearProyectoDto | null;
 
-  private plantillaSeleccionada! : string;
-  private plantillaDto : PlantillaDto = {} as PlantillaDto;
+  private plantillaSeleccionada!: PlantillaDto | null;
+  private plantillaDto: PlantillaTiendaLink = {} as PlantillaTiendaLink;
+  private personalizacionPlantillaDto: PersonalizacionPlantillaDto = {} as PersonalizacionPlantillaDto
 
-  private isNuevoProyecto : boolean = true;
-  private isAbrirProyecto : boolean = false;
+  private isNuevoProyecto: boolean = false;
+  private isAbrirProyecto: boolean = false;
 
-  constructor(httpClient : HttpClient) {
+  private tiendaDb: BaseDatosTienda = {} as BaseDatosTienda;
+  private listaProductosDb: ProductoDto[] = [];
+  private listaCategoriaDb: CategoriaDto[] = [];
+
+  constructor(httpClient: HttpClient) {
     super(httpClient);
+    this.controller = 'Proyecto';
+    const linkTienda: PlantillaTiendaLink = {
+      CategoriaLink: {} as CategoriaLink,
+      ProductoLink: {} as ProductoLink
+    }
+    this.plantillaDto = linkTienda;
+  }
+
+  getProyectoByUsuario(idUsuario: string) {
+    return this.httpClient.get<ProyectoDto>(this.apiIp + this.controller + "/GetProyectoByUsuario/" + idUsuario, { headers: this.getHeaders() });
+  }
+
+  generarProyecto(proyecto: CrearProyectoDto) {
+    return this.httpClient.post(this.apiIp + this.controller + "/GenerarProyecto", proyecto, { headers: this.getHeaders() });
   }
 
 
-  crearProyecto(){
+
+  crearProyecto() {
+    this.clearProyectos();
     this.isNuevoProyecto = true;
   }
 
-  abrirProyecto(proyecto: any){
+  generarPoryecto() {
+    console.log(this.plantillaDto);
+    console.log(this.nuevoProyecto);
+
+  }
+
+
+
+  abrirProyecto(proyecto: any) {
     this.proyectoSeleccionado = proyecto;
     this.isAbrirProyecto = true;
   }
 
-  closeProyecto(){
+  closeProyecto() {
     this.proyectoSeleccionado = null;
     this.isAbrirProyecto = false;
     this.isNuevoProyecto = false;
   }
 
-  getIsNuevoProyecto(){
+  getIsNuevoProyecto() {
     return this.isNuevoProyecto;
   }
-  getIsAbrirProyecto(){
+  getIsAbrirProyecto() {
     return this.isAbrirProyecto;
   }
 
-  getPlandillaSeleccionada(){
+  getPlantillaSeleccionada() {
     return this.plantillaSeleccionada;
   }
-  setPlantillaSeleccionada(plantilla : string){
+  setPlantillaSeleccionada(plantilla: PlantillaDto | null) {
     this.plantillaSeleccionada = plantilla;
   }
-  getPlantillaDto(){
+  getPlantillaLinkDto() {
     return this.plantillaDto;
   }
-  setPlantillaDto(plantillaDto : PlantillaDto){
+  setPlantillaLinkDto(plantillaDto: PlantillaTiendaLink) {
     this.plantillaDto = plantillaDto;
   }
+  setPlantillaLink_productos(productoLink: ProductoLink) {
+    this.plantillaDto.ProductoLink = productoLink;
+  }
+  setPlantillaLink_categorias(categoriaLink: CategoriaLink) {
+    this.plantillaDto.CategoriaLink = categoriaLink
+  }
+  getPlantillaLink_productos() {
+    return this.plantillaDto.ProductoLink;
+  }
+  getPlantillaLink_categorias() {
+    return this.plantillaDto.CategoriaLink;
+  }
+
+  getNuevoProyecto() {
+    return this.nuevoProyecto;
+  }
+
+
+  getBaseDatosTienda() {
+    return this.tiendaDb;
+  }
+  setBaseDatosTienda(db: BaseDatosTienda) {
+    this.tiendaDb = db;
+  }
+
+  getListaProductosDb() {
+    return this.listaProductosDb;
+  }
+  setListaProductosDb(lista: ProductoDto[]) {
+    this.listaProductosDb = lista;
+  }
+  getListaCategoriaDb() {
+    return this.listaCategoriaDb;
+  }
+  setListaCategoriaDb(lista: CategoriaDto[]) {
+    this.listaCategoriaDb = lista;
+  }
+
+
+  clearProyectos() {
+    this.plantillaDto = {} as PlantillaTiendaLink;
+    this.plantillaDto.CategoriaLink = {} as CategoriaLink;
+    this.plantillaDto.ProductoLink = {} as ProductoLink;
+    this.nuevoProyecto = null;
+    this.plantillaSeleccionada = null;
+  }
+
+
 
 
 

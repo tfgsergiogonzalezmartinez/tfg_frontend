@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MainService } from '../../../../Services/Main/Main.service';
 import { ProyectoService } from '../../../../Services/Proyecto/Proyecto.service';
+import { ProyectoDto } from '../../../../dto/Proyecto/ProyectoDto';
 
 @Component({
   selector: 'app-proyectoCard',
@@ -8,7 +9,7 @@ import { ProyectoService } from '../../../../Services/Proyecto/Proyecto.service'
   styleUrls: ['./proyectoCard.component.css']
 })
 export class ProyectoCardComponent implements OnInit {
-  proyecto! : any;
+  @Input() proyecto! : ProyectoDto;
   plantilla : string = "tienda";
 
   constructor(private mainService : MainService, private proyectoService : ProyectoService) { }

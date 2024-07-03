@@ -1,18 +1,18 @@
-<div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
+<div
+  [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }"
+  class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
   <div class="flex flex-row justify-between p-2">
     <h2>Mis Proyectos</h2>
     <div class="flex">
-      <button (click)="getProyectosServices().crearProyecto()">Nuevo proyecto</button>
+      <button (click)="AbrirNuevoProyecto()">Nuevo proyecto</button>
     </div>
   </div>
   <div class="flex flex-col p-2">
 
     <div class="flex flex-row flex-wrap gap-3">
-      <app-proyectoCard></app-proyectoCard>
-      <app-proyectoCard></app-proyectoCard>
-      <app-proyectoCard></app-proyectoCard>
-      <app-proyectoCard></app-proyectoCard>
-      <app-proyectoCard></app-proyectoCard>
+      @for (proyecto of listaProyectos; track $index) {
+        <app-proyectoCard [proyecto]="proyecto"></app-proyectoCard>
+      }
     </div>
   </div>
 </div>
@@ -24,13 +24,24 @@
   <div body class="flex flex-col gap-1">
     <div class="flex flex-col p-4 gap-3">
       <h4 class="font-semibold">Nombre del proyecto</h4>
-      <app-inputForm [type]="'text'" [titulo]="'Nombre del proyecto'" [placeholder]="'Nombre del proyecto'"  (valueEventEmitter)="nombreProyecto = $event"></app-inputForm>
+      <app-inputForm [type]="'text'" [titulo]="'Nombre del proyecto'" [placeholder]="'Nombre del proyecto'"
+        (valueEventEmitter)="nombreProyecto = $event"></app-inputForm>
     </div>
     <div class="flex flex-col p-4 gap-3">
       <h4 class="font-semibold">Seleccione plantilla</h4>
       <div class="flex flex-row gap-3">
-        <app-plantillaCard></app-plantillaCard>
+        @for (plantilla of listaPlantillas; track $index) {
+          <app-plantillaCard [plantilla]="plantilla" ></app-plantillaCard>
+        }
       </div>
+      @if (getProyectosServices().getPlantillaSeleccionada()) {
+        <div class="flex flex-row justify-start items-start">
+          <span class="material-symbols-outlined text-text">
+            check_circle
+          </span>
+          <span class="text-text">Plantilla cargada correctamente</span>
+        </div>
+      }
     </div>
     <div class="flex flex-col p-4 gap-3">
       <h4 class="font-semibold">Importar base de datos</h4>
@@ -38,6 +49,87 @@
         <app-ImportarBaseDatos [NombreModelo]="'Producto'" [NombreDatos]="'Productos'"></app-ImportarBaseDatos>
         <app-ImportarBaseDatos [NombreModelo]="'Categoria'" [NombreDatos]="'Categorias'"></app-ImportarBaseDatos>
       </div>
+    </div>
+    <div class="flex flex-col p-4 gap-3">
+      <h4 class="font-semibold">Personalización</h4>
+      <span class="text-text font-bold text-lg">Nombre del proyecto</span>
+      <div class="grid grid-cols-2 justify-start items-start gap-10">
+        <div>
+          <app-inputForm [type]="'text'" [titulo]="'Nombre del proyecto'" [placeholder]="'Nombre del proyecto'"
+            (valueEventEmitter)="vistaPagina_main_titulo = $event"></app-inputForm>
+        </div>
+      </div>
+      <span class="text-text font-bold text-lg">Logotipo de la página</span>
+      <div (click)="activarCargaLogotipo()"
+        class="flex flex-row gap-2 justify-center items-center p-2 border-2 border-border hover:bg-background-light transition-colors rounded cursor-pointer">
+        <span class="material-symbols-outlined text-text">
+          upload
+        </span>
+        <span class="text-text">Cargar Logotipo</span>
+        <input hidden #input type="file">
+      </div>
+      @if (isLogotipoCargado) {
+        <div class="flex flex-row justify-center items-center">
+          <span class="material-symbols-outlined text-text">
+            check_circle
+          </span>
+          <span class="text-text">Logotipo cargado correctamente</span>
+        </div>
+        <div class="flex flex-row justify-center items-center">
+          <img class="w-[150px] h-[150px] rounded-full shadow-sm border-1"
+            [src]="logo" alt="Foto de perfil">
+        </div>
+      }
+      <span class="text-text font-bold text-lg">Colores</span>
+      <div class="grid grid-cols-2 justify-start items-start gap-10">
+        <div class="flex flex-col gap-5 justify-start items-start">
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color del fondo de la pagina</span>
+              <input class="p-2 bg-background-light rounded-md rounded-full"
+                [(colorPicker)]="vistaPagina_color_background"
+                [style.background]="vistaPagina_color_background" />
+            </div>
+          </div>
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color del texto</span>
+              <input class="p-2 bg-background-light rounded-md rounded-full"
+                [(colorPicker)]="vistaPagina_color_texto"
+                [style.background]="vistaPagina_color_texto" />
+            </div>
+          </div>
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color de los botones</span>
+              <input class="p-2 bg-background-light rounded-md"
+                [(colorPicker)]="vistaPagina_color_botones"
+                [style.background]="vistaPagina_color_botones" />
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-5 justify-start items-start">
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color del header</span>
+              <input class="p-2 bg-background-light rounded-md"
+                [(colorPicker)]="vistaPagina_color_header"
+                [style.background]="vistaPagina_color_header" />
+            </div>
+          </div>
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color del submenu del header</span>
+              <input class="p-2 bg-background-light rounded-md"
+                [(colorPicker)]="vistaPagina_color_subHeader"
+                [style.background]="vistaPagina_color_subHeader" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-4 w-full">
+      <button (click)="generarProyecto()" class="w-full">Generar Proyecto</button>
     </div>
   </div>
 </app-modal>
