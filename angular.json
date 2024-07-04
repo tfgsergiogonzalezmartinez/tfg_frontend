@@ -61,7 +61,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "rebaseRootRelativeCssUrls": true
+
           },
           "configurations": {
             "production": {
