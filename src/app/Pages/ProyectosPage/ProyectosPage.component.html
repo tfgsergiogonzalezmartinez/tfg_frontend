@@ -80,7 +80,7 @@
             [src]="logo" alt="Foto de perfil">
         </div>
       }
-      <span class="text-text font-bold text-lg">Colores</span>
+      <span class="text-text font-bold text-lg">Colores principales</span>
       <div class="grid grid-cols-2 justify-start items-start gap-10">
         <div class="flex flex-col gap-5 justify-start items-start">
           <div class="flex flex-row gap-5 justify-center items-center">
@@ -93,18 +93,18 @@
           </div>
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
-              <span class="text-text font-semibold text-sm italic">Color del texto</span>
+              <span class="text-text font-semibold text-sm italic">Color de los items de la tienda</span>
               <input class="p-2 bg-background-light rounded-md rounded-full"
-                [(colorPicker)]="vistaPagina_color_texto"
-                [style.background]="vistaPagina_color_texto" />
+                [(colorPicker)]="vistaPagina_color_items"
+                [style.background]="vistaPagina_color_items" />
             </div>
           </div>
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
-              <span class="text-text font-semibold text-sm italic">Color de los botones</span>
-              <input class="p-2 bg-background-light rounded-md"
-                [(colorPicker)]="vistaPagina_color_botones"
-                [style.background]="vistaPagina_color_botones" />
+              <span class="text-text font-semibold text-sm italic">Color del texto</span>
+              <input class="p-2 bg-background-light rounded-md rounded-full"
+                [(colorPicker)]="vistaPagina_color_texto"
+                [style.background]="vistaPagina_color_texto" />
             </div>
           </div>
         </div>
@@ -123,6 +123,14 @@
               <input class="p-2 bg-background-light rounded-md"
                 [(colorPicker)]="vistaPagina_color_subHeader"
                 [style.background]="vistaPagina_color_subHeader" />
+            </div>
+          </div>
+          <div class="flex flex-row gap-5 justify-center items-center">
+            <div class="grid grid-cols-2">
+              <span class="text-text font-semibold text-sm italic">Color de los botones</span>
+              <input class="p-2 bg-background-light rounded-md"
+                [(colorPicker)]="vistaPagina_color_botones"
+                [style.background]="vistaPagina_color_botones" />
             </div>
           </div>
         </div>

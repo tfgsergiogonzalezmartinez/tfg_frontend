@@ -32,6 +32,7 @@ import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.co
 import { PlantillaCardComponent } from './Components/plantillaCard/plantillaCard.component';
 import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/ImportarBaseDatos.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { TruncarPipe } from '../../pipes/Truncar.pipe';
 
 
 @NgModule({
@@ -61,10 +62,11 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ProyectosPageComponent,
     ProyectoCardComponent,
     PlantillaCardComponent,
-    ImportarBaseDatosComponent
+    ImportarBaseDatosComponent,
+    TruncarPipe
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
     AppRoutingModule,
     FormsModule, //para los ngmodule
     HttpClientModule, //para los inject
