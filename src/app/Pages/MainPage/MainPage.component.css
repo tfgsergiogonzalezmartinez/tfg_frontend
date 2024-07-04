@@ -11,7 +11,7 @@
   background-repeat: no-repeat; /* Evita que se repita el fondo */
 }
 .bg-custom-dark{
-  background-image: url('/assets/background_dark.svg');
+  background-image: url('/assets/background-tienda-dark.svg');
   background-size: cover; /* Ajusta el tamaño del fondo */
   background-position: center; /* Centra el fondo */
   background-repeat: no-repeat; /* Evita que se repita el fondo */

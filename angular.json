@@ -47,7 +47,16 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/background_dark_default.svg",
+              "src/assets/background_dark.svg",
+              "src/assets/background_dark2svg",
+              "src/assets/background_dark3.svg",
+              "src/assets/background_light_default.svg",
+              "src/assets/background_light.svg",
+              "src/assets/background_light2.svg",
+              "src/assets/background-tienda-dark.svg",
+              "src/assets/background-tienda-light.svg"
             ],
             "styles": [
               "src/styles.css"
@@ -113,6 +122,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
