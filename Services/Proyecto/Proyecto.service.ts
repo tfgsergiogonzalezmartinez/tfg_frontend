@@ -11,6 +11,7 @@ import { CrearProyectoDto } from '../../dto/Plantillas/CrearProyectoDto';
 import { BaseDatosTienda } from '../../dto/Plantillas/Tienda/BaseDatosTienda';
 import { ProductoDto } from '../../dto/Plantillas/Tienda/ProductoDto';
 import { CategoriaDto } from '../../dto/Plantillas/Tienda/CategoriaDto';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,11 @@ export class ProyectoService extends BaseService {
     return this.httpClient.get<ProyectoDto>(this.apiIp + this.controller + "/GetProyectoByUsuario/" + idUsuario, { headers: this.getHeaders() });
   }
 
-  generarProyecto(proyecto: CrearProyectoDto) {
-    return this.httpClient.post(this.apiIp + this.controller + "/GenerarProyecto", proyecto, { headers: this.getHeaders() });
+  generarProyecto(proyecto: CrearProyectoDto): Observable<Blob> {
+    return this.httpClient.post(`${this.apiIp}${this.controller}/GenerarProyecto`, proyecto, {
+      responseType: 'blob',
+      headers: this.getHeaders(),
+    });
   }
 
 

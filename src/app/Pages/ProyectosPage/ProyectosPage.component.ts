@@ -139,13 +139,18 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       },
     }
     console.log(pr);
-    this.proyectoServices.generarProyecto(pr).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
+    this.proyectoServices.generarProyecto(pr).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'application/zip' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${pr.Nombre}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al generar el proyecto:', error);
     });
   }
 

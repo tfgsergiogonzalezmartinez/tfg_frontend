@@ -60,6 +60,7 @@ export class SoportePageComponent implements OnInit {
   }
 
   private recibirMensaje_privado(message: ChatMessage) {
+    if (message.usuario == sessionStorage.getItem('Id')) return;
     console.log('Mensaje directo recibido:', message);
     this.scrollHastaAbajo();
     if (this.otroUsuarioChat && this.otroUsuarioChat.Peticion!.Id != message.grupo) return

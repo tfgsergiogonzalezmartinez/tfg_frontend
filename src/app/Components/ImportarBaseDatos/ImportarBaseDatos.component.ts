@@ -15,7 +15,7 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
   @Input() NombreModelo: string = "Datos";
   @ViewChild('input') inputRef!: ElementRef;
 
-  isImportado: boolean = true;
+  isImportado: boolean = false;
 
   modelo_mostrar: string[] = [];
   modelo_tienda_producto_campos: string[] = ["Nombre", "Descripcion", "Precio", "Stock", "Colores", "Tallas", "FotoPrincipal", "Fotos", "Categoria"];
