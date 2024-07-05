@@ -25,34 +25,31 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   vistaPagina_main_logo : string = "";
   vistaPagina_main_titulo : string = "";
 
-  vistaPagina_color_background : string = "";
-  vistaPagina_color_background_light : string = "";
-  vistaPagina_color_background_dark : string = "";
-
-  vistaPagina_color_items : string = "";
-  vistaPagina_color_items_light : string = "";
-  vistaPagina_color_items_dark : string = "";
-
-  vistaPagina_color_botones : string = "";
-  vistaPagina_color_botones_light : string = "";
-  vistaPagina_color_botones_dark : string = "";
-
-  vistaPagina_color_header : string = "";
-  vistaPagina_color_header_light : string = "";
-  vistaPagina_color_header_dark : string = "";
-
-  vistaPagina_color_subHeader : string = "";
-  vistaPagina_color_subHeader_light : string = "";
-  vistaPagina_color_subHeader_dark : string = "";
-
-  vistaPagina_color_texto : string = "";
-  vistaPagina_color_texto_light : string = "";
-  vistaPagina_color_texto_dark : string = "";
+  vistaPagina_color_background : string  = "#ffffff";
+  vistaPagina_color_background_light : string = "#eff1fb";
+  vistaPagina_color_background_dark : string = "#f1f1f1";
+  vistaPagina_color_items : string = "#ffffff";
+  vistaPagina_color_items_light: string = "#eff1fb"
+  vistaPagina_color_items_dark : string = "#f1f1f1";
+  vistaPagina_color_botones : string = "#2b4eee";
+  vistaPagina_color_botones_light : string = "#6881f0";
+  vistaPagina_color_botones_dark : string = "#143cf1";
+  vistaPagina_color_header : string = "#ffffff";
+  vistaPagina_color_header_light : string = "#eff1fb";
+  vistaPagina_color_header_dark : string = "#f1f1f1";
+  vistaPagina_color_subHeader : string = "#ffffff";
+  vistaPagina_color_subHeader_light : string = "#eff1fb";
+  vistaPagina_color_subHeader_dark : string = "#f1f1f1";
+  vistaPagina_color_texto : string = "#000000";
+  vistaPagina_color_texto_light : string = "#111942";
+  vistaPagina_color_texto_dark : string = "#090d22";
 
   logo : string = "";
   titulo : string = "";
 
   isLogotipoCargado : boolean = false;
+
+  msgError : string = "";
 
 
 
@@ -114,27 +111,30 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
 
 
   AbrirNuevoProyecto(){
+
+
+
     this.nombreProyecto = "";
     this.proyectoServices.setPlantillaSeleccionada(null);
     this.logo = "";
     this.titulo = "";
     this.vistaPagina_main_logo= "";
     this.vistaPagina_main_titulo = "";
-    this.vistaPagina_color_background = "";
-    this.vistaPagina_color_background_light = "";
-    this.vistaPagina_color_background_dark = "";
-    this.vistaPagina_color_botones = "";
-    this.vistaPagina_color_botones_light = "";
-    this.vistaPagina_color_botones_dark = "";
-    this.vistaPagina_color_header = "";
-    this.vistaPagina_color_header_light = "";
-    this.vistaPagina_color_header_dark = "";
-    this.vistaPagina_color_subHeader = "";
-    this.vistaPagina_color_subHeader_light = "";
-    this.vistaPagina_color_subHeader_dark = "";
-    this.vistaPagina_color_texto = "";
-    this.vistaPagina_color_texto_light = "";
-    this.vistaPagina_color_texto_dark = "";
+    this.vistaPagina_color_background = "#ffffff";
+    this.vistaPagina_color_background_light = "#eff1fb";
+    this.vistaPagina_color_background_dark = "#f1f1f1";
+    this.vistaPagina_color_botones = "#2b4eee";
+    this.vistaPagina_color_botones_light = "#6881f0";
+    this.vistaPagina_color_botones_dark = "#143cf1";
+    this.vistaPagina_color_header = "#ffffff";
+    this.vistaPagina_color_header_light = "#eff1fb";
+    this.vistaPagina_color_header_dark = "#f1f1f1";
+    this.vistaPagina_color_subHeader = "#ffffff";
+    this.vistaPagina_color_subHeader_light = "#eff1fb";
+    this.vistaPagina_color_subHeader_dark = "#f1f1f1";
+    this.vistaPagina_color_texto = "#000000";
+    this.vistaPagina_color_texto_light = "#111942";
+    this.vistaPagina_color_texto_dark = "#090d22";
 
     this.proyectoServices.crearProyecto();
     this.cdr.detectChanges();
@@ -153,8 +153,8 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   }
 
   generarProyecto(){
-    this.generarColores();
 
+    this.generarColores();
     const pr : CrearProyectoDto = {
       Usuario: sessionStorage.getItem("Id")!,
       Nombre: this.nombreProyecto,
@@ -187,12 +187,11 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       },
     }
 
-
-
-
-
-
-
+    if (!this.comprobarFormulario(pr)) {
+      this.msgError = "Por favor, rellene todos los campos";
+      return;
+    }
+    this.msgError = "";
 
     console.log(pr);
     this.proyectoServices.generarProyecto(pr).subscribe((response: Blob) => {
@@ -234,6 +233,15 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     const { colorMasClaro: colorMasClaroTexto, colorMasOscuro: colorMasOscuroTexto } = this.coloresService.generarColores(this.vistaPagina_color_texto);
     this.vistaPagina_color_texto_light = colorMasClaroTexto;
     this.vistaPagina_color_texto_dark = colorMasOscuroTexto
+  }
+
+
+  comprobarFormulario( crearProyecto : CrearProyectoDto){
+    if(crearProyecto.Nombre === "" || crearProyecto.Plantilla === "" || crearProyecto.Personalizacion.Logo === "" || crearProyecto.Personalizacion.Titulo === ""){
+      return false;
+    }else{
+      return true;
+    }
   }
 
 

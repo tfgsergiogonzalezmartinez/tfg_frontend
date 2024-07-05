@@ -1,6 +1,6 @@
 <div class="flex flex-col bg-background text-text h-screen">
   <div [ngClass]="{'bg-custom-dark' : getService().isModoOscuro(), 'bg-custom' : getService().isModoClaro }"
-  [ngStyle]="getService().isModoOscuro() ? {'background-image': 'url(assets/background-tienda-dark.svg.svg)'} : {'background-image': 'url(assets/background_light.svg)'}" class="flex w-full min-h-screen h-[100vh] items-center justify-center">
+  [ngStyle]="getService().isModoOscuro() ? {'background-image': 'url(assets/background_dark.svg)'} : {'background-image': 'url(assets/background_light.svg)'}" class="flex w-full min-h-screen h-[100vh] items-center justify-center">
     <div class="text-center">
       <h1 class="text-4xl font-bold mb-4">Crea proyectos Web sin saber programar</h1>
       <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }"
-    class="flex w-full min-h-screen h-[100vh]">
+  [ngStyle]="getService().isModoOscuro() ? {'background-image': 'url(assets/background_dark2.svg)'} : {'background-image': 'url(assets/background_light2.svg)'}"  class="flex w-full min-h-screen h-[100vh]">
     <div class="flex w-full h-full justify-center items-center">
       <div class="bg-card flex flex-col justify-center items-center rounded-xl p-8">
         <app-UserAvatar [imgRoute]="'assets/avatar/Sergio.jpg'"></app-UserAvatar>

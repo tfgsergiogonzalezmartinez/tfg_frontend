@@ -1,6 +1,6 @@
 <div
   [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }"
-  class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
+  [ngStyle]="getService().isModoOscuro() ? {'background-image': 'url(assets/background_dark_default.svg)'} : {'background-image': 'url(assets/background_light_default.svg)'}"  class="flex flex-col h-screen w-screen pt-20 px-6 bg-background overflow-x-hidden">
   <div class="flex flex-row justify-between p-2">
     <h2>Mis Proyectos</h2>
     <div class="flex">
@@ -86,7 +86,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color del fondo de la pagina</span>
-              <input class="p-2 bg-background-light rounded-md rounded-full"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md rounded-full"
                 [(colorPicker)]="vistaPagina_color_background"
                 [style.background]="vistaPagina_color_background" />
             </div>
@@ -94,7 +94,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color de los items de la tienda</span>
-              <input class="p-2 bg-background-light rounded-md rounded-full"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md rounded-full"
                 [(colorPicker)]="vistaPagina_color_items"
                 [style.background]="vistaPagina_color_items" />
             </div>
@@ -102,7 +102,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color del texto</span>
-              <input class="p-2 bg-background-light rounded-md rounded-full"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md rounded-full"
                 [(colorPicker)]="vistaPagina_color_texto"
                 [style.background]="vistaPagina_color_texto" />
             </div>
@@ -112,7 +112,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color del header</span>
-              <input class="p-2 bg-background-light rounded-md"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md"
                 [(colorPicker)]="vistaPagina_color_header"
                 [style.background]="vistaPagina_color_header" />
             </div>
@@ -120,7 +120,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color del submenu del header</span>
-              <input class="p-2 bg-background-light rounded-md"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md"
                 [(colorPicker)]="vistaPagina_color_subHeader"
                 [style.background]="vistaPagina_color_subHeader" />
             </div>
@@ -128,7 +128,7 @@
           <div class="flex flex-row gap-5 justify-center items-center">
             <div class="grid grid-cols-2">
               <span class="text-text font-semibold text-sm italic">Color de los botones</span>
-              <input class="p-2 bg-background-light rounded-md"
+              <input class="p-2 bg-background-light border-2 cursor-pointer rounded-md"
                 [(colorPicker)]="vistaPagina_color_botones"
                 [style.background]="vistaPagina_color_botones" />
             </div>
@@ -136,8 +136,13 @@
         </div>
       </div>
     </div>
-    <div class="py-4 w-full">
+    <div class="flex flex-col py-4 w-full">
       <button (click)="generarProyecto()" class="w-full">Generar Proyecto</button>
+      @if(msgError != ""){
+        <div class="flex flex justify-center items-center">
+          <span class="text-red-600 font-semibold">{{msgError}}</span>
+        </div>
+      }
     </div>
   </div>
 </app-modal>
