@@ -24,7 +24,6 @@ export class MainService {
 
     if (this.modo_claro) this.mainDivRef.nativeElement.classList.remove('dark');
     if (this.modo_oscuro) this.mainDivRef.nativeElement.classList.add('dark');
-
   }
 
   setMainDiv(divRef : ElementRef){
@@ -33,4 +32,5 @@ export class MainService {
   getMainDiv(){
     return this.mainDivRef;
   }
+
 }

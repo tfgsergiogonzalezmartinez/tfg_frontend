@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
@@ -8,18 +8,18 @@ import { MainService } from '../../../../Services/Main/Main.service';
 })
 export class DocumentacionPageComponent implements OnInit {
   searchTerm: string = '';
-  
+
   constructor(private mainService : MainService) { }
   ngOnInit() {
-  }
-
-  getService(){
-    return this.mainService;
   }
 
   scrollToElement(id : string) {
     let element = document.getElementById(id);
     element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+  }
+
+  getService(){
+    return this.mainService;
   }
 
 }

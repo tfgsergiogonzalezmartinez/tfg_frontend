@@ -6,8 +6,8 @@
       <p class="text-lg mb-8">Una aplicacion que te permitira construir paginas web con sus ficheros <code>Docker</code>
         de despliegue a través de la importación de un fichero <code>.csv</code> con la estructura de la base de datos.
       </p>
-      <a class="bg-secondary text-text font-bold py-2 px-4 rounded hover:bg-secondary-light transition-colors cursor-pointer ">Comienza ahora</a>
-      <a class="bg-primary text-text-button font-bold py-2 px-4 ml-4 rounded hover:bg-accent-light transition-colors cursor-pointer">Documentación</a>
+      <a (click)="goProyectos()" class="bg-secondary text-text font-bold py-2 px-4 rounded hover:bg-secondary-light transition-colors cursor-pointer ">Comienza ahora</a>
+      <a (click)="goDocumentacion()" class="bg-primary text-text-button font-bold py-2 px-4 ml-4 rounded hover:bg-accent-light transition-colors cursor-pointer">Documentación</a>
     </div>
   </div>
   <div [ngClass]="{'bg-custom-dark2' : getService().isModoOscuro(), 'bg-custom2' : getService().isModoClaro }"

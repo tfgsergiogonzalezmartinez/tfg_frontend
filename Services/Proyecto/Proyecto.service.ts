@@ -25,7 +25,7 @@ export class ProyectoService extends BaseService {
   private plantillaDto: PlantillaTiendaLink = {} as PlantillaTiendaLink;
   private personalizacionPlantillaDto: PersonalizacionPlantillaDto = {} as PersonalizacionPlantillaDto
 
-  private isNuevoProyecto: boolean = true;
+  private isNuevoProyecto: boolean = false;
   private isAbrirProyecto: boolean = false;
 
   private tiendaDb: BaseDatosTienda = {} as BaseDatosTienda;
