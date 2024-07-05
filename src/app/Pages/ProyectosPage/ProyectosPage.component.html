@@ -11,7 +11,7 @@
 
     <div class="flex flex-row flex-wrap gap-3">
       @for (proyecto of listaProyectos; track $index) {
-        <app-proyectoCard [proyecto]="proyecto"></app-proyectoCard>
+        <app-proyectoCard [proyecto]="proyecto" (actualizarProyectos)="cargarProyectos()"></app-proyectoCard>
       }
     </div>
   </div>

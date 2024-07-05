@@ -1,4 +1,4 @@
 <div class="flex flex-col">
   <label class="text-sm text-text italic" for="{{titulo}}">{{titulo}}</label>
-  <input type="{{type}}" id="{{titulo}}" name="{{titulo}}" (change)="getValue()" [(ngModel)]="value" placeholder="{{placeholder}}" class="p-2 bg-background-light rounded-md" [ngClass]="{'descripcion' : isDescripcion}">
+  <input type="{{type}}" id="{{titulo}}" name="{{titulo}}" (change)="getValue()" [(ngModel)]="value" placeholder="{{placeholder}}" class="p-2 bg-background-light rounded-md text-text" [ngClass]="{'descripcion' : isDescripcion}">
 </div>

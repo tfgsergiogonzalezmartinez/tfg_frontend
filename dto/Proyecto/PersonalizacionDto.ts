@@ -1,7 +1,8 @@
 export interface PersonalizacionDto {
-  Logo : string;
-  Moneda : string;
-  Titulo : string;
+  Logo? : string;
+  Extension? : string;
+  Moneda? : string;
+  Titulo? : string;
 
   Color_backgound : string;
   Color_backgound_light : string;

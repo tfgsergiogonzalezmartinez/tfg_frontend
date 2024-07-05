@@ -36,6 +36,7 @@ import { TruncarPipe } from '../../pipes/Truncar.pipe';
 import { DocumentacionPageComponent } from './Pages/DocumentacionPage/DocumentacionPage.component';
 import { BuscadorComponent } from './Components/Buscador/Buscador.component';
 import { BoldSearchTermDirective } from '../../directives/BoldSearchTerm.directive';
+import { TooltipComponent } from './Components/Tooltip/Tooltip.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { BoldSearchTermDirective } from '../../directives/BoldSearchTerm.directi
     TruncarPipe,
     DocumentacionPageComponent,
     BuscadorComponent,
-    BoldSearchTermDirective
+    BoldSearchTermDirective,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,

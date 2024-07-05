@@ -18,7 +18,7 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
   isImportado: boolean = false;
 
   modelo_mostrar: string[] = [];
-  modelo_tienda_producto_campos: string[] = ["Nombre", "Descripcion", "Precio", "Stock", "Colores", "Tallas", "FotoPrincipal", "Fotos", "Categoria"];
+  modelo_tienda_producto_campos: string[] = ["Nombre", "Descripcion", "Precio", "Stock", "Colores", "Tallas", "Categoria"];
   modelo_tienda_categoria_campos: string[] = ["Nombre", "CategoriaPadre"];
   modelo_tienda_producto!: ProductoLink & { [key: string]: any };
   modelo_tienda_categoria!: CategoriaLink & { [key: string]: any };
@@ -118,12 +118,12 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
               case 'Stock':
                 productoDto.Stock = Number(item[value]);
                 break;
-              case 'Fotos':
-                productoDto.Fotos = item[value] ? item[value].split(',') : [];
-                break;
-              case 'FotoPrincipal':
-                productoDto.FotoPrincipal = item[value];
-                break;
+              // case 'Fotos':
+              //   productoDto.Fotos = item[value] ? item[value].split(',') : [];
+              //   break;
+              // case 'FotoPrincipal':
+              //   productoDto.FotoPrincipal = item[value];
+              //   break;
               case 'Categoria':
                 productoDto.Categoria = item[value];
                 break;

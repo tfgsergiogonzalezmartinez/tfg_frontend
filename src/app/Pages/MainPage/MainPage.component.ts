@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../../../Services/Main/Main.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../../Services/User/User.service';
 
 @Component({
   selector: 'app-MainPage',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private mainService : MainService, private router : Router ) { }
+  constructor(private mainService : MainService, private router : Router, private userService : UserService ) { }
 
   ngOnInit() {
   }
@@ -19,7 +20,8 @@ export class MainPageComponent implements OnInit {
   }
 
   goProyectos(){
-    this.router.navigate(['/main/proyectos']);
+    if(this.userService.isLogin()) this.router.navigate(['/main/proyectos']);
+    if(!this.userService.isLogin()) this.router.navigate(['/login']);
   }
   goDocumentacion(){
     this.router.navigate(['/main/documentacion']);

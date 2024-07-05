@@ -23,6 +23,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   nombreProyecto : string = "";
 
   vistaPagina_main_logo : string = "";
+  vistaPagina_extension : string = "";
   vistaPagina_main_titulo : string = "";
 
   vistaPagina_color_background : string  = "#ffffff";
@@ -102,6 +103,8 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       reader.onload = () => {
         const base64Imagen = reader.result as string;
         this.logo = base64Imagen;
+        //quiero que saque la extension de la imagen y la guarde en vistaPagina_extension
+        this.vistaPagina_extension = archivo.name.split('.').pop()!;
         this.isLogotipoCargado = true;
       };
       reader.readAsDataURL(archivo);
@@ -110,13 +113,14 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
 
 
 
-  AbrirNuevoProyecto(){
 
+  AbrirNuevoProyecto(){
 
 
     this.nombreProyecto = "";
     this.proyectoServices.setPlantillaSeleccionada(null);
     this.logo = "";
+    this.vistaPagina_extension
     this.titulo = "";
     this.moneda = "€";
     this.vistaPagina_main_logo= "";
@@ -184,6 +188,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
         Color_subHeader_dark: this.vistaPagina_color_subHeader_dark,
         Moneda: this.moneda,
         Logo: this.logo,
+        Extension: this.vistaPagina_extension,
         Titulo: this.vistaPagina_main_titulo
       },
       BaseDatosTienda: {
@@ -209,6 +214,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+      this.cargarProyectos();
     }, error => {
       console.error('Error al generar el proyecto:', error);
     });

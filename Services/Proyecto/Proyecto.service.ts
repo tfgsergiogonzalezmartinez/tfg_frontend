@@ -55,6 +55,18 @@ export class ProyectoService extends BaseService {
     });
   }
 
+  descargarProyecto(idUsuario: string, nombreProyecto: string): Observable<Blob> {
+    return this.httpClient.get<Blob>(`${this.apiIp}${this.controller}/DescargarProyecto/${idUsuario}/${nombreProyecto}`, {
+      responseType: 'blob' as 'json',
+      headers: this.getHeaders(),
+    });
+  }
+
+  eliminarProyecto(proyectoDto: ProyectoDto) {
+    return this.httpClient.post(this.apiIp + this.controller + "/EliminarProyecto/", proyectoDto, { headers: this.getHeaders() });
+  }
+
+
 
 
   crearProyecto() {
