@@ -12,6 +12,7 @@ import { BaseDatosTienda } from '../../dto/Plantillas/Tienda/BaseDatosTienda';
 import { ProductoDto } from '../../dto/Plantillas/Tienda/ProductoDto';
 import { CategoriaDto } from '../../dto/Plantillas/Tienda/CategoriaDto';
 import { Observable } from 'rxjs';
+import { ImportarBaseDatosComponent } from '../../src/app/Components/ImportarBaseDatos/ImportarBaseDatos.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ export class ProyectoService extends BaseService {
   private tiendaDb: BaseDatosTienda = {} as BaseDatosTienda;
   private listaProductosDb: ProductoDto[] = [];
   private listaCategoriaDb: CategoriaDto[] = [];
+
+  private importadores: ImportarBaseDatosComponent[] = [];
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
@@ -138,6 +141,19 @@ export class ProyectoService extends BaseService {
     this.plantillaDto.ProductoLink = {} as ProductoLink;
     this.nuevoProyecto = null;
     this.plantillaSeleccionada = null;
+  }
+
+  getImportadores() {
+    return this.importadores;
+  }
+  addImportador(importador: ImportarBaseDatosComponent) {
+    this.importadores.push(importador);
+  }
+  removeImportador(importador: ImportarBaseDatosComponent) {
+    this.importadores = this.importadores.filter(i => i != importador);
+  }
+  clearImportadores() {
+    this.importadores = [];
   }
 
 

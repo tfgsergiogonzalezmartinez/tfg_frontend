@@ -14,6 +14,7 @@ import { AdministracionPageComponent } from './Pages/AdministracionPage/Administ
 import { adminGuard } from './Guards/Admin.guard';
 import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
+import { DocumentacionPageComponent } from './Pages/DocumentacionPage/DocumentacionPage.component';
 
 const routes: Routes = [
   { path: '', component: MainLayoutComponent , children: [
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'administration', canActivate: [adminGuard], component: AdministracionPageComponent },
     { path: 'soporte', canActivate: [loginGuard], component: SoportePageComponent },
     { path: 'proyectos', canActivate: [loginGuard], component: ProyectosPageComponent },
+    { path: 'documentacion', component: DocumentacionPageComponent },
   ]},
 
 

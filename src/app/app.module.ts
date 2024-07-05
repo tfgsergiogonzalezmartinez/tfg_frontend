@@ -33,6 +33,9 @@ import { PlantillaCardComponent } from './Components/plantillaCard/plantillaCard
 import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/ImportarBaseDatos.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { TruncarPipe } from '../../pipes/Truncar.pipe';
+import { DocumentacionPageComponent } from './Pages/DocumentacionPage/DocumentacionPage.component';
+import { BuscadorComponent } from './Components/Buscador/Buscador.component';
+import { BoldSearchTermDirective } from '../../directives/BoldSearchTerm.directive';
 
 
 @NgModule({
@@ -63,10 +66,13 @@ import { TruncarPipe } from '../../pipes/Truncar.pipe';
     ProyectoCardComponent,
     PlantillaCardComponent,
     ImportarBaseDatosComponent,
-    TruncarPipe
+    TruncarPipe,
+    DocumentacionPageComponent,
+    BuscadorComponent,
+    BoldSearchTermDirective
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     AppRoutingModule,
     FormsModule, //para los ngmodule
     HttpClientModule, //para los inject

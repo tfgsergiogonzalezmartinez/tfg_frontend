@@ -43,7 +43,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   vistaPagina_color_texto : string = "#000000";
   vistaPagina_color_texto_light : string = "#111942";
   vistaPagina_color_texto_dark : string = "#090d22";
-
+  moneda : string = "€";
   logo : string = "";
   titulo : string = "";
 
@@ -118,6 +118,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     this.proyectoServices.setPlantillaSeleccionada(null);
     this.logo = "";
     this.titulo = "";
+    this.moneda = "€";
     this.vistaPagina_main_logo= "";
     this.vistaPagina_main_titulo = "";
     this.vistaPagina_color_background = "#ffffff";
@@ -135,6 +136,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     this.vistaPagina_color_texto = "#000000";
     this.vistaPagina_color_texto_light = "#111942";
     this.vistaPagina_color_texto_dark = "#090d22";
+    this.proyectoServices.clearImportadores();
 
     this.proyectoServices.crearProyecto();
     this.cdr.detectChanges();
@@ -153,7 +155,9 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   }
 
   generarProyecto(){
-
+    for (const importador of this.proyectoServices.getImportadores()){
+      importador.generarBaseDedatos();
+    }
     this.generarColores();
     const pr : CrearProyectoDto = {
       Usuario: sessionStorage.getItem("Id")!,
@@ -178,6 +182,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
         Color_subHeader: this.vistaPagina_color_subHeader,
         Color_subHeader_light: this.vistaPagina_color_subHeader_light,
         Color_subHeader_dark: this.vistaPagina_color_subHeader_dark,
+        Moneda: this.moneda,
         Logo: this.logo,
         Titulo: this.vistaPagina_main_titulo
       },

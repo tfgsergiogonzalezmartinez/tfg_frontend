@@ -14,21 +14,13 @@ export class HeaderComponent implements OnInit {
       Icono: "home",
       Ruta: "/main",
       Rol: "all",
-      Secciones: [
-        {
-          TituloPrincipal: "Components",
-          Icono: "data_object",
-          Ruta: "/main/components",
-          Rol: "all",
-          Secciones: []
-        }
-      ]
+      Secciones: []
     },
     {
       TituloPrincipal: "Proyectos",
       Icono: "newspaper",
       Ruta: "/main/proyectos",
-      Rol: "all",
+      Rol: "user",
       Secciones: []
     },
     {
@@ -42,6 +34,13 @@ export class HeaderComponent implements OnInit {
       TituloPrincipal: "Soporte",
       Icono: "contact_support",
       Ruta: "/main/soporte",
+      Rol: "user",
+      Secciones: []
+    },
+    {
+      TituloPrincipal: "Documentacion",
+      Icono: "library_books",
+      Ruta: "/main/documentacion",
       Rol: "all",
       Secciones: []
     },

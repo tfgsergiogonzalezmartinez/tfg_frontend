@@ -5,6 +5,7 @@
 
 @layer base {
   :root {
+    font-family: inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --text: #000000;
     --background: #ffffff;
     --primary: #2b4eee;
@@ -33,6 +34,7 @@
     --header: #2b4eee;
     --border: #bfbfc2e3;
     --enlaces-hover: #2b4feea8;
+    --resaltar: #fcb42f;
 
   }
 
@@ -67,12 +69,19 @@
     --border: #202749;
     --enlaces-hover: #fcb42fd3;
 
+    --resaltar: #44c1e77a;
+
 
   }
 }
 body {
   margin: 0;
   padding: 0;
+}
+
+.subrayado{
+  background: var(--resaltar);
+  border-radius: 5px;
 }
 
 .bg-custom-dark-default {
@@ -136,6 +145,31 @@ h6 {
   /* margin: 1.67em 0; */
 }
 
+.h1Docu {
+  color: var(--text);
+  font-size: 2.5em;
+  font-weight: 800;
+  margin: 0.67em 0;
+  /* margin: 0.67em 0; */
+}
+.h2Docu {
+  color: var(--text-light);
+  font-size: 2em;
+  font-weight: 800;
+  margin: 0.75em 0;
+
+  /* margin: 0.75em 0; */
+}
+
+.h3Docu {
+  color: var(--text-light);
+  font-size: 1.40em;
+  font-weight: 700;
+  margin: 0.83em 0;
+
+  /* margin: 0.83em 0; */
+}
+
 /* Estilos para párrafos en modo claro */
 p {
   color: var(--text);
@@ -147,7 +181,7 @@ p {
 ul,
 ol {
   color: var(--text);
-  margin: 1em 0;
+  margin: 0.1em 0;
   padding-left: 2em;
   list-style-type: disc;
   /* Asegura que se muestren los puntos */

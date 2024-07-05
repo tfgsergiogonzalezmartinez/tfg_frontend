@@ -43,6 +43,7 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
     if (this.NombreModelo == "Categoria") {
       this.modelo_mostrar = this.modelo_tienda_categoria_campos;
     }
+    this.proyectoService.addImportador(this);
   }
   ngAfterViewInit(): void {
     this.renderer.listen(this.inputRef.nativeElement, 'change', (event) => {
