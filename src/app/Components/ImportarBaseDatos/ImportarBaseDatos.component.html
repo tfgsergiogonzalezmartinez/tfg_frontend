@@ -27,10 +27,10 @@
       <span class="text-text material-symbols-outlined">
         arrow_right_alt
       </span>
-      <select class="p-2 bg-background-light rounded-md"  (change)="producto_enlazar(item, $event)" name="" id="">
+      <select class="p-2 bg-background-light rounded-md text-text"  (change)="producto_enlazar(item, $event)" name="" id="">
         <option value="" hidden selected >Seleccione un campo</option>
         @for (opcion of headers; track $index) {
-          <option value="{{opcion}}">{{opcion}}</option>
+          <option class="text-text" value="{{opcion}}">{{opcion}}</option>
         }
       </select>
     </div>

@@ -8,6 +8,7 @@ import { GetChatDto } from '../../dto/ChatDto/GetChatDto';
 import { ChatUsuariosRequestDto } from '../../dto/ChatDto/ChatUsuariosRequestDto';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ChatMessage } from '../../Interfaces/Chat/ChatMessage';
+import { Enviroment } from '../../Enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,38 +23,38 @@ export class ChatService extends BaseService {
   }
 
   public GetByUser(id: string) {
-    return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetByUser/" + id , {headers: this.getHeaders()} );
+    return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetByUser/" + id, { headers: this.getHeaders() });
   }
-  public GetByUsers(userId1 : string, userId2 : string) {
-    return this.httpClient.get<GetChatDto>(this.apiIp + this.controller + "/" + "GetByUsers/" + userId1 + "/" + userId2 ,  {headers: this.getHeaders()} );
+  public GetByUsers(userId1: string, userId2: string) {
+    return this.httpClient.get<GetChatDto>(this.apiIp + this.controller + "/" + "GetByUsers/" + userId1 + "/" + userId2, { headers: this.getHeaders() });
   }
-  public GetChatsAbiertos(idUser : string) {
-    return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetChatsAbiertos/" + idUser , {headers: this.getHeaders()} );
+  public GetChatsAbiertos(idUser: string) {
+    return this.httpClient.get<GetChatDto[]>(this.apiIp + this.controller + "/" + "GetChatsAbiertos/" + idUser, { headers: this.getHeaders() });
   }
-  public GetNumMensajesSinLeer(idUser1 : string, idUser2 : string) {
-    return this.httpClient.get<MensajesNoLeidosDto>(this.apiIp + this.controller + "/" + "GetNumMensajesSinLeer/" + idUser1 + "/" + idUser2 , {headers: this.getHeaders()} );
+  public GetNumMensajesSinLeer(idUser1: string, idUser2: string) {
+    return this.httpClient.get<MensajesNoLeidosDto>(this.apiIp + this.controller + "/" + "GetNumMensajesSinLeer/" + idUser1 + "/" + idUser2, { headers: this.getHeaders() });
   }
-  public LeerChat(idUser1 : string, idUser2 : string) {
-    const request : ChatUsuariosRequestDto = {UserId1 : idUser1, UserId2 : idUser2};
-    return this.httpClient.post(this.apiIp + this.controller + "/" + "LeerChat/" , request, {headers: this.getHeaders()} );
+  public LeerChat(idUser1: string, idUser2: string) {
+    const request: ChatUsuariosRequestDto = { UserId1: idUser1, UserId2: idUser2 };
+    return this.httpClient.post(this.apiIp + this.controller + "/" + "LeerChat/", request, { headers: this.getHeaders() });
   }
-  public CerrarChat(idUser1 : string, idUser2 : string) {
-    const request : ChatUsuariosRequestDto = {UserId1 : idUser1, UserId2 : idUser2};
-    return this.httpClient.post(this.apiIp + this.controller + "/" + "CerrarChat/" , request , {headers: this.getHeaders()} );
+  public CerrarChat(idUser1: string, idUser2: string) {
+    const request: ChatUsuariosRequestDto = { UserId1: idUser1, UserId2: idUser2 };
+    return this.httpClient.post(this.apiIp + this.controller + "/" + "CerrarChat/", request, { headers: this.getHeaders() });
   }
-  public AbrirChat(idUser1 : string, idUser2 : string) {
-    const request : ChatUsuariosRequestDto = {UserId1 : idUser1, UserId2 : idUser2};
-    return this.httpClient.post(this.apiIp + this.controller + "/" + "AbrirChat/" , request , {headers: this.getHeaders()} );
+  public AbrirChat(idUser1: string, idUser2: string) {
+    const request: ChatUsuariosRequestDto = { UserId1: idUser1, UserId2: idUser2 };
+    return this.httpClient.post(this.apiIp + this.controller + "/" + "AbrirChat/", request, { headers: this.getHeaders() });
   }
 
-  public iniciarConexion(){
+  public iniciarConexion() {
     this.connection = new HubConnectionBuilder()
-      .withUrl(`http://localhost:5059/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
+      .withUrl(`${Enviroment.BACKEND_URL}/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
         withCredentials: true
       })
       .build();
 
-      this.connection.start()
+    this.connection.start()
       .then(() => {
         console.log('Connection Started');
         this.isConnectionEstablished = true;

@@ -1,12 +1,8 @@
 
 FROM node:latest as angular
-ARG IP_API
-ARG API_HOST
-ARG API_PORT
 
-ENV ENV_IP_API=${IP_API}
-ENV ENV_API_HOST=${API_HOST}
-ENV ENV_API_PORT=${API_PORT}
+ARG IP_FRONT
+ENV ENV_IP_FRONT=${IP_FRONT}
 
 WORKDIR /home/app
 COPY package*.json .
@@ -16,9 +12,9 @@ RUN if [ -f Enviroment.ts ]; then rm Enviroment.ts; fi
 RUN echo "Archivo Environment.ts eliminado (si existía)"
 
 RUN echo "export const Enviroment = { \
-  BACKEND_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}}/', \
-  BACKEND_API_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}/api/', \
-  CHAT_WS : 'ws://${ENV_IP_API}:${ENV_API_PORT}/WebChat' \
+  BACKEND_URL : '${ENV_IP_FRONT}', \
+  BACKEND_API_URL : '${ENV_IP_FRONT}', \
+  CHAT_WS : '${ENV_IP_FRONT}WebChat' \
 };" > Enviroment.ts
 
 RUN echo "Archivo environment.ts creado con variables de entorno"
