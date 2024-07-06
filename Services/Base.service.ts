@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Enviroment } from '../Enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,9 @@ import { Injectable } from '@angular/core';
 export class BaseService {
 
 protected controller : string;
-protected chatIp : string = 'ws://localhost:5059/WebChat';  //TODO CAMBIAR por variables de entorno [enviroment]
-protected ip : string = 'http://localhost:5059/';  //TODO CAMBIAR por variables de entorno [enviroment]
-protected apiIp : string = 'http://localhost:5059/api/';  //TODO CAMBIAR por variables de entorno [enviroment]
+protected chatIp : string = Enviroment.CHAT_WS;  //TODO CAMBIAR por variables de entorno [enviroment]
+protected ip : string = Enviroment.BACKEND_URL;  //TODO CAMBIAR por variables de entorno [enviroment]
+protected apiIp : string = Enviroment.BACKEND_API_URL;  //TODO CAMBIAR por variables de entorno [enviroment]
 constructor( protected httpClient : HttpClient) {
   this.controller = 'Base';
  }

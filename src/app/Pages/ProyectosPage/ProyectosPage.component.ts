@@ -59,12 +59,23 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private plantillaService : PlantillaService) { }
 
   ngOnInit() {
-    this.cargarProyectos();
+    this.cargarProyectosByUsuario();
     this.cargarPlantillas();
   }
 
-  cargarProyectos(){
-    this.proyectoServices.GetAll().subscribe({
+  // cargarProyectos(){
+  //   this.proyectoServices.GetAll().subscribe({
+  //     next: (data) => {
+  //       this.listaProyectos = data;
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
+
+  cargarProyectosByUsuario(){
+    this.proyectoServices.GetProyectosUsuario(sessionStorage.getItem("Id")!).subscribe({
       next: (data) => {
         this.listaProyectos = data;
       },
@@ -225,7 +236,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-      this.cargarProyectos();
+      this.cargarProyectosByUsuario();
     }, error => {
       console.error('Error al generar el proyecto:', error);
       this.mainService.setIcono("error");

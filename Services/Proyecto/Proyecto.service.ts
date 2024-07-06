@@ -44,8 +44,8 @@ export class ProyectoService extends BaseService {
     this.plantillaDto = linkTienda;
   }
 
-  getProyectoByUsuario(idUsuario: string) {
-    return this.httpClient.get<ProyectoDto>(this.apiIp + this.controller + "/GetProyectoByUsuario/" + idUsuario, { headers: this.getHeaders() });
+  GetProyectosUsuario(idUsuario: string) {
+    return this.httpClient.get<ProyectoDto[]>(this.apiIp + this.controller + "/GetProyectosUsuario/" + idUsuario, { headers: this.getHeaders() });
   }
 
   generarProyecto(proyecto: CrearProyectoDto): Observable<Blob> {
