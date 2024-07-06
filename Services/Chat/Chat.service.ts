@@ -48,6 +48,10 @@ export class ChatService extends BaseService {
   }
 
   public iniciarConexion() {
+    console.log('Iniciando Conexion');
+    console.log(`${Enviroment.BACKEND_URL}/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`);
+    console.log('Connection Started');
+
     this.connection = new HubConnectionBuilder()
       .withUrl(`${Enviroment.BACKEND_URL}/WebChat?user=${sessionStorage.getItem('Id')}&token=${sessionStorage.getItem('Token')}`, {
         withCredentials: true
