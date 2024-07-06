@@ -30,8 +30,8 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   vistaPagina_color_background_light : string = "#eff1fb";
   vistaPagina_color_background_dark : string = "#f1f1f1";
   vistaPagina_color_items : string = "#ffffff";
-  vistaPagina_color_items_light: string = "#eff1fb"
-  vistaPagina_color_items_dark : string = "#f1f1f1";
+  vistaPagina_color_items_light: string = "#ffffff"
+  vistaPagina_color_items_dark : string = "#ffffff";
   vistaPagina_color_botones : string = "#2b4eee";
   vistaPagina_color_botones_light : string = "#6881f0";
   vistaPagina_color_botones_dark : string = "#143cf1";
@@ -115,8 +115,6 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
 
 
   AbrirNuevoProyecto(){
-
-
     this.nombreProyecto = "";
     this.proyectoServices.setPlantillaSeleccionada(null);
     this.logo = "";
@@ -140,6 +138,9 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     this.vistaPagina_color_texto = "#000000";
     this.vistaPagina_color_texto_light = "#111942";
     this.vistaPagina_color_texto_dark = "#090d22";
+    this.vistaPagina_color_items = "#ffffff";
+    this.vistaPagina_color_items_light = "#ffffff";
+    this.vistaPagina_color_items_dark = "#ffffff";
     this.proyectoServices.clearImportadores();
 
     this.proyectoServices.crearProyecto();
@@ -199,12 +200,22 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
 
     if (!this.comprobarFormulario(pr)) {
       this.msgError = "Por favor, rellene todos los campos";
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Por favor, rellene todos los campos");
+      this.mainService.activarMensaje();
       return;
     }
+    this.mainService.setIcono("construction");
+    this.mainService.setMensaje("Generando proyecto...");
+    this.mainService.activarMensaje();
+
     this.msgError = "";
 
     console.log(pr);
     this.proyectoServices.generarProyecto(pr).subscribe((response: Blob) => {
+      this.mainService.setIcono("check");
+      this.mainService.setMensaje("Proyecto generado con éxito.");
+      this.mainService.activarMensaje();
       const blob = new Blob([response], { type: 'application/zip' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -217,6 +228,9 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
       this.cargarProyectos();
     }, error => {
       console.error('Error al generar el proyecto:', error);
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Error al generar el proyecto, pongase en contacto con soporte.");
+      this.mainService.activarMensaje();
     });
   }
 

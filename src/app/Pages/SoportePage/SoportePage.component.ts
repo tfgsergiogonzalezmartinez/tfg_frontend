@@ -61,7 +61,9 @@ export class SoportePageComponent implements OnInit {
 
   private recibirMensaje_privado(message: ChatMessage) {
     if (message.usuario == sessionStorage.getItem('Id')) return;
-    console.log('Mensaje directo recibido:', message);
+    this.mainService.setIcono("support_agent");
+    this.mainService.setMensaje("Nuevo mensaje del soporte.");
+    this.mainService.activarMensaje();
     this.scrollHastaAbajo();
     if (this.otroUsuarioChat && this.otroUsuarioChat.Peticion!.Id != message.grupo) return
     this.listaConversacion.push(message);
@@ -91,6 +93,9 @@ export class SoportePageComponent implements OnInit {
   enviarPeticion(){
     this.soporteService.NuevaPeticion(this.Asunto, this.Descripcion, sessionStorage.getItem('Id')!).subscribe({
       next: data => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("Petición de soporte enviada con éxito.");
+        this.mainService.activarMensaje();
         this.isNuevaPeticion = false;
         this.Asunto = "";
         this.Descripcion = "";
@@ -206,6 +211,7 @@ export class SoportePageComponent implements OnInit {
   }
 
   enviarMensaje() {
+    if (this.inputMensaje == '') return;
     const newMessage: ChatMessage = {
       mensaje: this.inputMensaje,
       usuario: sessionStorage.getItem('Id')!,

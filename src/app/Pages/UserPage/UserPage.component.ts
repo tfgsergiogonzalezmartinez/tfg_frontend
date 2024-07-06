@@ -52,7 +52,9 @@ export class UserPageComponent implements OnInit {
         console.log("Contraseña cambiada con éxito");
       },
       error: error => {
-        console.log(error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al cambiar la contraseña");
+        this.mainService.activarMensaje();
       }
     });
   }
