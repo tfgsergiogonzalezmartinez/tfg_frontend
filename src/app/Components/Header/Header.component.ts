@@ -37,14 +37,8 @@ export class HeaderComponent implements OnInit {
       Ruta: "/main/documentacion",
       Rol: "all",
       Secciones: []
-    },
-    {
-      TituloPrincipal: "About",
-      Icono: "help",
-      Ruta: "/About",
-      Rol: "all",
-      Secciones: []
-    },
+    }
+
 
   ];
 
