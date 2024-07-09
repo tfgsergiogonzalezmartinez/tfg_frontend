@@ -1,0 +1,16 @@
+.color{
+  background: #cc5d66;
+}
+
+.tiendaLight{
+    /* background-image: url('/assets/background-tienda-light.svg'); */
+    background-size: cover; /* Ajusta el tamaño del fondo */
+    background-position: center; /* Centra el fondo */
+    background-repeat: no-repeat; /* Evita que se repita el fondo */
+}
+.tiendaDark{
+    /* background-image: url('/assets/background-tienda-dark.svg'); */
+    background-size: cover; /* Ajusta el tamaño del fondo */
+    background-position: center; /* Centra el fondo */
+    background-repeat: no-repeat; /* Evita que se repita el fondo */
+}

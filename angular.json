@@ -23,6 +23,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "externalDependencies": [
+              "http",
+              "https",
+              "url",
+              "util",
+              "net"
+            ],
+            "allowedCommonJsDependencies": [
+              "tough-cookie",
+              "node-fetch",
+              "fetch-cookie",
+              "abort-controller",
+              "ws",
+              "eventsource"
+            ],
             "outputPath": "dist/frontend_tfg",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -32,12 +47,22 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/background_dark_default.svg",
+              "src/assets/background_dark.svg",
+              "src/assets/background_dark2svg",
+              "src/assets/background_dark3.svg",
+              "src/assets/background_light_default.svg",
+              "src/assets/background_light.svg",
+              "src/assets/background_light2.svg",
+              "src/assets/background-tienda-dark.svg",
+              "src/assets/background-tienda-light.svg"
             ],
             "styles": [
               "src/styles.css"
             ],
             "scripts": []
+
           },
           "configurations": {
             "production": {
@@ -98,6 +123,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

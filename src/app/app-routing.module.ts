@@ -7,7 +7,6 @@ import { loginGuard } from './Guards/Login.guard';
 import { EditorLayoutComponent } from './Layout/EditorLayout/EditorLayout.component';
 import { MainPageComponent } from './Pages/MainPage/MainPage.component';
 import { NotFound404PageComponent } from './Pages/NotFound404Page/NotFound404Page.component';
-import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { EstilosComponent } from './Components/estilos/estilos.component';
@@ -15,6 +14,7 @@ import { AdministracionPageComponent } from './Pages/AdministracionPage/Administ
 import { adminGuard } from './Guards/Admin.guard';
 import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
+import { DocumentacionPageComponent } from './Pages/DocumentacionPage/DocumentacionPage.component';
 
 const routes: Routes = [
   { path: '', component: MainLayoutComponent , children: [
@@ -30,6 +30,7 @@ const routes: Routes = [
     { path: 'administration', canActivate: [adminGuard], component: AdministracionPageComponent },
     { path: 'soporte', canActivate: [loginGuard], component: SoportePageComponent },
     { path: 'proyectos', canActivate: [loginGuard], component: ProyectosPageComponent },
+    { path: 'documentacion', component: DocumentacionPageComponent },
   ]},
 
 
@@ -51,6 +52,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+   declarations: []
 })
 export class AppRoutingModule { }

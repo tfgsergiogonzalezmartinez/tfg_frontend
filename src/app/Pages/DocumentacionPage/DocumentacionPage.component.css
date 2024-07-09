@@ -1,0 +1,13 @@
+
+
+
+.diagramaJWT_light{
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/documentacion/DiagramaSvg_light.svg');
+}
+.diagramaJWT_dark{
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/documentacion/DiagramaSvg_dark.svg');
+}

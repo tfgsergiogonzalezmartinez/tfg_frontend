@@ -5,7 +5,7 @@
     <div class="flex flex-row w-full gap-12 justify-between p-2">
       <h3>Chat</h3>
       <app-BuscadorUsuarios #buscador (usuarioEmitter)="addUsuarioChat($event)"></app-BuscadorUsuarios>
-      <div (click)="isOpen=false"
+      <div (click)="cerrarChatHtml()"
         class="flex p-1 justify-center items-center rounded hover:bg-background-dark hover:transition-colors">
         <span class="material-symbols-outlined text-text">
           close
@@ -87,7 +87,7 @@
     </div>
     }
     @if (!isOpen) {
-    <div (click)="isOpen = true" class="flex w-full h-full justify-center items-center">
+    <div (click)="abrirChatHtml()" class="flex w-full h-full justify-center items-center">
       <span class="material-symbols-outlined text-text">
         chat
       </span>

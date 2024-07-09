@@ -1,0 +1,35 @@
+<div (mouseleave)="isOptions=false" (click)="getProyectoService().abrirProyecto(proyecto)"
+  [ngClass]="{'tiendaLight' : proyecto.Plantilla == 'Tienda' && getService().isModoClaro(), 'tiendaDark' : proyecto.Plantilla == 'Tienda' && getService().isModoOscuro()}"
+  [ngStyle]="getService().isModoOscuro() && proyecto.Plantilla == 'Tienda'  ? {'background-image': 'url(assets/background-tienda-dark.svg)'} : {'background-image': 'url(assets/background-tienda-light.svg)'}"
+  class="flex flex-col min-w-[250px] max-w-[250px] min-h-[130px] max-h-[130px] p-5 justify-start items-start rounded cursor-pointer shadow-2xl hover:scale-105 transition-all">
+  <div class="flex flex-row w-full justify-end items-end">
+    <div (click)="toggleOptions()"
+      class="relative flex flex-row justify-center items-center cursor-pointer p-1 hover:bg-enlaces-hover transition-colors rounded">
+      <span class="material-symbols-outlined text-text">
+        more_vert
+      </span>
+      @if (isOptions) {
+      <div
+        class="absolute w-[220px] top-9 left-0 bg-background-dark flex flex-col p-2 justify-start items-start rounded shadow">
+        <div (click)="descargarProyecto()" class="flex flex-row justify-center items-center gap-3 p-1 transition-colors cursor-pointer hover:bg-background">
+          <span class="text-text material-symbols-outlined">
+            download
+          </span>
+          <span class="font-semibold text-text">Descargar proyecto</span>
+        </div>
+        <div (click)="eliminarProyecto()" class="flex flex-row justify-center items-center gap-3 p-1 transition-colors cursor-pointer hover:bg-background">
+          <span class="text-text material-symbols-outlined">
+            delete
+          </span>
+          <span class="font-semibold text-text">Eliminar proyecto</span>
+        </div>
+      </div>
+      }
+    </div>
+
+  </div>
+  <div class="flex flex-col w-full justify-center items-center">
+    <h3 class="font-semibold">{{proyecto.Nombre | Truncar}}</h3>
+    <span class="text-sm font-semibold text-text">{{proyecto.Plantilla}}</span>
+  </div>
+</div>

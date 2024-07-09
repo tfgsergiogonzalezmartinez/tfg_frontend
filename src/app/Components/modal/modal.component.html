@@ -2,12 +2,12 @@
 
 
 <div class="modal indexModal">
-  <div class="flex flex-col bg-background w-[70%] p-4 rounded shadow-sm">
+  <div #modal class="flex flex-col bg-background h-[90%] h-min-[90%] h-max-[90%] overflow-y-auto sm:w-[500px] sm:w-max-[500px] md:w-[700px] md:w-max-[700px] lg:w-[1000px] lg:w-max-[1000px] p-4 rounded shadow-sm">
     <div class="flex flex-row w-full justify-between items-center px-4">
       <ng-content select="[titulo]"></ng-content>
       <span class="material-symbols-outlined text-text text-2xl cursor-pointer hover:text-red-500" (click)="closeModal()">close</span>
     </div>
-    <div class="py-4">
+    <div class="py-4 h-full">
       <ng-content select="[body]"></ng-content>
     </div>
   </div>

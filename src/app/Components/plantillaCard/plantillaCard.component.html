@@ -1,0 +1,6 @@
+<div (click)="setPlantillaSeleccionada()" [ngClass]="{'tiendaLight' : plantilla.Nombre == 'Tienda' && getService().isModoClaro(), 'tiendaDark' : plantilla.Nombre == 'Tienda' && getService().isModoOscuro()}"
+[ngStyle]="getService().isModoOscuro() && plantilla.Nombre == 'Tienda'  ? {'background-image': 'url(assets/background-tienda-dark.svg)'} : {'background-image': 'url(assets/background-tienda-light.svg)'}" class="flex flex-col min-w-[250px] max-w-[250px] min-h-[130px] max-h-[130px] p-5 justify-center items-center rounded cursor-pointer shadow-2xl hsover:scale-105 transition-all">
+  <div class="flex flex-col w-full justify-center items-center">
+    <h3 class="font-semibold">{{plantilla.Nombre}}</h3>
+  </div>
+</div>

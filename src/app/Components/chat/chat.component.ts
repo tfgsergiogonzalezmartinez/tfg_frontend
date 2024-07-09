@@ -6,6 +6,7 @@ import { UserGetDto } from '../../../../dto/UserDto/UserGetDto';
 import { ChatUsuariosBuscados } from '../../../../Interfaces/Chat/ChatUsuariosBuscados';
 import { BuscadorUsuariosComponent } from '../BuscadorUsuarios/BuscadorUsuarios.component';
 import { ChatService } from '../../../../Services/Chat/Chat.service';
+import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
   selector: 'app-chat',
@@ -35,12 +36,21 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   isConexionInciada = false;
 
-  constructor(private userService: UserService, private chatService: ChatService, private cdr: ChangeDetectorRef) {
+  constructor(private userService: UserService, private chatService: ChatService,private mainService : MainService, private cdr: ChangeDetectorRef) {
     this.chatService.iniciarConexion();
     this.chatService.getHubConnection().on("mensajePrivadoChat", (message: ChatMessage) => this.recibirMensaje_privado(message));
 
   }
 
+
+  abrirChatHtml(){
+    this.isOpen = true;
+  }
+
+  cerrarChatHtml(){
+    this.isOpen = false;
+    this.otroUsuarioChat = null;
+  }
   ngOnInit(): void {
 
     this.userService.getFotoAvatar(sessionStorage.getItem('Id')!).subscribe({
@@ -83,6 +93,19 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private recibirMensaje_privado(message: ChatMessage) {
+    if(message.usuario != this.otroUsuarioChat?.User.Id){
+      this.userService.GetById(message.usuario).subscribe({
+        next: data => {
+          this.mainService.setIcono("sms");
+          this.mainService.setMensaje("Nuevo mensaje de " + data.Nombre + " " + data.Apellido1 + " " + data.Apellido2);
+          this.mainService.activarMensaje();
+          this.actualizarMensajesNoLeidos(message.usuario);
+        },
+        error: error => {
+          console.error("Error al obtener el usuario.", error);
+        }
+      });
+    }
     console.log('Mensaje directo recibido:', message);
     this.scrollHastaAbajo();
     this.actualizarMensajesNoLeidos(message.usuario); //Actualizo los mensajes no leidos a partir de la primera vez.
@@ -109,12 +132,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.otroUsuarioChat && this.otroUsuarioChat.User.Id != message.usuario) return
     this.listaConversacion.push(message);
 
-  }
-
-  public join(grupo: string) {
-    this.chatService.getHubConnection().invoke('JoinGroup', grupo, this.user)
-      .then(() => this.connected = true)
-      .catch(err => console.error('Join Group Error: ', err));
   }
 
   actualizarMensajesNoLeidos(idUsuario: string) {
@@ -189,6 +206,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public enviarMensaje() {
+    if (this.inputMensaje == '') return;
     const newMessage: ChatMessage = {
       mensaje: this.inputMensaje,
       usuario: sessionStorage.getItem('Id')!,

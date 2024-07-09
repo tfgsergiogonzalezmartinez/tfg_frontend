@@ -4,6 +4,7 @@ import { UserLoginDto } from '../../../../dto/UserDto/UserLoginDto';
 import { UserLoginGetDto } from '../../../../dto/UserDto/UserLoginGetDto';
 import { Router } from '@angular/router';
 import { UserCreateDto } from '../../../../dto/UserDto/UserCreateDto';
+import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
   selector: 'app-LoginPage',
@@ -15,8 +16,8 @@ export class LoginPageComponent implements OnInit {
   public isLoginMode: boolean = true;
   public isRegistroMode: boolean = false;
 
-  public email! : string;
-  public password! : string;
+  public email!: string;
+  public password!: string;
 
 
   //registro
@@ -28,8 +29,8 @@ export class LoginPageComponent implements OnInit {
   public Apellido2!: string;
   public FechaNacimiento!: Date;
 
-  constructor(private userService : UserService, private router: Router) {
-    if (userService.getIsRegisterFromMain()){
+  constructor(private userService: UserService, private router: Router, private mainService: MainService) {
+    if (userService.getIsRegisterFromMain()) {
       this.ActivarRegistroMode();
     }
   }
@@ -45,34 +46,45 @@ export class LoginPageComponent implements OnInit {
   }
 
 
-  public login(){
+  public login() {
     if (!this.email || !this.password) {
       return;
     }
 
-    let login : UserLoginDto = {
+    let login: UserLoginDto = {
       Email: this.email,
       Password: this.password
     };
     this.userService.Login(login).subscribe(
-      (data: UserLoginGetDto)  => {
-      this.userService.setSession(data);
-      this.router.navigate(['/main']);
+      (data: UserLoginGetDto) => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("¡Bienvenido " + data.Nombre +"!");
+        this.mainService.activarMensaje();
+        this.userService.setSession(data);
+        this.router.navigate(['/main']);
       },
       (error: any) => {
-      console.log(error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al iniciar sesión.");
+        this.mainService.activarMensaje();
       }
     );
   }
 
-  public Registrar(){
+  public Registrar() {
     if (!this.EmailRegister || !this.PasswordRegister || !this.PasswordRepeat || !this.Nombre || !this.Apellido1 || !this.Apellido2 || !this.FechaNacimiento) {
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Rellene todos los campos");
+      this.mainService.activarMensaje();
       return;
     }
-    if(this.PasswordRegister != this.PasswordRepeat){
+    if (this.PasswordRegister != this.PasswordRepeat) {
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Las contraseñas no coinciden");
+      this.mainService.activarMensaje();
       return;
     }
-    let register : UserCreateDto = {
+    let register: UserCreateDto = {
       Email: this.EmailRegister,
       Password: this.PasswordRegister,
       Nombre: this.Nombre,
@@ -82,20 +94,25 @@ export class LoginPageComponent implements OnInit {
     };
     this.userService.Register(register).subscribe({
       next: (data: UserLoginGetDto) => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("!Bienvenido " + data.Nombre + "¡");
+        this.mainService.activarMensaje();
         this.userService.setSession(data);
         this.router.navigate(['/main']);
       },
       error: (error: any) => {
-        console.log(error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al realizar el registro");
+        this.mainService.activarMensaje();
       }
     });
   }
 
-  ActivarRegistroMode(){
+  ActivarRegistroMode() {
     this.isLoginMode = false;
     this.isRegistroMode = true;
   }
-  ActivarLoginMode(){
+  ActivarLoginMode() {
     this.isLoginMode = true;
     this.isRegistroMode = false;
   }

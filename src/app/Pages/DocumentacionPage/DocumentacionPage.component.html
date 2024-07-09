@@ -1,0 +1,671 @@
+<div
+  [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }"
+  class="flex flex-col h-screen w-screen pt-20 bg-background overflow-x-hidden">
+  <div class="flex w-full h-full flex-row">
+    <div
+      class="flex flex-col flex-wrap p-4 gap-2 justify-start items-start w-[300px] min-w-[300px] max-w-[300px] bg-background-dark rounded">
+      <div class="flex flex-row gap-2 justify-start items-center">
+        <span class="material-symbols-outlined text-text">search</span>
+        <input type="text" [(ngModel)]="searchTerm" class="p-2 bg-background rounded-md text-text" placeholder="Buscar">
+      </div>
+      <div (click)="scrollToElement('introduccion')"
+        class="flex flex-row gap-2 w-full mt-4 p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          info
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Introducción</p>
+      </div>
+      <div (click)="scrollToElement('jwt')"
+        class="text-text flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="material-symbols-outlined">
+          lock
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Seguridad JWT</p>
+      </div>
+      <div (click)="scrollToElement('administracion')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          settings
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Administración</p>
+      </div>
+      <div (click)="scrollToElement('websockets')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          chat
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Chat en Vivo con WebSockets</p>
+      </div>
+      <div (click)="scrollToElement('soporte')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          support_agent
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Soporte en Vivo</p>
+      </div>
+      <div (click)="scrollToElement('proyectos')"
+        class="flex flex-row gap-2 w-full p-1 rounded text-center justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          build
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Generación de Proyectos</p>
+      </div>
+      <div (click)="scrollToElement('tienda')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          store
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Plantilla: Tienda</p>
+      </div>
+      <div (click)="scrollToElement('docker')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          apps
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Introducción a Docker</p>
+      </div>
+      <div (click)="scrollToElement('resumen')"
+        class="flex flex-row gap-2 w-full p-1 rounded justify-start items-center cursor-pointer hover:bg-background transition-colors">
+        <span class="text-text material-symbols-outlined">
+          article
+        </span>
+        <p class="text-text font-semibold text-lg m-0 p-1">Resumen</p>
+      </div>
+    </div>
+    @if (getService().isModoClaro()) {
+
+      <div appBoldSearchTerm [searchTerm]="searchTerm">
+        <div class="flex flex-col gap-2 justify-start items-start w-full h-full bg-background p-5 overflow-y-auto ">
+          <div class="h1Docu">¡Bienvenido a la documentación!</div>
+          <div id="introduccion" class="h2Docu">Introducción</div>
+          <p>El objetivo principal del creador de páginas web es facilitar la creación de proyectos a través de plantillas
+            predefinidas. Esto es ideal para personas que no tienen conocimientos de programación, ya que la aplicación se
+            encarga de generar todo el proyecto junto con los ficheros necesarios para el despliegue utilizando Docker. El
+            usuario simplemente tiene que ejecutar un comando <code>docker-compose up -d</code> y ya tendrá su página web
+            en
+            funcionamiento. A continuación, se detallan las funcionalidades clave de esta aplicación:</p>
+          <div id="jwt" class="h2Docu">Seguridad JWT</div>
+          <p>La aplicación está protegida mediante seguridad JWT (JSON Web Token) para la autenticación de usuarios. Esto
+            asegura que solo los usuarios autenticados pueden acceder a los endpoints protegidos. A continuación, se
+            describen las principales características de la seguridad JWT en la aplicación:</p>
+          <ul>
+            <li><strong>Protección de Endpoints:</strong> Todos los endpoints críticos de la aplicación están protegidos
+              mediante JWT, garantizando que solo los usuarios autenticados pueden acceder a ellos.</li>
+            <li><strong>Autenticación y Autorización:</strong> La autenticación se realiza mediante el envío de un token
+              JWT
+              con cada solicitud, el cual es verificado por el servidor para asegurar que el usuario está autorizado para
+              acceder al recurso solicitado.</li>
+            <li><strong>Gestión de Roles:</strong> Los roles de los usuarios se gestionan a través de JWT. Cada token
+              incluye información sobre el rol del usuario (por ejemplo, usuario, administrador), lo que permite al
+              servidor
+              controlar el acceso a diferentes recursos y funcionalidades según el rol asignado.</li>
+            <li><strong>Expiración de Tokens:</strong> Los tokens JWT tienen un tiempo de expiración, lo que añade una
+              capa
+              adicional de seguridad al requerir a los usuarios autenticarse nuevamente después de un periodo determinado.
+            </li>
+          </ul>
+
+          <div class="h3Docu">Diagrama de Secuencia para la Autenticación y Verificación de Roles por Token JWT</div>
+          <p>El siguiente diagrama de secuencia muestra el proceso de autenticación y verificación de roles mediante
+            tokens
+            JWT en la aplicación:</p>
+            <img class="w-full h-full" src="assets/documentacion/DiagramaSvg_light.svg" alt="">
+          <blockquote>
+            La implementación de seguridad JWT no solo autentica a los usuarios, sino que también gestiona sus roles,
+            asegurando que cada usuario tenga acceso solo a las funcionalidades y recursos que le corresponden según su
+            rol.
+          </blockquote>
+          <div id="administracion" class="h2Docu">Administración</div>
+          <p>La aplicación permite a los usuarios con roles de administrador gestionar los roles de otros usuarios. Esta
+            funcionalidad es crucial para mantener un control adecuado sobre el acceso y las capacidades dentro de la
+            aplicación. A continuación, se detallan los pasos que los administradores pueden seguir para modificar los
+            roles
+            de los usuarios:</p>
+          <div class="h3Docu">Modificación de Roles de Usuarios</div>
+          <p>Los administradores pueden modificar los roles de los usuarios a través del panel de administración. A
+            continuación se describen los pasos para realizar esta tarea:</p>
+          <ol>
+            <li><strong>Acceso al Panel de Administración:</strong> Los administradores deben iniciar sesión y acceder al
+              panel de administración, disponible en la navegación principal.</li>
+            <li><strong>Gestión de Usuarios:</strong> Dentro del panel de administración, hay una tabla específica para la
+              gestión de usuarios. Aquí, los administradores pueden ver todos los usuarios registrados en la
+              aplicación.</li>
+            <li><strong>Modificación del Rol:</strong> En la vista de la tabla de usuarios, los administradores pueden
+              cambiar el rol del usuario mediante un selector.</li>
+            <li><strong>Guardado de Cambios:</strong> Después de seleccionar el nuevo rol, el administrador debe guardar
+              los
+              cambios para que estos se apliquen. Esto se puede hacer mediante el botón de "Guardar".</li>
+          </ol>
+          <blockquote>
+            La gestión de roles de usuarios es una funcionalidad esencial para garantizar la seguridad y el control de
+            acceso en la aplicación. Los administradores pueden modificar los roles de los usuarios según sea necesario
+            para
+            mantener un entorno seguro y eficiente.
+          </blockquote>
+          <div id="websockets" class="h2Docu">Chat en Vivo con WebSockets</div>
+          <p>La aplicación incluye un sistema de chat en vivo que utiliza WebSockets para la comunicación en tiempo real.
+            Este chat está protegido mediante tokens JWT para asegurar que solo los usuarios autenticados pueden
+            participar
+            en las conversaciones. A continuación, se describen las características principales del chat en vivo:</p>
+          <ul>
+            <li><strong>Historial de Mensajes:</strong> Los usuarios pueden ver el historial de mensajes de las
+              conversaciones, lo que les permite revisar mensajes anteriores en cualquier momento.</li>
+            <li><strong>Notificaciones de Mensajes no Leídos:</strong> Los usuarios reciben notificaciones cuando tienen
+              mensajes no leídos. Cuando se conectan y han recibido mensajes anteriormente, el chat aparecerá abierto y
+              mostrará el número de mensajes sin leer.</li>
+            <li><strong>Conversaciones Activas:</strong> Los usuarios pueden ver todas sus conversaciones activas,
+              facilitando la gestión y seguimiento de las mismas.</li>
+          </ul>
+          <div id="soporte" class="h2Docu">Soporte en Vivo</div>
+          <p>La aplicación dispone de una ventana de soporte, donde los usuarios pueden abrir tickets con sus problemas.
+            También se incluye un chat en vivo por WebSockets para comunicarse con los administradores de soporte. A
+            continuación, se describen las características principales del sistema de soporte:</p>
+          <ul>
+            <li><strong>Apertura de Tickets:</strong> Los usuarios pueden abrir tickets describiendo sus problemas o
+              consultas. Estos tickets son visibles para todos los administradores.</li>
+            <li><strong>Notificaciones de Soporte:</strong> Cuando un administrador recibe una notificación de soporte,
+              todos los administradores son notificados. Los administradores pueden ver quién es el usuario, pero el
+              usuario
+              no sabe quién es el administrador; se muestra un avatar genérico de soporte.</li>
+            <li><strong>Cierre de Tickets:</strong> Una vez que se ha solucionado un problema, el administrador puede
+              cerrar
+              el ticket, lo que lo elimina de la ventana de soporte tanto para el usuario como para los administradores.
+            </li>
+          </ul>
+          <div id="proyectos" class="h2Docu">Generación de Proyectos</div>
+          <p>Los usuarios pueden crear proyectos seleccionando una plantilla. La plantilla pedirá un conjunto de datos
+            para
+            generar sus modelos de objetos. A continuación, se describen los pasos principales en el proceso de generación
+            de proyectos:</p>
+          <ul>
+            <li><strong>Importación de Datos:</strong> Los usuarios pueden importar cualquier tipo de CSV, separados por
+              comas los campos. Los arrays deben estar formateados como <code>"item1,item2,item3"</code>, separados por
+              comas.</li>
+            <li><strong>Enlace de Tipos de Datos:</strong> No es necesario que los CSV importados tengan el mismo número
+              de
+              campos. El siguiente paso en la generación de la web app es enlazar los tipos de datos del usuario con los
+              de
+              la plantilla. Esto permite que el generador cree la base de datos con los datos indicados.</li>
+          </ul>
+
+          <div class="h3Docu">Personalización de Proyectos</div>
+          <p>Los usuarios pueden personalizar sus proyectos eligiendo un logo para su aplicación y los colores principales
+            de la misma. En el caso de utilizar la plantilla de tienda, se podrá escoger la moneda de los precios. A
+            continuación, se describen los pasos principales en la personalización de proyectos:</p>
+          <ul>
+            <li><strong>Selección de Logo:</strong> Los usuarios pueden subir un logo personalizado para su aplicación, lo
+              que les permite dar una identidad visual única a su proyecto.</li>
+            <li><strong>Configuración de Colores:</strong> Los usuarios pueden elegir los colores principales de su
+              aplicación, lo que les permite personalizar la apariencia visual de su proyecto.</li>
+            <li><strong>Selección de Moneda:</strong> En el caso de utilizar la plantilla de tienda, los usuarios pueden
+              seleccionar la moneda en la que se mostrarán los precios, lo que les permite adaptar su tienda a diferentes
+              mercados.</li>
+            <li><strong>Generación del Proyecto:</strong> Una vez completada la configuración, los usuarios pueden pulsar
+              en
+              <code>Generar Proyecto</code> y descargarán su proyecto generado. El único paso a seguir es descomprimir el
+              archivo y ejecutar <code>docker compose up -d</code>. Luego, se podrá acceder desde
+              <code>localhost:4200</code> al frontend y desde <code>localhost:5000</code> al backend.
+            </li>
+          </ul>
+          <div id="tienda" class="h2Docu">Plantilla: Tienda</div>
+          <p>La plantilla <strong>Tienda</strong> está diseñada para generar automáticamente una plataforma de comercio
+            electrónico completa, permitiendo a los usuarios visualizar y adquirir productos de manera sencilla y
+            eficiente.
+            A continuación, se describen las características y funcionalidades principales de esta plantilla:</p>
+          <div class="h3Docu">Generación Automática de Items de Venta</div>
+          <p>Al utilizar la plantilla Tienda, se generarán automáticamente todos los ítems de venta, incluyendo:</p>
+          <ul>
+            <li>Nombre del Producto</li>
+            <li>Precio</li>
+            <li>Tallas disponibles</li>
+            <li>Colores disponibles</li>
+            <li>Descripción</li>
+            <li>Imágenes</li>
+            <li>Categoria del producto</li>
+          </ul>
+          <p>Una vez que la tienda esté en funcionamiento, los usuarios podrán añadir más ítems de venta directamente
+            desde
+            la aplicación, facilitando la gestión y expansión del inventario.</p>
+          <div class="h3Docu">Importación de Categorías desde CSV</div>
+          <p>Además de los productos, las categorías también se pueden importar a partir de un archivo .csv. Cada
+            categoría
+            importada puede ser relacionada con los productos a través del campo <strong>categoría</strong>, permitiendo
+            dividir y filtrar la tienda en diferentes secciones. Esto facilita la organización y la navegación dentro de
+            la
+            tienda, mejorando la experiencia del usuario.</p>
+          <div class="h3Docu">Acceso Público a la Página Web</div>
+          <p>La página web generada a partir de la plantilla Tienda estará accesible para todo el mundo sin necesidad de
+            iniciar sesión. Esto permite que cualquier visitante pueda ver los productos disponibles y sus detalles,
+            fomentando la exploración y el interés en realizar compras.</p>
+          <div class="h3Docu">Creación de Cuenta para Realizar Pedidos</div>
+          <p>Para realizar un pedido, los usuarios deberán crear una cuenta en la plataforma. Este proceso de registro es
+            sencillo y permite a los usuarios acceder a funcionalidades adicionales, como:</p>
+          <ul>
+            <li>Realizar pedidos</li>
+            <li>Guardar información de contacto y envío</li>
+            <li>Acceder al historial de pedidos</li>
+          </ul>
+          <div class="h3Docu">Carrito de Compras</div>
+          <p>La aplicación incluye un carrito de compras donde los usuarios pueden ver y gestionar todos los ítems que han
+            añadido a su cesta. El carrito de compras permite a los usuarios:</p>
+          <ul>
+            <li>Revisar los productos seleccionados</li>
+            <li>Eliminar ítems</li>
+            <li>Proceder al pago</li>
+          </ul>
+          <div class="h3Docu">Sección "Pedidos"</div>
+          <p>Los usuarios pueden ver sus pedidos en la sección del header llamada <strong>"Pedidos"</strong>. Aquí pueden
+            revisar el estado de sus pedidos, historial de compras y detalles de cada pedido realizado.</p>
+          <div class="h3Docu">Administración de Pedidos</div>
+          <p>Los usuarios con rol de administrador tienen acceso a una vista completa de todos los pedidos realizados por
+            todos los usuarios. Esto les permite gestionar eficientemente las órdenes y asegurar una operación fluida de
+            la
+            tienda.</p>
+          <div class="h3Docu">Personalización de la Página</div>
+          <p>La plantilla Tienda también permite una personalización extensiva de la página web, incluyendo:</p>
+          <ul>
+            <li>Colores de la página</li>
+            <li>Moneda utilizada para los precios</li>
+            <li>Logo de la página</li>
+            <li>Título de la página</li>
+          </ul>
+          <p>Estas opciones de personalización aseguran que cada tienda pueda reflejar la identidad visual y preferencias
+            de
+            su propietario.</p>
+          <div class="h3Docu">Seguridad por Token JWT</div>
+          <p>La aplicación cumple con los estándares de seguridad mediante el uso de tokens JWT para la autenticación de
+            usuarios. Esto asegura que todas las operaciones sensibles, como la realización de pedidos y la administración
+            de la tienda, estén protegidas y accesibles solo para usuarios autorizados.</p>
+          <blockquote>
+            La plantilla Tienda ofrece una solución completa y personalizable para la creación de una plataforma de
+            comercio
+            electrónico, asegurando una experiencia de usuario fluida y segura tanto para clientes como para
+            administradores.
+          </blockquote>
+          <div id="docker" class="h2Docu">Introducción a Docker</div>
+          <p>Docker es una plataforma que permite desarrollar, enviar y ejecutar aplicaciones dentro de contenedores. Los
+            contenedores son entornos ligeros y portátiles que pueden incluir todo lo necesario para ejecutar una
+            aplicación: código, runtime, herramientas de sistema, librerías y configuraciones. A continuación, se
+            describen
+            las principales características de Docker:</p>
+          <ul>
+            <li><strong>Portabilidad:</strong> Los contenedores Docker pueden ejecutarse en cualquier sistema que tenga
+              Docker instalado, sin importar las configuraciones del entorno local. Esto facilita la portabilidad de las
+              aplicaciones entre diferentes entornos de desarrollo, prueba y producción.</li>
+            <li><strong>Consistencia:</strong> Los contenedores Docker garantizan que las aplicaciones se ejecuten de
+              manera
+              consistente en cualquier entorno, ya que incluyen todas las dependencias y configuraciones necesarias.</li>
+            <li><strong>Aislamiento:</strong> Los contenedores Docker proporcionan un aislamiento a nivel de proceso, lo
+              que
+              permite ejecutar múltiples contenedores en el mismo host sin interferencias entre ellos.</li>
+            <li><strong>Escalabilidad:</strong> Docker facilita la escalabilidad de las aplicaciones al permitir el
+              despliegue de múltiples contenedores en un clúster, utilizando herramientas como Docker Swarm o Kubernetes.
+            </li>
+          </ul>
+          <div class="h3Docu">Diferencias entre Docker y Máquinas Virtuales</div>
+          <p>Aunque Docker y las máquinas virtuales (VMs) pueden parecer similares, tienen diferencias clave que los hacen
+            adecuados para diferentes casos de uso. A continuación, se describen las principales diferencias entre Docker
+            y
+            las máquinas virtuales:</p>
+          <ul>
+            <li><strong>Uso de Recursos:</strong> Docker utiliza contenedores que comparten el mismo sistema operativo del
+              host, lo que los hace más ligeros y rápidos de iniciar que las VMs, que requieren un sistema operativo
+              completo por cada instancia. Esto reduce significativamente el uso de recursos y el tiempo de inicio.</li>
+            <li><strong>Portabilidad:</strong> Los contenedores Docker pueden ejecutarse en cualquier sistema que tenga
+              Docker instalado, sin importar las configuraciones del entorno local. Esto facilita la portabilidad de las
+              aplicaciones, ya que no dependen del sistema operativo subyacente.</li>
+            <li><strong>Aislamiento:</strong> Aunque las VMs ofrecen un aislamiento completo al ejecutar un sistema
+              operativo completo en cada instancia, los contenedores Docker proporcionan un aislamiento a nivel de
+              proceso.
+              Esto es suficiente para la mayoría de las aplicaciones y es más eficiente en términos de recursos.</li>
+            <li><strong>Velocidad:</strong> Los contenedores Docker se inician en cuestión de segundos, mientras que las
+              VMs
+              pueden tardar varios minutos en iniciar debido a la carga del sistema operativo completo.</li>
+            <li><strong>Almacenamiento:</strong> Docker utiliza una capa de almacenamiento que permite compartir capas
+              comunes entre diferentes contenedores, lo que reduce significativamente el tamaño total de almacenamiento.
+              Las
+              VMs, por otro lado, requieren almacenamiento completo para cada sistema operativo.</li>
+          </ul>
+          <div class="h3Docu">Despliegue con Docker</div>
+          <p>El despliegue de aplicaciones con Docker es un proceso sencillo que implica la creación de contenedores a
+            partir de imágenes Docker. A continuación, se describen los pasos necesarios para desplegar tu proyecto
+            utilizando Docker:</p>
+          <ol>
+            <li><strong>Preparación del Proyecto:</strong> Descomprime el archivo descargado de tu proyecto generado.
+              Asegúrate de que todos los archivos necesarios estén en el directorio del proyecto.</li>
+            <li><strong>Navegación al Directorio del Proyecto:</strong> Abre una terminal y navega hasta el directorio del
+              proyecto descomprimido utilizando el comando <code>cd</code>. Por ejemplo:
+              <code>cd /ruta/al/proyecto</code>.
+            </li>
+            <li><strong>Ejecución del Comando Docker:</strong> Ejecuta el comando <code>docker compose up -d</code> para
+              iniciar los contenedores en segundo plano. Este comando lee el archivo <code>docker-compose.yml</code> en el
+              directorio del proyecto y crea y arranca los contenedores definidos en ese archivo.</li>
+            <li><strong>Acceso a la Aplicación:</strong> Una vez que los contenedores estén en funcionamiento, podrás
+              acceder al frontend de tu aplicación desde <code>localhost:4200</code> y al backend desde
+              <code>localhost:5000</code>. Estos puertos pueden variar según la configuración de tu archivo
+              <code>docker-compose.yml</code>.
+            </li>
+            <li><strong>Monitoreo y Gestión:</strong> Puedes monitorear y gestionar tus contenedores utilizando comandos
+              Docker adicionales, como <code>docker ps</code> para listar los contenedores en ejecución,
+              <code>docker logs [nombre_del_contenedor]</code> para ver los logs de un contenedor específico, y
+              <code>docker stop [nombre_del_contenedor]</code> para detener un contenedor.
+            </li>
+          </ol>
+
+          <div id="resumen" class="h2Docu">Resumen</div>
+          <p>Esta aplicación proporciona una solución completa para la creación y despliegue de proyectos web a través de
+            plantillas predefinidas, con soporte integrado y opciones de personalización. La utilización de tecnología
+            Docker simplifica el proceso de despliegue, garantizando que los entornos sean consistentes y portátiles.
+            Además, incluye un sistema de chat en vivo que utiliza WebSockets para la comunicación en tiempo real,
+            protegido
+            mediante tokens JWT. Con esta documentación, podrás aprovechar todas las funcionalidades de la aplicación y
+            desplegar tus proyectos de manera eficiente y segura.</p>
+          <blockquote>
+            Espero que esta documentación te haya proporcionado una comprensión clara de cómo utilizar la aplicación y
+            desplegar tus proyectos utilizando Docker. Si tienes alguna pregunta adicional o necesitas asistencia, no
+            dudes
+            en contactar a nuestro equipo de soporte a través del chat en vivo o abriendo un ticket de soporte.
+          </blockquote>
+        </div>
+      </div>
+    }
+
+    <!-- Aclaro que aqui se repite codigo porque no puedo usar ifs en divs que estan analizando el DOM como appBoldSearchTerm,
+    por tanto para añadir los diagramas en modo oscuro y modo claro, me veo obligado a hacerlo. -->
+    @if (getService().isModoOscuro()) {
+      <div appBoldSearchTerm [searchTerm]="searchTerm">
+        <div class="flex flex-col gap-2 justify-start items-start w-full h-full bg-background p-5 overflow-y-auto ">
+          <div class="h1Docu">¡Bienvenido a la documentación!</div>
+          <div id="introduccion" class="h2Docu">Introducción</div>
+          <p>El objetivo principal del creador de páginas web es facilitar la creación de proyectos a través de plantillas
+            predefinidas. Esto es ideal para personas que no tienen conocimientos de programación, ya que la aplicación se
+            encarga de generar todo el proyecto junto con los ficheros necesarios para el despliegue utilizando Docker. El
+            usuario simplemente tiene que ejecutar un comando <code>docker-compose up -d</code> y ya tendrá su página web
+            en
+            funcionamiento. A continuación, se detallan las funcionalidades clave de esta aplicación:</p>
+          <div id="jwt" class="h2Docu">Seguridad JWT</div>
+          <p>La aplicación está protegida mediante seguridad JWT (JSON Web Token) para la autenticación de usuarios. Esto
+            asegura que solo los usuarios autenticados pueden acceder a los endpoints protegidos. A continuación, se
+            describen las principales características de la seguridad JWT en la aplicación:</p>
+          <ul>
+            <li><strong>Protección de Endpoints:</strong> Todos los endpoints críticos de la aplicación están protegidos
+              mediante JWT, garantizando que solo los usuarios autenticados pueden acceder a ellos.</li>
+            <li><strong>Autenticación y Autorización:</strong> La autenticación se realiza mediante el envío de un token
+              JWT
+              con cada solicitud, el cual es verificado por el servidor para asegurar que el usuario está autorizado para
+              acceder al recurso solicitado.</li>
+            <li><strong>Gestión de Roles:</strong> Los roles de los usuarios se gestionan a través de JWT. Cada token
+              incluye información sobre el rol del usuario (por ejemplo, usuario, administrador), lo que permite al
+              servidor
+              controlar el acceso a diferentes recursos y funcionalidades según el rol asignado.</li>
+            <li><strong>Expiración de Tokens:</strong> Los tokens JWT tienen un tiempo de expiración, lo que añade una
+              capa
+              adicional de seguridad al requerir a los usuarios autenticarse nuevamente después de un periodo determinado.
+            </li>
+          </ul>
+
+          <div class="h3Docu">Diagrama de Secuencia para la Autenticación y Verificación de Roles por Token JWT</div>
+          <p>El siguiente diagrama de secuencia muestra el proceso de autenticación y verificación de roles mediante
+            tokens
+            JWT en la aplicación:</p>
+            <img class="w-full h-full" src="assets/documentacion/DiagramaSvg_dark.svg" alt="">
+          <blockquote>
+            La implementación de seguridad JWT no solo autentica a los usuarios, sino que también gestiona sus roles,
+            asegurando que cada usuario tenga acceso solo a las funcionalidades y recursos que le corresponden según su
+            rol.
+          </blockquote>
+          <div id="administracion" class="h2Docu">Administración</div>
+          <p>La aplicación permite a los usuarios con roles de administrador gestionar los roles de otros usuarios. Esta
+            funcionalidad es crucial para mantener un control adecuado sobre el acceso y las capacidades dentro de la
+            aplicación. A continuación, se detallan los pasos que los administradores pueden seguir para modificar los
+            roles
+            de los usuarios:</p>
+          <div class="h3Docu">Modificación de Roles de Usuarios</div>
+          <p>Los administradores pueden modificar los roles de los usuarios a través del panel de administración. A
+            continuación se describen los pasos para realizar esta tarea:</p>
+          <ol>
+            <li><strong>Acceso al Panel de Administración:</strong> Los administradores deben iniciar sesión y acceder al
+              panel de administración, disponible en la navegación principal.</li>
+            <li><strong>Gestión de Usuarios:</strong> Dentro del panel de administración, hay una tabla específica para la
+              gestión de usuarios. Aquí, los administradores pueden ver todos los usuarios registrados en la
+              aplicación.</li>
+            <li><strong>Modificación del Rol:</strong> En la vista de la tabla de usuarios, los administradores pueden
+              cambiar el rol del usuario mediante un selector.</li>
+            <li><strong>Guardado de Cambios:</strong> Después de seleccionar el nuevo rol, el administrador debe guardar
+              los
+              cambios para que estos se apliquen. Esto se puede hacer mediante el botón de "Guardar".</li>
+          </ol>
+          <blockquote>
+            La gestión de roles de usuarios es una funcionalidad esencial para garantizar la seguridad y el control de
+            acceso en la aplicación. Los administradores pueden modificar los roles de los usuarios según sea necesario
+            para
+            mantener un entorno seguro y eficiente.
+          </blockquote>
+          <div id="websockets" class="h2Docu">Chat en Vivo con WebSockets</div>
+          <p>La aplicación incluye un sistema de chat en vivo que utiliza WebSockets para la comunicación en tiempo real.
+            Este chat está protegido mediante tokens JWT para asegurar que solo los usuarios autenticados pueden
+            participar
+            en las conversaciones. A continuación, se describen las características principales del chat en vivo:</p>
+          <ul>
+            <li><strong>Historial de Mensajes:</strong> Los usuarios pueden ver el historial de mensajes de las
+              conversaciones, lo que les permite revisar mensajes anteriores en cualquier momento.</li>
+            <li><strong>Notificaciones de Mensajes no Leídos:</strong> Los usuarios reciben notificaciones cuando tienen
+              mensajes no leídos. Cuando se conectan y han recibido mensajes anteriormente, el chat aparecerá abierto y
+              mostrará el número de mensajes sin leer.</li>
+            <li><strong>Conversaciones Activas:</strong> Los usuarios pueden ver todas sus conversaciones activas,
+              facilitando la gestión y seguimiento de las mismas.</li>
+          </ul>
+          <div id="soporte" class="h2Docu">Soporte en Vivo</div>
+          <p>La aplicación dispone de una ventana de soporte, donde los usuarios pueden abrir tickets con sus problemas.
+            También se incluye un chat en vivo por WebSockets para comunicarse con los administradores de soporte. A
+            continuación, se describen las características principales del sistema de soporte:</p>
+          <ul>
+            <li><strong>Apertura de Tickets:</strong> Los usuarios pueden abrir tickets describiendo sus problemas o
+              consultas. Estos tickets son visibles para todos los administradores.</li>
+            <li><strong>Notificaciones de Soporte:</strong> Cuando un administrador recibe una notificación de soporte,
+              todos los administradores son notificados. Los administradores pueden ver quién es el usuario, pero el
+              usuario
+              no sabe quién es el administrador; se muestra un avatar genérico de soporte.</li>
+            <li><strong>Cierre de Tickets:</strong> Una vez que se ha solucionado un problema, el administrador puede
+              cerrar
+              el ticket, lo que lo elimina de la ventana de soporte tanto para el usuario como para los administradores.
+            </li>
+          </ul>
+          <div id="proyectos" class="h2Docu">Generación de Proyectos</div>
+          <p>Los usuarios pueden crear proyectos seleccionando una plantilla. La plantilla pedirá un conjunto de datos
+            para
+            generar sus modelos de objetos. A continuación, se describen los pasos principales en el proceso de generación
+            de proyectos:</p>
+          <ul>
+            <li><strong>Importación de Datos:</strong> Los usuarios pueden importar cualquier tipo de CSV, separados por
+              comas los campos. Los arrays deben estar formateados como <code>"item1,item2,item3"</code>, separados por
+              comas.</li>
+            <li><strong>Enlace de Tipos de Datos:</strong> No es necesario que los CSV importados tengan el mismo número
+              de
+              campos. El siguiente paso en la generación de la web app es enlazar los tipos de datos del usuario con los
+              de
+              la plantilla. Esto permite que el generador cree la base de datos con los datos indicados.</li>
+          </ul>
+
+          <div class="h3Docu">Personalización de Proyectos</div>
+          <p>Los usuarios pueden personalizar sus proyectos eligiendo un logo para su aplicación y los colores principales
+            de la misma. En el caso de utilizar la plantilla de tienda, se podrá escoger la moneda de los precios. A
+            continuación, se describen los pasos principales en la personalización de proyectos:</p>
+          <ul>
+            <li><strong>Selección de Logo:</strong> Los usuarios pueden subir un logo personalizado para su aplicación, lo
+              que les permite dar una identidad visual única a su proyecto.</li>
+            <li><strong>Configuración de Colores:</strong> Los usuarios pueden elegir los colores principales de su
+              aplicación, lo que les permite personalizar la apariencia visual de su proyecto.</li>
+            <li><strong>Selección de Moneda:</strong> En el caso de utilizar la plantilla de tienda, los usuarios pueden
+              seleccionar la moneda en la que se mostrarán los precios, lo que les permite adaptar su tienda a diferentes
+              mercados.</li>
+            <li><strong>Generación del Proyecto:</strong> Una vez completada la configuración, los usuarios pueden pulsar
+              en
+              <code>Generar Proyecto</code> y descargarán su proyecto generado. El único paso a seguir es descomprimir el
+              archivo y ejecutar <code>docker compose up -d</code>. Luego, se podrá acceder desde
+              <code>localhost:4200</code> al frontend y desde <code>localhost:5000</code> al backend.
+            </li>
+          </ul>
+          <div id="tienda" class="h2Docu">Plantilla: Tienda</div>
+          <p>La plantilla <strong>Tienda</strong> está diseñada para generar automáticamente una plataforma de comercio
+            electrónico completa, permitiendo a los usuarios visualizar y adquirir productos de manera sencilla y
+            eficiente.
+            A continuación, se describen las características y funcionalidades principales de esta plantilla:</p>
+          <div class="h3Docu">Generación Automática de Items de Venta</div>
+          <p>Al utilizar la plantilla Tienda, se generarán automáticamente todos los ítems de venta, incluyendo:</p>
+          <ul>
+            <li>Nombre del Producto</li>
+            <li>Precio</li>
+            <li>Tallas disponibles</li>
+            <li>Colores disponibles</li>
+            <li>Descripción</li>
+            <li>Imágenes</li>
+            <li>Categoria del producto</li>
+          </ul>
+          <p>Una vez que la tienda esté en funcionamiento, los usuarios podrán añadir más ítems de venta directamente
+            desde
+            la aplicación, facilitando la gestión y expansión del inventario.</p>
+          <div class="h3Docu">Importación de Categorías desde CSV</div>
+          <p>Además de los productos, las categorías también se pueden importar a partir de un archivo .csv. Cada
+            categoría
+            importada puede ser relacionada con los productos a través del campo <strong>categoría</strong>, permitiendo
+            dividir y filtrar la tienda en diferentes secciones. Esto facilita la organización y la navegación dentro de
+            la
+            tienda, mejorando la experiencia del usuario.</p>
+          <div class="h3Docu">Acceso Público a la Página Web</div>
+          <p>La página web generada a partir de la plantilla Tienda estará accesible para todo el mundo sin necesidad de
+            iniciar sesión. Esto permite que cualquier visitante pueda ver los productos disponibles y sus detalles,
+            fomentando la exploración y el interés en realizar compras.</p>
+          <div class="h3Docu">Creación de Cuenta para Realizar Pedidos</div>
+          <p>Para realizar un pedido, los usuarios deberán crear una cuenta en la plataforma. Este proceso de registro es
+            sencillo y permite a los usuarios acceder a funcionalidades adicionales, como:</p>
+          <ul>
+            <li>Realizar pedidos</li>
+            <li>Guardar información de contacto y envío</li>
+            <li>Acceder al historial de pedidos</li>
+          </ul>
+          <div class="h3Docu">Carrito de Compras</div>
+          <p>La aplicación incluye un carrito de compras donde los usuarios pueden ver y gestionar todos los ítems que han
+            añadido a su cesta. El carrito de compras permite a los usuarios:</p>
+          <ul>
+            <li>Revisar los productos seleccionados</li>
+            <li>Eliminar ítems</li>
+            <li>Proceder al pago</li>
+          </ul>
+          <div class="h3Docu">Sección "Pedidos"</div>
+          <p>Los usuarios pueden ver sus pedidos en la sección del header llamada <strong>"Pedidos"</strong>. Aquí pueden
+            revisar el estado de sus pedidos, historial de compras y detalles de cada pedido realizado.</p>
+          <div class="h3Docu">Administración de Pedidos</div>
+          <p>Los usuarios con rol de administrador tienen acceso a una vista completa de todos los pedidos realizados por
+            todos los usuarios. Esto les permite gestionar eficientemente las órdenes y asegurar una operación fluida de
+            la
+            tienda.</p>
+          <div class="h3Docu">Personalización de la Página</div>
+          <p>La plantilla Tienda también permite una personalización extensiva de la página web, incluyendo:</p>
+          <ul>
+            <li>Colores de la página</li>
+            <li>Moneda utilizada para los precios</li>
+            <li>Logo de la página</li>
+            <li>Título de la página</li>
+          </ul>
+          <p>Estas opciones de personalización aseguran que cada tienda pueda reflejar la identidad visual y preferencias
+            de
+            su propietario.</p>
+          <div class="h3Docu">Seguridad por Token JWT</div>
+          <p>La aplicación cumple con los estándares de seguridad mediante el uso de tokens JWT para la autenticación de
+            usuarios. Esto asegura que todas las operaciones sensibles, como la realización de pedidos y la administración
+            de la tienda, estén protegidas y accesibles solo para usuarios autorizados.</p>
+          <blockquote>
+            La plantilla Tienda ofrece una solución completa y personalizable para la creación de una plataforma de
+            comercio
+            electrónico, asegurando una experiencia de usuario fluida y segura tanto para clientes como para
+            administradores.
+          </blockquote>
+          <div id="docker" class="h2Docu">Introducción a Docker</div>
+          <p>Docker es una plataforma que permite desarrollar, enviar y ejecutar aplicaciones dentro de contenedores. Los
+            contenedores son entornos ligeros y portátiles que pueden incluir todo lo necesario para ejecutar una
+            aplicación: código, runtime, herramientas de sistema, librerías y configuraciones. A continuación, se
+            describen
+            las principales características de Docker:</p>
+          <ul>
+            <li><strong>Portabilidad:</strong> Los contenedores Docker pueden ejecutarse en cualquier sistema que tenga
+              Docker instalado, sin importar las configuraciones del entorno local. Esto facilita la portabilidad de las
+              aplicaciones entre diferentes entornos de desarrollo, prueba y producción.</li>
+            <li><strong>Consistencia:</strong> Los contenedores Docker garantizan que las aplicaciones se ejecuten de
+              manera
+              consistente en cualquier entorno, ya que incluyen todas las dependencias y configuraciones necesarias.</li>
+            <li><strong>Aislamiento:</strong> Los contenedores Docker proporcionan un aislamiento a nivel de proceso, lo
+              que
+              permite ejecutar múltiples contenedores en el mismo host sin interferencias entre ellos.</li>
+            <li><strong>Escalabilidad:</strong> Docker facilita la escalabilidad de las aplicaciones al permitir el
+              despliegue de múltiples contenedores en un clúster, utilizando herramientas como Docker Swarm o Kubernetes.
+            </li>
+          </ul>
+          <div class="h3Docu">Diferencias entre Docker y Máquinas Virtuales</div>
+          <p>Aunque Docker y las máquinas virtuales (VMs) pueden parecer similares, tienen diferencias clave que los hacen
+            adecuados para diferentes casos de uso. A continuación, se describen las principales diferencias entre Docker
+            y
+            las máquinas virtuales:</p>
+          <ul>
+            <li><strong>Uso de Recursos:</strong> Docker utiliza contenedores que comparten el mismo sistema operativo del
+              host, lo que los hace más ligeros y rápidos de iniciar que las VMs, que requieren un sistema operativo
+              completo por cada instancia. Esto reduce significativamente el uso de recursos y el tiempo de inicio.</li>
+            <li><strong>Portabilidad:</strong> Los contenedores Docker pueden ejecutarse en cualquier sistema que tenga
+              Docker instalado, sin importar las configuraciones del entorno local. Esto facilita la portabilidad de las
+              aplicaciones, ya que no dependen del sistema operativo subyacente.</li>
+            <li><strong>Aislamiento:</strong> Aunque las VMs ofrecen un aislamiento completo al ejecutar un sistema
+              operativo completo en cada instancia, los contenedores Docker proporcionan un aislamiento a nivel de
+              proceso.
+              Esto es suficiente para la mayoría de las aplicaciones y es más eficiente en términos de recursos.</li>
+            <li><strong>Velocidad:</strong> Los contenedores Docker se inician en cuestión de segundos, mientras que las
+              VMs
+              pueden tardar varios minutos en iniciar debido a la carga del sistema operativo completo.</li>
+            <li><strong>Almacenamiento:</strong> Docker utiliza una capa de almacenamiento que permite compartir capas
+              comunes entre diferentes contenedores, lo que reduce significativamente el tamaño total de almacenamiento.
+              Las
+              VMs, por otro lado, requieren almacenamiento completo para cada sistema operativo.</li>
+          </ul>
+          <div class="h3Docu">Despliegue con Docker</div>
+          <p>El despliegue de aplicaciones con Docker es un proceso sencillo que implica la creación de contenedores a
+            partir de imágenes Docker. A continuación, se describen los pasos necesarios para desplegar tu proyecto
+            utilizando Docker:</p>
+          <ol>
+            <li><strong>Preparación del Proyecto:</strong> Descomprime el archivo descargado de tu proyecto generado.
+              Asegúrate de que todos los archivos necesarios estén en el directorio del proyecto.</li>
+            <li><strong>Navegación al Directorio del Proyecto:</strong> Abre una terminal y navega hasta el directorio del
+              proyecto descomprimido utilizando el comando <code>cd</code>. Por ejemplo:
+              <code>cd /ruta/al/proyecto</code>.
+            </li>
+            <li><strong>Ejecución del Comando Docker:</strong> Ejecuta el comando <code>docker compose up -d</code> para
+              iniciar los contenedores en segundo plano. Este comando lee el archivo <code>docker-compose.yml</code> en el
+              directorio del proyecto y crea y arranca los contenedores definidos en ese archivo.</li>
+            <li><strong>Acceso a la Aplicación:</strong> Una vez que los contenedores estén en funcionamiento, podrás
+              acceder al frontend de tu aplicación desde <code>localhost:4200</code> y al backend desde
+              <code>localhost:5000</code>. Estos puertos pueden variar según la configuración de tu archivo
+              <code>docker-compose.yml</code>.
+            </li>
+            <li><strong>Monitoreo y Gestión:</strong> Puedes monitorear y gestionar tus contenedores utilizando comandos
+              Docker adicionales, como <code>docker ps</code> para listar los contenedores en ejecución,
+              <code>docker logs [nombre_del_contenedor]</code> para ver los logs de un contenedor específico, y
+              <code>docker stop [nombre_del_contenedor]</code> para detener un contenedor.
+            </li>
+          </ol>
+
+          <div id="resumen" class="h2Docu">Resumen</div>
+          <p>Esta aplicación proporciona una solución completa para la creación y despliegue de proyectos web a través de
+            plantillas predefinidas, con soporte integrado y opciones de personalización. La utilización de tecnología
+            Docker simplifica el proceso de despliegue, garantizando que los entornos sean consistentes y portátiles.
+            Además, incluye un sistema de chat en vivo que utiliza WebSockets para la comunicación en tiempo real,
+            protegido
+            mediante tokens JWT. Con esta documentación, podrás aprovechar todas las funcionalidades de la aplicación y
+            desplegar tus proyectos de manera eficiente y segura.</p>
+          <blockquote>
+            Espero que esta documentación te haya proporcionado una comprensión clara de cómo utilizar la aplicación y
+            desplegar tus proyectos utilizando Docker. Si tienes alguna pregunta adicional o necesitas asistencia, no
+            dudes
+            en contactar a nuestro equipo de soporte a través del chat en vivo o abriendo un ticket de soporte.
+          </blockquote>
+        </div>
+      </div>
+    }
+  </div>

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PageLayoutComponent } from './PageLayout.component';
+import { ImportarBaseDatosComponent } from './ImportarBaseDatos.component';
 
-describe('PageLayoutComponent', () => {
-  let component: PageLayoutComponent;
-  let fixture: ComponentFixture<PageLayoutComponent>;
+describe('ImportarBaseDatosComponent', () => {
+  let component: ImportarBaseDatosComponent;
+  let fixture: ComponentFixture<ImportarBaseDatosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageLayoutComponent ]
+      declarations: [ ImportarBaseDatosComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageLayoutComponent);
+    fixture = TestBed.createComponent(ImportarBaseDatosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -13,7 +13,6 @@ import { FooterComponent } from './Components/Footer/Footer.component';
 import { EditorLayoutComponent } from './Layout/EditorLayout/EditorLayout.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { PageLayoutComponent } from './Layout/PageLayout/PageLayout.component';
 import { PruebasPageComponent } from './Pages/PruebasPage/PruebasPage.component';
 import { HeaderDesplegableComponent } from './Components/HeaderDesplegable/HeaderDesplegable.component';
 import { SubMenuComponent } from './Components/SubMenu/SubMenu.component';
@@ -29,6 +28,15 @@ import { ChatComponent } from './Components/chat/chat.component';
 import { BuscadorUsuariosComponent } from './Components/BuscadorUsuarios/BuscadorUsuarios.component';
 import { SoportePageComponent } from './Pages/SoportePage/SoportePage.component';
 import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.component';
+import { ProyectoCardComponent } from './Components/proyectoCard/proyectoCard.component';
+import { PlantillaCardComponent } from './Components/plantillaCard/plantillaCard.component';
+import { ImportarBaseDatosComponent } from './Components/ImportarBaseDatos/ImportarBaseDatos.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { TruncarPipe } from '../../pipes/Truncar.pipe';
+import { DocumentacionPageComponent } from './Pages/DocumentacionPage/DocumentacionPage.component';
+import { BuscadorComponent } from './Components/Buscador/Buscador.component';
+import { BoldSearchTermDirective } from '../../directives/BoldSearchTerm.directive';
+import { TooltipComponent } from './Components/Tooltip/Tooltip.component';
 
 
 @NgModule({
@@ -41,7 +49,6 @@ import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.comp
     LoginPageComponent,
     HeaderComponent,
     FooterComponent,
-    PageLayoutComponent,
     PruebasPageComponent,
     HeaderDesplegableComponent,
     SubMenuComponent,
@@ -56,13 +63,22 @@ import { ProyectosPageComponent } from './Pages/ProyectosPage/ProyectosPage.comp
     ChatComponent,
     BuscadorUsuariosComponent,
     SoportePageComponent,
-    ProyectosPageComponent
+    ProyectosPageComponent,
+    ProyectoCardComponent,
+    PlantillaCardComponent,
+    ImportarBaseDatosComponent,
+    TruncarPipe,
+    DocumentacionPageComponent,
+    BuscadorComponent,
+    BoldSearchTermDirective,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, //para los ngmodule y asi
+    FormsModule, //para los ngmodule
     HttpClientModule, //para los inject
+    ColorPickerModule
 
   ],
   providers: [HttpClient],

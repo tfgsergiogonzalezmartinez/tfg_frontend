@@ -49,10 +49,15 @@ export class UserPageComponent implements OnInit {
     this.userService.cambiarPassword(userCambiarPassword).subscribe({
       next: data => {
         //viewContainerRef y que saque un toast
-        console.log("Contraseña cambiada con éxito");
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("Contraseña cambiada con exito.");
+        this.mainService.activarMensaje();
+        this.isCambiarPassword = false;
       },
       error: error => {
-        console.log(error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al cambiar la contraseña");
+        this.mainService.activarMensaje();
       }
     });
   }
@@ -74,12 +79,16 @@ export class UserPageComponent implements OnInit {
   subirFoto(base64Imagen: string) {
     this.userService.subirFotoAvatar(this.userId, base64Imagen).subscribe({
       next: data => {
-        console.log("Foto subida con éxito", data);
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("Foto de perfil subida con exito.");
+        this.mainService.activarMensaje();
         this.cargarFoto(); // Descargar y mostrar la foto recién subida
 
       },
       error: error => {
-        console.error("Error al subir la foto", error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al subir la foto de perfil.");
+        this.mainService.activarMensaje();
       }
     });
   }

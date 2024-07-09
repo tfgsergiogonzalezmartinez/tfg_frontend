@@ -1,0 +1,6 @@
+<div [ngClass]="{'animacionSlide': getMainService().isActivarMsg()}"  class="animacionSlide index fixed flex flex-row gap-3 left-3 bottom-3 p-3 justify-center  items-center w-[300px] min-w-[300px] h-[100px] min-h-[100px] max-h-[100px] rounded shadow-xl border-2 bg-background-dark">
+  <span class="material-symbols-outlined">
+    {{getMainService().getIcono()}}
+  </span>
+  <span class="">{{getMainService().getMensaje()}}</span>
+</div>

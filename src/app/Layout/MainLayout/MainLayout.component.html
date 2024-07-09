@@ -4,6 +4,9 @@
   @if (getUserService().isLogin()) {
     <app-chat></app-chat>
   }
+  @if(getMainService().isActivarMsg()){
+    <app-Tooltip></app-Tooltip>
+  }
 
 
 
