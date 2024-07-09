@@ -61,6 +61,9 @@ export class AdministracionPageComponent implements OnInit {
       this.userService.ModificarRol(userModificarRol).subscribe({
         next: data => {
           console.log("Usuario actualizado con éxito");
+          this.mainService.setIcono("check");
+          this.mainService.setMensaje("Roles actualizados con exito.");
+          this.mainService.activarMensaje();
         },
         error: error => {
           console.log(error);

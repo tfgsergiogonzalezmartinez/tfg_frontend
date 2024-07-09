@@ -57,12 +57,15 @@ export class LoginPageComponent implements OnInit {
     };
     this.userService.Login(login).subscribe(
       (data: UserLoginGetDto) => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("¡Bienvenido " + data.Nombre +"!");
+        this.mainService.activarMensaje();
         this.userService.setSession(data);
         this.router.navigate(['/main']);
       },
       (error: any) => {
         this.mainService.setIcono("error");
-        this.mainService.setMensaje("Error al iniciar sesión");
+        this.mainService.setMensaje("Error al iniciar sesión.");
         this.mainService.activarMensaje();
       }
     );
@@ -91,6 +94,9 @@ export class LoginPageComponent implements OnInit {
     };
     this.userService.Register(register).subscribe({
       next: (data: UserLoginGetDto) => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("!Bienvenido " + data.Nombre + "¡");
+        this.mainService.activarMensaje();
         this.userService.setSession(data);
         this.router.navigate(['/main']);
       },

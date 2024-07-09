@@ -32,6 +32,9 @@ export class ProyectoCardComponent implements OnInit {
   descargarProyecto() {
 
     this.proyectoService.descargarProyecto(sessionStorage.getItem('Id')!, this.proyecto.Nombre).subscribe(blob => {
+      this.mainService.setIcono("check");
+      this.mainService.setMensaje("Decargando proyecto...");
+      this.mainService.activarMensaje();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -41,17 +44,24 @@ export class ProyectoCardComponent implements OnInit {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, error => {
-      console.error('Error en la descarga:', error);
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Error al descargar el proyecto.");
+      this.mainService.activarMensaje();
     });
   }
 
   eliminarProyecto() {
     this.proyectoService.eliminarProyecto(this.proyecto).subscribe({
       next: (data) => {
+        this.mainService.setIcono("check");
+        this.mainService.setMensaje("Proyecto eliminado con exito.");
+        this.mainService.activarMensaje();
         this.actualizarProyectos.emit();
       },
       error: (error) => {
-        console.error('Error al eliminar el proyecto:', error);
+        this.mainService.setIcono("error");
+        this.mainService.setMensaje("Error al eliminar el proyecto.");
+        this.mainService.activarMensaje();
         this.actualizarProyectos.emit();
       }
     });

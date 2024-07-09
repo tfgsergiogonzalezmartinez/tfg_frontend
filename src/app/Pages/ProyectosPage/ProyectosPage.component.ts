@@ -123,9 +123,7 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
   }
 
 
-
-
-  AbrirNuevoProyecto(){
+  resetearFormulario(){
     this.nombreProyecto = "";
     this.proyectoServices.setPlantillaSeleccionada(null);
     this.logo = "";
@@ -152,8 +150,13 @@ export class ProyectosPageComponent implements OnInit, AfterViewInit {
     this.vistaPagina_color_items = "#ffffff";
     this.vistaPagina_color_items_light = "#ffffff";
     this.vistaPagina_color_items_dark = "#ffffff";
+    this.isLogotipoCargado = false;
     this.proyectoServices.clearImportadores();
 
+  }
+
+  AbrirNuevoProyecto(){
+    this.resetearFormulario();
     this.proyectoServices.crearProyecto();
     this.cdr.detectChanges();
     this.renderer.listen(this.inputRef.nativeElement, 'change', (event) => {

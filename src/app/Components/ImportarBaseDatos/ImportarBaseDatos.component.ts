@@ -5,6 +5,7 @@ import { ImportadorService } from '../../../../Services/Importador/Importador.se
 import { ProyectoService } from '../../../../Services/Proyecto/Proyecto.service';
 import { ProductoDto } from '../../../../dto/Plantillas/Tienda/ProductoDto';
 import { CategoriaDto } from '../../../../dto/Plantillas/Tienda/CategoriaDto';
+import { MainService } from '../../../../Services/Main/Main.service';
 @Component({
   selector: 'app-ImportarBaseDatos',
   templateUrl: './ImportarBaseDatos.component.html',
@@ -34,7 +35,7 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(private renderer: Renderer2, private importadorService: ImportadorService, private proyectoService: ProyectoService) { }
+  constructor(private renderer: Renderer2, private mainService : MainService, private importadorService: ImportadorService, private proyectoService: ProyectoService) { }
 
   ngOnInit() {
     if (this.NombreModelo == "Producto") {
@@ -179,9 +180,14 @@ export class ImportarBaseDatosComponent implements OnInit, AfterViewInit {
   }
 
 
-  //El archivo que voy a añadir es de texto : json o csv
   procesarArchivo(event: any) {
     const input = event.target as HTMLInputElement;
+    if(input.files?.[0].type !== 'text/csv') {
+      this.mainService.setIcono("error");
+      this.mainService.setMensaje("Solo archivos .csv estan permitidos.");
+      this.mainService.activarMensaje();
+      return;
+    }
     const file: File | null = input.files?.[0] || null;
     if (file) {
       this.importadorService.cargarCSV(file).then(result => {

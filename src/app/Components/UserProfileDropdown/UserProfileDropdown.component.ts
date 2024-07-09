@@ -1,6 +1,7 @@
 import { Component, ElementRef, Host, HostListener, OnInit, Renderer2, ViewChild, viewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from '../../../../Services/User/User.service';
+import { MainService } from '../../../../Services/Main/Main.service';
 
 @Component({
   selector: 'app-UserProfileDropdown',
@@ -19,7 +20,7 @@ export class UserProfileDropdownComponent implements OnInit {
   private listener_click_fuera!: () => void;
 
 
-  constructor(private renderer2 : Renderer2, private router: Router, private userService : UserService) { }
+  constructor(private renderer2 : Renderer2,private mainService:MainService, private router: Router, private userService : UserService) { }
 
   ngOnInit() {
     this.Nombre = sessionStorage.getItem("Nombre") || "";
@@ -60,6 +61,9 @@ export class UserProfileDropdownComponent implements OnInit {
     if (route == "CerrarSesion") {
       this.userService.logout();
       this.router.navigate(['/']);
+      this.mainService.setIcono("check");
+      this.mainService.setMensaje("Has cerrado sesión.");
+      this.mainService.activarMensaje();
       return;
     }
     if (route == "Configuracion") {

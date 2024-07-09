@@ -99,6 +99,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.mainService.setIcono("sms");
           this.mainService.setMensaje("Nuevo mensaje de " + data.Nombre + " " + data.Apellido1 + " " + data.Apellido2);
           this.mainService.activarMensaje();
+          this.actualizarMensajesNoLeidos(message.usuario);
         },
         error: error => {
           console.error("Error al obtener el usuario.", error);
